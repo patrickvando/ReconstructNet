@@ -1,1 +1,25 @@
-body {background-color: coral;}
+.wrapper, html, body {
+	height:100%;
+	margin: 0;
+}
+.sidebar {
+	height:100%;
+	margin: 0;
+}
+.flex-container {
+	display: flex;
+}
+
+.c1 {
+	background-color: #F4F0CB;
+}
+
+.c2 {
+	background-color: #DED29E;
+}
+
+.c3 {
+	background-color: #B3A580;
+}
+
+
