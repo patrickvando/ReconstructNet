@@ -25,6 +25,7 @@ SECRET_KEY = '4efdv0bo4bqqs^ln=bqpt@kf+dxsy^c&&-c9ltoub$bu0j2@54'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#change pvd17 to your pythonanywhere username
 ALLOWED_HOSTS = ['pvd17.pythonanywhere.com']
 
 
