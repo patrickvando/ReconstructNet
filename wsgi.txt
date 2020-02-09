@@ -1,0 +1,13 @@
+import os
+import sys
+
+#change pvd17 to your username 
+path = '/home/pvd17/ReconstructNet'
+
+if path not in sys.path:
+    sys.path.append(path)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'ReconstructNet.settings'
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+
