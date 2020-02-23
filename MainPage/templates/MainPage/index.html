@@ -22,7 +22,7 @@
     <div style="flex-grow: 1">
         <div class="d-flex align-content-stretch flex-column c2 sidebar">
             <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block">Add Blur</button>
+                <button type="button" class="btn btn-primary btn-block" onclick="grayscale_button()">Add Blur</button>
             </div>
             <div class="p-2">
                 <button type="button" class="btn btn-primary btn-block">Remove Blur</button>
@@ -47,10 +47,10 @@
             <div class="p-2">
                 <div class="d-flex flex-row c3">
                     <div class="p-2">
-                        <button type="button" class="btn btn-primary">Upload</button>
+                        <input type="file" accept="image/*" id="upload">
                     </div>
                     <div class="p-2 ml-auto">
-                        <button type="button" class="btn btn-primary">Reset</button>
+                        <button type="button" class="btn btn-primary" onclick="reset()">Reset</button>
                     </div>
                     <div class="p-2">
                         <button type="button" class="btn btn-primary">Download</button>
@@ -59,15 +59,58 @@
             </div>
             <div class="p-2">
                 <div class = "d-flex justify-content-center">
-                <img src="{% static 'MainPage/bird.png' %}" alt="Test Picture">
+                <img alt="Test Picture" id = "pix">
                 </div>
             </div>
     </div> 
 </div>
 
 <script>
+const formData = new FormData();
+const fileField = document.getElementById("upload");
 
+init();
+function init(){
+    reset();
+}
 
+fileField.onchange = function(e){
+    formData.append('main_img', fileField.files[0]);
+    fetch("{% url 'upload' %}"
+    , {
+      method: 'POST',
+      body: formData,
+    }).then((response) => {
+        return response.blob();
+    }).then((blob) => {
+        let objectURL = URL.createObjectURL(blob);
+        document.getElementById("pix").src=objectURL;
+    });
+    
+}
+function reset(){
+    fetch("{% url 'reset' %}"
+    , {
+      method: 'GET',
+    }).then((response) => {
+        return response.blob();
+    }).then((blob) => {
+        let objectURL = URL.createObjectURL(blob);
+        document.getElementById("pix").src=objectURL;
+    });
+}
+
+function grayscale_button(){
+    fetch("{% url 'grayscale_button' %}"
+    , {
+      method: 'GET',
+    }).then((response) => {
+        return response.blob();
+    }).then((blob) => {
+        let objectURL = URL.createObjectURL(blob);
+        document.getElementById("pix").src=objectURL;
+    });
+}
 </script>
 </body>
 </html>
