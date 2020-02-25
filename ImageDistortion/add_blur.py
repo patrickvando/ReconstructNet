@@ -37,13 +37,14 @@ def convolve(image, kernel):
 	return ret / ret.max()
 
 
-def box_blur(original_image, kernel_size):
+def add_box_blur(original_image, kernel_size):
 	"""
 	Add blur using a box kernel
 	Box kernel: a matrix where the entries are all the same and their sum is 1
 
 	:param original_image  	:  the original image to convolve with the kernel
-	:param kernel_size 		:  the size (1D) of the square box kernel
+	:param kernel_size 		:  the size (1D) of the square box kernel (odd
+	number, from 3 to 25)
 
 	:returns the blurry image, which is the original image convolved with
 	the kernel
@@ -53,14 +54,15 @@ def box_blur(original_image, kernel_size):
 	return blurry_image
 
 
-def horizontal_blur(original_image, kernel_size):
+def add_horizontal_blur(original_image, kernel_size):
 	"""
-	Horizontal motion blur
+	Add horizontal motion blur
 	Horizontal kernel: a matrix where the entries are all 0 except for the
 	center row with equal values and their sum is 1
 
 	:param original_image  	:  the original image to convolve with the kernel
-	:param kernel_size 		:  the size (1D) of the square kernel
+	:param kernel_size 		:  the size (1D) of the square kernel	(odd
+	number, from 3 to 25)
 
 	:returns the blurry image, which is the original image convolved with
 	the horizontal blur kernel
@@ -72,14 +74,15 @@ def horizontal_blur(original_image, kernel_size):
 	return blurry_image
 
 
-def vertical_blur(original_image, kernel_size):
+def add_vertical_blur(original_image, kernel_size):
 	"""
-	Vertical motion blur
+	Add vertical motion blur
 	Vertical kernel: a matrix where the entries are all 0 except for the
 	center column with equal values and their sum is 1
 
 	:param original_image  	:  the original image to convolve with the kernel
-	:param kernel_size 		:  the size (1D) of the square kernel
+	:param kernel_size 		:  the size (1D) of the square kernel	(odd
+	number, from 3 to 25)
 
 	:returns the blurry image, which is the original image convolved with
 	the vertical blur kernel
@@ -91,15 +94,17 @@ def vertical_blur(original_image, kernel_size):
 	return blurry_image
 
 
-def gaussian_blur(original_image, kernel_size, stddev):
+def add_gaussian_blur(original_image, kernel_size, stddev):
 	"""
-	Gaussian blur
+	Add Gaussian blur
 	Gaussian kernel: a matrix whose sum of all entries are 1, and represents a
 	Gaussian 2D curve
 
 	:param original_image  	:  the original image to convolve with the kernel
-	:param kernel_size 		:  the size (1D) of the square kernel
-	:param sttdev			:  the standard deviation of the gaussian function
+	:param kernel_size 		:  the size (1D) of the square kernel	(odd
+	number, from 3 to 25)
+	:param sttdev			:  the standard deviation of the gaussian
+	function (float value, 1.0 to 8.0)
 
 	:returns the blurry image, which is the original image convolved with
 	the Gaussian blur kernel
