@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, FileResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import *
+from .ImageDistortion.add_noise_jacob import salt_pepper_noise, gaussian_noise
 import cv2
 import numpy
 import shutil
@@ -13,12 +14,26 @@ def grayscale(img_path):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     cv2.imwrite(img_path,gray)
 
+def gaussian_noise_button(request):
+    if request.method == 'GET':
+        user_picture = Picture.objects.get(session_id=request.session.session_key)
+        gaussian_noise(user_picture.edited_img.path, 100)
+        return FileResponse(open(user_picture.edited_img.path, 'rb'))
+
+
+def salt_pepper_noise_button(request):
+    if request.method == 'GET':
+        user_picture = Picture.objects.get(session_id=request.session.session_key)
+        salt_pepper_noise(user_picture.edited_img.path, .1)
+        return FileResponse(open(user_picture.edited_img.path, 'rb'))
+
+
 def grayscale_button(request):
     if request.method == 'GET':
         user_picture = Picture.objects.get(session_id=request.session.session_key)
-        print(user_picture.edited_img.path)
         grayscale(user_picture.edited_img.path)
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
+
 
 #https://docs.djangoproject.com/en/3.0/ref/csrf/
 @csrf_exempt
@@ -30,31 +45,35 @@ def upload(request):
         if form.is_valid(): 
             form.save()
             path = user_picture.main_img.path
-            head, tail = os.path.split(path)
-            edited_img_directory = head + "/edited_images/"
-            shutil.copy(path, edited_img_directory)
-            user_picture.edited_img = edited_img_directory + tail
-            user_picture.save()
-            #grayscale(model_instance.main_img)
+            save_as_edited_image(path, user_picture)
             return FileResponse(open(user_picture.main_img.path, 'rb'))
+
+
 
 def reset(request):
     if request.method == 'GET':
         user_picture = Picture.objects.get(session_id=request.session.session_key)
-        return FileResponse(open(user_picture.main_img.path, 'rb'))
+        path = user_picture.main_img.path
+        save_as_edited_image(path, user_picture)
+        return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
 def index(request): 
-    request.session.cycle_key()
+    #request.session.cycle_key()
     if not request.session.session_key:
         request.session.create()
+    #assign a new database entry to the user if none exists
     if not Picture.objects.filter(session_id = request.session.session_key).exists():
         user_picture = Picture.objects.create(session_id=request.session.session_key)
         path = user_picture.main_img.path
-        head, tail = os.path.split(path)
+        save_as_edited_image(path, user_picture)
+    return render(request, 'MainPage/index.html') 
+
+#user_picture is the database entry
+#takes a path to an image, and saves that image as the "edited image field" in the Picture model
+def save_as_edited_image(img_path, user_picture):
+        head, tail = os.path.split(img_path)
         edited_img_directory = head + "/edited_images/"
-        shutil.copy(path, edited_img_directory)
+        shutil.copy(img_path, edited_img_directory)
         user_picture.edited_img = edited_img_directory + tail
         user_picture.save()
-
-    return render(request, 'MainPage/index.html') 
-  
+ 

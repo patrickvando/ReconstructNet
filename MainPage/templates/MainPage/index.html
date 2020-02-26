@@ -22,14 +22,14 @@
     <div style="flex-grow: 1">
         <div class="d-flex align-content-stretch flex-column c2 sidebar">
             <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block" onclick="grayscale_button()">Add Blur</button>
+                <button type="button" class="btn btn-primary btn-block" onclick="grayscale_button()">greyscale</button>
             </div>
             <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block">Remove Blur</button>
+                <button type="button" class="btn btn-primary btn-block" onclick="salt_pepper_noise_button()">Add salt and pepper noise</button>
             </div>
             <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block">Add Noise</button>
-            </div>  
+                <button type="button" class="btn btn-primary btn-block" onclick="gaussian_noise_button()">Add gaussian noise</button>
+            </div>
             <div class="p-2">
                 <button type="button" class="btn btn-primary btn-block">Remove Noise</button>
             </div>  
@@ -59,7 +59,7 @@
             </div>
             <div class="p-2">
                 <div class = "d-flex justify-content-center">
-                <img alt="Test Picture" id = "pix">
+                <img alt="Test Picture" id = "picture">
                 </div>
             </div>
     </div> 
@@ -84,7 +84,7 @@ fileField.onchange = function(e){
         return response.blob();
     }).then((blob) => {
         let objectURL = URL.createObjectURL(blob);
-        document.getElementById("pix").src=objectURL;
+        document.getElementById("picture").src=objectURL;
     });
     
 }
@@ -96,7 +96,7 @@ function reset(){
         return response.blob();
     }).then((blob) => {
         let objectURL = URL.createObjectURL(blob);
-        document.getElementById("pix").src=objectURL;
+        document.getElementById("picture").src=objectURL;
     });
 }
 
@@ -108,9 +108,33 @@ function grayscale_button(){
         return response.blob();
     }).then((blob) => {
         let objectURL = URL.createObjectURL(blob);
-        document.getElementById("pix").src=objectURL;
+        document.getElementById("picture").src=objectURL;
     });
 }
+
+function salt_pepper_noise_button(){
+    fetch("{% url 'salt_pepper_noise_button' %}"
+    , {
+      method: 'GET',
+    }).then((response) => {
+        return response.blob();
+    }).then((blob) => {
+        let objectURL = URL.createObjectURL(blob);
+        document.getElementById("picture").src=objectURL;
+    });
+}
+function gaussian_noise_button(){
+    fetch("{% url 'gaussian_noise_button' %}"
+    , {
+      method: 'GET',
+    }).then((response) => {
+        return response.blob();
+    }).then((blob) => {
+        let objectURL = URL.createObjectURL(blob);
+        document.getElementById("picture").src=objectURL;
+    });
+}
+
 </script>
 </body>
 </html>
