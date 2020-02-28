@@ -34,7 +34,7 @@
                 <button type="button" class="btn btn-primary btn-block">Remove Noise</button>
             </div>  
             <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block">Add Watermarks</button>
+                <button type="button" class="btn btn-primary btn-block" onclick="add_patterns_button()">Add Watermarks</button>
             </div>  
             <div class="p-2">
                 <button type="button" class="btn btn-primary btn-block">Remove Watermarks</button>
@@ -125,6 +125,17 @@ function salt_pepper_noise_button(){
 }
 function gaussian_noise_button(){
     fetch("{% url 'gaussian_noise_button' %}"
+    , {
+      method: 'GET',
+    }).then((response) => {
+        return response.blob();
+    }).then((blob) => {
+        let objectURL = URL.createObjectURL(blob);
+        document.getElementById("picture").src=objectURL;
+    });
+}
+function add_patterns_button(){
+    fetch("{% url 'add_patterns_button' %}"
     , {
       method: 'GET',
     }).then((response) => {

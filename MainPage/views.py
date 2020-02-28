@@ -3,10 +3,12 @@ from django.http import HttpResponse, FileResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import *
 from .ImageDistortion.add_noise_jacob import salt_pepper_noise, gaussian_noise
+from .ImageDistortion.add_patterns import add_random_patterns
 import cv2
 import numpy
 import shutil
 import os
+import sys
 
 def grayscale(img_path):
     img = cv2.imread(img_path)   # reads an image in the BGR format
@@ -25,6 +27,15 @@ def salt_pepper_noise_button(request):
     if request.method == 'GET':
         user_picture = Picture.objects.get(session_id=request.session.session_key)
         salt_pepper_noise(user_picture.edited_img.path, .1)
+        return FileResponse(open(user_picture.edited_img.path, 'rb'))
+
+
+def add_patterns_button(request):
+    if request.method == 'GET':
+        user_picture = Picture.objects.get(session_id=request.session.session_key)
+        img = cv2.imread(user_picture.edited_img.path)
+        img = add_random_patterns(img, 0.1, 5, 5, 5)
+        cv2.imwrite(user_picture.edited_img.path, img)
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
 
