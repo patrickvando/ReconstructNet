@@ -4,7 +4,7 @@ from PIL import Image
 #radius -> between 1 and 15
 #contrast level -> between 1 and 50 
 #threshold -> between 1 and 255
-
+#does not work with greyscale images (fix later)
 def unsharp_mask(img_path, radius, contrast_level, threshold):
     im = Image.open(img_path)
 
