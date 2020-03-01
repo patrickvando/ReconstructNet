@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .forms import *
 from .ImageDistortion.add_noise_jacob import salt_pepper_noise, gaussian_noise
 from .ImageDistortion.add_patterns import add_random_patterns
+from .ImageDistortion.unsharp_masking import unsharp_mask
 import cv2
 import numpy
 import shutil
@@ -15,6 +16,12 @@ def grayscale(img_path):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)   # BGR -> RGB
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     cv2.imwrite(img_path,gray)
+
+def sharpen_button(request):
+    if request.method == 'GET':
+        user_picture = Picture.objects.get(session_id=request.session.session_key)
+        unsharp_mask(user_picture.edited_img.path, 11, 5, 5)
+        return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
 def gaussian_noise_button(request):
     if request.method == 'GET':
