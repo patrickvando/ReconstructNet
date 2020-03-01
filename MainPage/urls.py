@@ -11,5 +11,6 @@ urlpatterns = [
         path('salt_pepper_noise_button', views.salt_pepper_noise_button, name = 'salt_pepper_noise_button'),
         path('add_patterns_button', views.add_patterns_button, name = 'add_patterns_button'),
         path('sharpen_button', views.sharpen_button, name = 'sharpen_button'),
+        path('contrast_button', views.contrast_button, name = 'contrast_button'),
 ]
 

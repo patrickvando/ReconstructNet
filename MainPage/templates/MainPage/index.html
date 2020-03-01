@@ -42,6 +42,9 @@
             <div class="p-2">
                 <button type="button" class="btn btn-primary btn-block" onclick="sharpen_button()">Sharpen</button>
             </div>  
+            <div class="p-2">
+                <button type="button" class="btn btn-primary btn-block" onclick="contrast_button()">Contrast</button>
+            </div>  
 
         </div> 
     </div>
@@ -151,6 +154,18 @@ function add_patterns_button(){
 
 function sharpen_button(){
     fetch("{% url 'sharpen_button' %}"
+    , {
+      method: 'GET',
+    }).then((response) => {
+        return response.blob();
+    }).then((blob) => {
+        let objectURL = URL.createObjectURL(blob);
+        document.getElementById("picture").src=objectURL;
+    });
+}
+
+function contrast_button(){
+    fetch("{% url 'contrast_button' %}"
     , {
       method: 'GET',
     }).then((response) => {
