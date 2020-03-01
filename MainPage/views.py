@@ -20,7 +20,7 @@ def grayscale(img_path):
 def sharpen_button(request):
     if request.method == 'GET':
         user_picture = Picture.objects.get(session_id=request.session.session_key)
-        unsharp_mask(user_picture.edited_img.path, 11, 5, 5)
+        unsharp_mask(user_picture.edited_img.path, 7, 5, 5)
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
 def gaussian_noise_button(request):
@@ -76,7 +76,7 @@ def reset(request):
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
 def index(request): 
-    #request.session.cycle_key()
+    request.session.cycle_key()
     if not request.session.session_key:
         request.session.create()
     #assign a new database entry to the user if none exists
