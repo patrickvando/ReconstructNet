@@ -9,13 +9,14 @@ def unsharp_mask(img_path, radius, contrast_level, threshold):
     im = Image.open(img_path)
 
     blurred = gaussian(im, radius)
-    unsharp_mask = subtract(im, blurred)
-
+    #unsharp_mask = subtract(im, blurred)
+    unsharp_mask = subtract(blurred, im)
+    unsharp_mask.show()
     high_contrast = contrast(im, contrast_level, 100 - contrast_level)
 
     sharpened = sharpen(im, unsharp_mask, high_contrast, threshold)
     
-    sharpened.save(img_path)
+    #sharpened.save(img_path)
 
 def sharpen(im, unsharp_mask, high_contrast, threshold):
     pixelMap = im.load()
@@ -38,6 +39,7 @@ def luminance(pixel):
     R, G, B = pixel
     return (R+R+B+G+G+G)/6
 
+#should these values be clamped?
 def subtract(im1, im2):
     pixelMap1 = im1.load()
     pixelMap2 = im2.load()
@@ -149,4 +151,4 @@ def quickSelect(lst, n):
         if i == n:
             return pivot
  
-#unsharp_mask("lena_copy.png", 11, 5, 10)
+unsharp_mask("lena_copy.png", 11, 5, 10)
