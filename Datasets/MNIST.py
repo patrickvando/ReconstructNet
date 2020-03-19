@@ -14,6 +14,7 @@ noise = np.random.normal(mean, stddev, (n_rows, n_cols))
 
 x_train_noisy = x_train + noise
 
+
 # fig, axs = plt.subplots(1, 3, dpi=90)
 
 # for i in range(3):
@@ -32,3 +33,4 @@ for picax, idx, img, label in zip(axes.flat, random_images, images, labels):
     picax.set_axis_off()
 
 plt.tight_layout()
+plt.show()
