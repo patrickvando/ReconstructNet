@@ -1,46 +1,33 @@
-import cv2 as cv
+import cv2
 import numpy as np
+import shutil
+import os
+from random import random
 
+#d should be between 0 and 1, determines level of salt/pepper noise
+def salt_pepper_noise(img, d):
+    height = img.shape[0]
+    width = img.shape[1]
+    for y in range (0, height):
+        for x in range (0, width):
+            r = random()
+            if (r <= d/2):
+                img [y, x, 0] = 255
+                img [y, x, 1] = 255
+                img [y, x, 2] = 255
+            elif(r <= d):
+                img [y, x, 0] = 0
+                img [y, x, 1] = 0
+                img [y, x, 2] = 0
+    return img
 
-def add_gaussian_noise(original_image, mean, stddev):
-	"""
-	Add gaussian noise to the image
+#for significant amount of noise, sigma should be above 10.
+def gaussian_noise(img, sigma):
+    height = img.shape[0]
+    width = img.shape[1]
+    noise = np.random.normal(0, sigma, height*width*3)
+    noise = noise.reshape(height, width, 3)
+    img = img + noise
+    print("should have changed")
+    return img
 
-	:param	original_image	: the original image (array form)
-	:param	mean  			: mean of gaussian noise 	(-50 to 50)
-	:param	stddev			: standard deviation		(1 to 30)
-
-	:returns the image with Gaussian noise added
-	"""
-	noise = original_image
-	cv.randn(noise, mean, stddev)
-	noisy_image = original_image + noise
-	return noisy_image
-
-
-def add_salt_and_pepper_noise(original_image, noise_ratio):
-	"""
-	Add salt and pepper noise to the image
-
-	:param	original_image	: the original image (array form)
-	:param	noise_ratio		: the ratio of pixels with noise 	(0 to 0.8)
-
-	:returns the image with salt and pepper noise added
-	"""
-	num_rows, num_columns, num_channels = np.shape(original_image)
-	ret = np.copy(original_image)
-	num_salt = np.ceil(noise_ratio * num_rows * num_columns)
-	coords = [np.random.randint(0, i - 1, int(num_salt)) for i in np.shape(
-		original_image)]
-	ret[coords] = (0, 0, 0)
-	return ret
-
-
-# img = cv.imread("./beach.jpg")
-# noisy_image = add_gaussian_noise(img, 50, 15)
-
-# plt.subplot(121),plt.imshow(img), plt.title('Original')
-# plt.xticks([]), plt.yticks([])
-# plt.subplot(122),plt.imshow(noisy_image),plt.title('Blurred')
-# plt.xticks([]), plt.yticks([])
-# plt.show()

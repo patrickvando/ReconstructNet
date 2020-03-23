@@ -1,10 +1,9 @@
 import random
 from PIL import Image
 
-def increase_contrast(img_path, contrast_level):
-    im = Image.open(img_path)
+def increase_contrast(im, contrast_level):
     res = contrast(im, contrast_level, 100 - contrast_level)
-    res.save(img_path)
+    return res
 
 def contrast(im, lower_percentile, upper_percentile):
     pixelMap = im.load()

@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, FileResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import *
-from .ImageDistortion.add_noise_jacob import salt_pepper_noise, gaussian_noise
+from PIL import Image
+from .ImageDistortion.add_noise import salt_pepper_noise, gaussian_noise
 from .ImageDistortion.add_patterns import add_random_patterns
 from .ImageDistortion.unsharp_masking import unsharp_mask
 from .ImageDistortion.contrast import increase_contrast 
@@ -21,27 +22,36 @@ def grayscale(img_path):
 def contrast_button(request):
     if request.method == 'GET':
         user_picture = Picture.objects.get(session_id=request.session.session_key)
-        increase_contrast(user_picture.edited_img.path, 5)
-        return FileResponse(open(user_picture.edited_img.path, 'rb'))
+        img = Image.open(user_picture.edited_img.path)
+        img = img.convert("RGB") 
+        img = increase_contrast(img, 5)
+        img.save(user_picture.edited_img.path)
 
+        return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
 def sharpen_button(request):
     if request.method == 'GET':
         user_picture = Picture.objects.get(session_id=request.session.session_key)
-        unsharp_mask(user_picture.edited_img.path, 7, 5, 5)
+        img = Image.open(user_picture.edited_img.path)
+        img = img.convert("RGB") 
+        img = unsharp_mask(img, 7, 5, 5)
+        img.save(user_picture.edited_img.path)
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
 def gaussian_noise_button(request):
     if request.method == 'GET':
-        user_picture = Picture.objects.get(session_id=request.session.session_key)
-        gaussian_noise(user_picture.edited_img.path, 100)
+        user_picture = Picture.objects.get(session_id=request.session.session_key) 
+        img = cv2.imread(user_picture.edited_img.path)
+        img = gaussian_noise(img, 100)
+        cv2.imwrite(user_picture.edited_img.path, img)
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
-
 
 def salt_pepper_noise_button(request):
     if request.method == 'GET':
         user_picture = Picture.objects.get(session_id=request.session.session_key)
-        salt_pepper_noise(user_picture.edited_img.path, .1)
+        img = cv2.imread(user_picture.edited_img.path)
+        img = salt_pepper_noise(img, .1)
+        cv2.imwrite(user_picture.edited_img.path, img)
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
 
@@ -53,13 +63,11 @@ def add_patterns_button(request):
         cv2.imwrite(user_picture.edited_img.path, img)
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
-
 def grayscale_button(request):
     if request.method == 'GET':
         user_picture = Picture.objects.get(session_id=request.session.session_key)
         grayscale(user_picture.edited_img.path)
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
-
 
 #https://docs.djangoproject.com/en/3.0/ref/csrf/
 @csrf_exempt
@@ -73,8 +81,6 @@ def upload(request):
             path = user_picture.main_img.path
             save_as_edited_image(path, user_picture)
             return FileResponse(open(user_picture.main_img.path, 'rb'))
-
-
 
 def reset(request):
     if request.method == 'GET':
