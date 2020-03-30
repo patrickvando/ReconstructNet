@@ -40,26 +40,34 @@ def sharpen_button(request):
 
 def gaussian_noise_button(request):
     if request.method == 'GET':
+        sigma = float(request.GET['sigma'])
         user_picture = Picture.objects.get(session_id=request.session.session_key) 
         img = cv2.imread(user_picture.edited_img.path)
-        img = gaussian_noise(img, 100)
+        img = gaussian_noise(img, sigma)
         cv2.imwrite(user_picture.edited_img.path, img)
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
 def salt_pepper_noise_button(request):
     if request.method == 'GET':
+        d = float(request.GET['d'])
+        print(d)
         user_picture = Picture.objects.get(session_id=request.session.session_key)
         img = cv2.imread(user_picture.edited_img.path)
-        img = salt_pepper_noise(img, .1)
+        img = salt_pepper_noise(img, d)
         cv2.imwrite(user_picture.edited_img.path, img)
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
 
 def add_patterns_button(request):
     if request.method == 'GET':
+        print(request.GET)
+        max_ratio = float(request.GET['maxRatio'])
+        max_lines = int(request.GET['maxLines'])
+        max_circles = int(request.GET['maxCircles'])
+        max_ellipses = int(request.GET['maxEllipses'])
         user_picture = Picture.objects.get(session_id=request.session.session_key)
         img = cv2.imread(user_picture.edited_img.path)
-        img = add_random_patterns(img, 0.1, 5, 5, 5)
+        img = add_random_patterns(img, max_ratio, max_lines, max_circles, max_ellipses)
         cv2.imwrite(user_picture.edited_img.path, img)
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
