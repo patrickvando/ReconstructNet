@@ -1,6 +1,6 @@
 import numpy as np
 import tensorflow as tf
-from MainPage.ImageDistortion.add_patterns import add_random_patterns
+from MainPage.ImageDistortion.add_noise import gaussian_noise
 from tensorflow.keras.layers import *
 from tensorflow.keras.models import *
 from tensorflow.keras.optimizers import *
@@ -28,7 +28,7 @@ image_test = image_test / 255
 def in_mask_cifar(inp):
     x = inp + np.zeros(inp.shape)
     for i in range(inp.shape[0]):
-        x[i] = add_random_patterns(inp[i], 0.05, 5, 5, 5)
+        x[i] = gaussian_noise(inp[i], 0.1)
     return x
 
 
@@ -41,29 +41,94 @@ image_validate_masked = in_mask_cifar(image_validate)
 def unet(pretrained_weights=None, input_size=(28, 28, 1)):
     # add in the layers in order
     inputs = Input(input_size)
-    conv1 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(inputs)
-    conv1 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv1)
+    conv1 = Conv2D(32, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(inputs)
+    conv1 = Conv2D(32, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(conv1)
     pool1 = MaxPooling2D(pool_size=(2, 2))(conv1)
-    conv2 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool1)
-    conv2 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv2)
-    drop2 = Dropout(0.5)(conv2)
+
+    conv2 = Conv2D(64, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(pool1)
+    conv2 = Conv2D(64, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(conv2)
+    drop2 = Dropout(0.25)(conv2)
     pool2 = MaxPooling2D(pool_size=(2, 2))(drop2)
-    conv3 = Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool2)
-    conv3 = Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv3)
-    drop3 = Dropout(0.5)(conv3)
 
-    up6 = Conv2D(32, 2, activation='relu', padding='same', kernel_initializer='he_normal')(
-        UpSampling2D(size=(2, 2))(drop3))
+    conv3 = Conv2D(128, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(pool2)
+    conv3 = Conv2D(128, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(conv3)
+    drop3 = Dropout(0.25)(conv3)
+    pool3 = MaxPooling2D(pool_size=(2, 2))(drop3)
+
+    conv4 = Conv2D(256, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(pool3)
+    conv4 = Conv2D(256, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(conv4)
+    drop4 = Dropout(0.5)(conv4)
+    # pool4 = MaxPooling2D(pool_size=(2, 2))(drop4)
+
+    up5 = Conv2D(128, 2, activation='sigmoid', padding='same', kernel_initializer='he_normal')(
+        UpSampling2D(size=(2, 2))(drop4))
+    merge5 = concatenate([drop3, up5], axis=3)
+    conv5 = Conv2D(128, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(merge5)
+    conv5 = Conv2D(128, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(conv5)
+
+    up6 = Conv2D(64, 2, activation='sigmoid', padding='same', kernel_initializer='he_normal')(
+        UpSampling2D(size=(2, 2))(conv5))
     merge6 = concatenate([drop2, up6], axis=3)
-    conv6 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge6)
-    conv6 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv6)
+    conv6 = Conv2D(64, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(merge6)
+    conv6 = Conv2D(64, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(conv6)
 
-    up7 = Conv2D(16, 2, activation='relu', padding='same', kernel_initializer='he_normal')(
+    up7 = Conv2D(32, 2, activation='sigmoid', padding='same', kernel_initializer='he_normal')(
         UpSampling2D(size=(2, 2))(conv6))
     merge7 = concatenate([conv1, up7], axis=3)
-    conv7 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge7)
-    conv7 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv7)
-    conv7 = Conv2D(2, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv7)
+    conv7 = Conv2D(32, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(merge7)
+    conv7 = Conv2D(32, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(conv7)
+
+    conv7 = Conv2D(16, 3, activation='sigmoid', padding='same', kernel_initializer='he_normal')(conv7)
+
+    conv8 = Conv2D(input_size[2], 1, activation='sigmoid')(conv7)
+
+    model = Model(inputs, conv8)
+
+    model.compile(optimizer=Adam(lr=5e-4), loss='mse')
+    if pretrained_weights:
+        model.load_weights(pretrained_weights)
+
+    return model
+
+
+def unet_2(pretrained_weights=None, input_size=(28, 28, 1)):
+    # add in the layers in order
+    inputs = Input(input_size)
+    conv1 = Dropout(0.8)(Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(inputs))
+    conv1 = Dropout(0.5)(Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv1))
+    pool1 = MaxPooling2D(pool_size=(2, 2))(conv1)
+
+    conv2 = Dropout(0.5)(Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool1))
+    conv2 = Dropout(0.5)(Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv2))
+    pool2 = MaxPooling2D(pool_size=(2, 2))(conv2)
+
+    conv3 = Dropout(0.5)(Conv2D(128, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool2))
+    conv3 = Dropout(0.5)(Conv2D(128, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv3))
+    pool3 = MaxPooling2D(pool_size=(2, 2))(conv3)
+
+    conv4 = Dropout(0.5)(Conv2D(256, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool3))
+    conv4 = Dropout(0.5)(Conv2D(256, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv4))
+
+    up5 = Conv2DTranspose(128, 2, activation='relu', padding='same', kernel_initializer='he_normal')(
+        UpSampling2D(size=(2, 2))(conv4))
+    merge5 = concatenate([conv3, up5], axis=3)
+    conv5 = Dropout(0.5)(Conv2D(128, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge5))
+    conv5 = Dropout(0.5)(Conv2D(128, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv5))
+
+    up6 = Conv2DTranspose(64, 2, activation='relu', padding='same', kernel_initializer='he_normal')(
+        UpSampling2D(size=(2, 2))(conv5))
+    merge6 = concatenate([conv2, up6], axis=3)
+    conv6 = Dropout(0.5)(Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge6))
+    conv6 = Dropout(0.5)(Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv6))
+
+    up7 = Conv2DTranspose(32, 2, activation='relu', padding='same', kernel_initializer='he_normal')(
+        UpSampling2D(size=(2, 2))(conv6))
+    merge7 = concatenate([conv1, up7], axis=3)
+    conv7 = Dropout(0.5)(Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge7))
+    conv7 = Dropout(0.5)(Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv7))
+
+    # conv7 = Conv2D(2, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv7)
+
     conv8 = Conv2D(input_size[2], 1, activation='relu')(conv7)
 
     model = Model(inputs, conv8)
@@ -77,7 +142,7 @@ def unet(pretrained_weights=None, input_size=(28, 28, 1)):
 
 # training for CIFAR dataset
 
-EPOCHS = 20             # the number of epochs
+EPOCHS = 10             # the number of epochs
 BATCH_SIZE = 64        # the batch size
 random.seed(666)
 
@@ -154,7 +219,7 @@ pred_img = unet_cifar.predict(image_test_masked[0:5])[1]
 
 axs[1, 0].imshow(np.clip(img, 0, 1))
 axs[1, 1].imshow(np.clip(cimg, 0, 1))
-axs[1, 2].imshow(np.clip(pred_img, -1, 1))
+axs[1, 2].imshow(np.clip(pred_img, 0, 1))
 
 img = image_test[4]
 cimg = image_test_masked[4]
@@ -162,6 +227,6 @@ pred_img = unet_cifar.predict(image_test_masked[0:5])[4]
 
 axs[2, 0].imshow(np.clip(img, 0, 1))
 axs[2, 1].imshow(np.clip(cimg, 0, 1))
-axs[2, 2].imshow(np.clip(pred_img, -1, 1))
+axs[2, 2].imshow(np.clip(pred_img, 0, 1))
 
 plt.show()

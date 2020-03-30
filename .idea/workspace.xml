@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d91c7755-df13-4745-8d89-3de4d22feb24" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/DeepReconstruction/Denoise/denoise_DCNN.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DeepReconstruction/Inpaint/inpainting_DCNN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/phamp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/phamp.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeepReconstruction/deblur_DCNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/DeepReconstruction/Deblur/deblur_DCNN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeepReconstruction/denoise_DCNN.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeepReconstruction/inpainting_DCNN.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainPage/ImageDistortion/add_noise_jacob.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainPage/ImageDistortion/add_noise_jacob.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepReconstruction/Denoise/denoise_DCNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/DeepReconstruction/Denoise/denoise_DCNN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainPage/ImageDistortion/add_noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainPage/ImageDistortion/add_noise.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +54,7 @@
       <recent name="D:\Repositories\ReconstructNet\ReconstructNet\DeepReconstruction\Deblur" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.inpainting_DCNN (1)">
+  <component name="RunManager" selected="Python.denoise_DCNN">
     <configuration name="CIFAR10" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ReconstructNet" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -152,8 +147,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.inpainting_DCNN (1)" />
         <item itemvalue="Python.denoise_DCNN" />
+        <item itemvalue="Python.inpainting_DCNN (1)" />
         <item itemvalue="Python.CIFAR10" />
         <item itemvalue="Python.MNIST" />
       </list>
@@ -173,22 +168,22 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1130" height="265" key="GridCell.Tab.0.bottom" timestamp="1585028282602">
+    <state width="1129" height="265" key="GridCell.Tab.0.bottom" timestamp="1585606117979">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state width="1130" height="265" key="GridCell.Tab.0.bottom/62.0.1858.1080@62.0.1858.1080" timestamp="1585028282602" />
-    <state width="1130" height="265" key="GridCell.Tab.0.center" timestamp="1585028282602">
+    <state width="1129" height="265" key="GridCell.Tab.0.bottom/62.0.1858.1080@62.0.1858.1080" timestamp="1585606117979" />
+    <state width="1129" height="265" key="GridCell.Tab.0.center" timestamp="1585606117979">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state width="1130" height="265" key="GridCell.Tab.0.center/62.0.1858.1080@62.0.1858.1080" timestamp="1585028282602" />
-    <state width="1130" height="265" key="GridCell.Tab.0.left" timestamp="1585028282602">
+    <state width="1129" height="265" key="GridCell.Tab.0.center/62.0.1858.1080@62.0.1858.1080" timestamp="1585606117979" />
+    <state width="1129" height="265" key="GridCell.Tab.0.left" timestamp="1585606117979">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state width="1130" height="265" key="GridCell.Tab.0.left/62.0.1858.1080@62.0.1858.1080" timestamp="1585028282602" />
-    <state width="1130" height="265" key="GridCell.Tab.0.right" timestamp="1585028282602">
+    <state width="1129" height="265" key="GridCell.Tab.0.left/62.0.1858.1080@62.0.1858.1080" timestamp="1585606117979" />
+    <state width="1129" height="265" key="GridCell.Tab.0.right" timestamp="1585606117979">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state width="1130" height="265" key="GridCell.Tab.0.right/62.0.1858.1080@62.0.1858.1080" timestamp="1585028282602" />
+    <state width="1129" height="265" key="GridCell.Tab.0.right/62.0.1858.1080@62.0.1858.1080" timestamp="1585606117979" />
     <state x="492" y="182" key="SettingsEditor" timestamp="1584847010432">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
