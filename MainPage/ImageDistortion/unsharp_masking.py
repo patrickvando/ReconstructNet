@@ -5,18 +5,25 @@ from PIL import Image
 #contrast level -> between 1 and 50 
 #threshold -> between 1 and 255
 #does not work with greyscale images (fix later)
-def unsharp_mask(img_path, radius, contrast_level, threshold):
-    im = Image.open(img_path)
+#takes a PIL image
+def unsharp_mask(im, radius, contrast_level, threshold):
+    #im = Image.open(img_path)
 
     blurred = gaussian(im, radius)
     #unsharp_mask = subtract(im, blurred)
     unsharp_mask = subtract(blurred, im)
-    unsharp_mask.show()
     high_contrast = contrast(im, contrast_level, 100 - contrast_level)
 
     sharpened = sharpen(im, unsharp_mask, high_contrast, threshold)
-    
+    """
+    im.show()
+    unsharp_mask.show()
+    blurred.show()
+    high_contrast.show()
+    sharpened.show() 
+    """
     #sharpened.save(img_path)
+    return sharpened
 
 def sharpen(im, unsharp_mask, high_contrast, threshold):
     pixelMap = im.load()
@@ -51,7 +58,7 @@ def subtract(im1, im2):
         for j in range(im1.size[1]):
             a = pixelMap1[i, j] 
             b = pixelMap2[i, j]
-            pixelsNew[i, j] = tuple([x-y for x, y in zip(a, b)])
+            pixelsNew[i, j] = tuple([max(0, x-y) for x, y in zip(a, b)])
     return img
 def gaussian(im, filter_size):
     pixelMap = im.load()
@@ -151,4 +158,4 @@ def quickSelect(lst, n):
         if i == n:
             return pivot
  
-unsharp_mask("lena_copy.png", 11, 5, 10)
+#unsharp_mask("lena_copy.png", 11, 5, 10)

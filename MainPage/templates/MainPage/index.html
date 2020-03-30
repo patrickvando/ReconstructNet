@@ -1,19 +1,27 @@
 {% load static %}
+<!--Doesnt load jqery with current bootstrap version (3 vs 4)-->
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!--head>
+
     <link href="{% static 'MainPage/layout.css' %}" rel="stylesheet">
     <link href="{% static 'MainPage/lux_bootstrap.min.css' %}" rel="stylesheet">
     
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <!--
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    -->
-    <title>ReconstructNet</title> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head-->
+<head>
+  <title>ReconstructNet</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="{% static 'MainPage/layout.css' %}" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
@@ -25,16 +33,92 @@
                 <button type="button" class="btn btn-primary btn-block" onclick="grayscale_button()">greyscale</button>
             </div>
             <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block" onclick="salt_pepper_noise_button()">Add salt and pepper noise</button>
+                <div class="card">
+                     <div class="card-header" id="headingOne">
+                         <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSaltAndPepper" aria-expanded="false" aria-controls="collapseSaltAndPepper">
+                                 Add Salt and Pepper Noise
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div class="collapse" id="collapseSaltAndPepper">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center my-4">
+                                <div class="w-75">
+                                   <input type="range" class="custom-range" id="customRange11" step="0.01" min="0" max="1">
+                                </div>
+                                <span class="font-weight-bold text-primary ml-2 valueSpan2"></span>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block" onclick="salt_pepper_noise_button()">Add salt and pepper noise</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block" onclick="gaussian_noise_button()">Add gaussian noise</button>
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseGaussian" aria-expanded="false" aria-controls="collapseGaussian">
+                                Add Gaussian Noise
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div class="collapse" id="collapseGaussian">
+                        <div class="card-body">
+                            <input type="number" name="someid" />
+                            <button type="button" class="btn btn-primary btn-block" onclick="gaussian_noise_button()">Add gaussian noise</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="p-2">
                 <button type="button" class="btn btn-primary btn-block">Remove Noise</button>
             </div>  
             <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block" onclick="add_patterns_button()">Add Watermarks</button>
+                 <div class="card">
+                     <div class="card-header" id="headingOne">
+                         <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseWatermark" aria-expanded="false" aria-controls="collapseWatermark">
+                                 Add Watermark
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div class="collapse" id="collapseWatermark">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center my-4">
+                                <div class="w-75">
+                                   <input type="range" class="custom-range" id="patternRange" step="0.01" min="0.01" max="0.30">
+                                </div>
+                                <span class="font-weight-bold text-primary ml-2 patternSpan"></span>
+                            </div>
+
+                            <div class="d-flex justify-content-center my-4">
+                                <div class="w-75">
+                                   <input type="range" class="custom-range" id="pattern1Range" step="1" min="0" max="10">
+                                </div>
+                                <span class="font-weight-bold text-primary ml-2 pattern1Span"></span>
+                            </div>
+
+                            <div class="d-flex justify-content-center my-4">
+                                <div class="w-75">
+                                   <input type="range" class="custom-range" id="pattern2Range" step="1" min="0" max="10">
+                                </div>
+                                <span class="font-weight-bold text-primary ml-2 pattern2Span"></span>
+                            </div>
+
+                            <div class="d-flex justify-content-center my-4">
+                                <div class="w-75">
+                                   <input type="range" class="custom-range" id="pattern3Range" step="1" min="0" max="10">
+                                </div>
+                                <span class="font-weight-bold text-primary ml-2 pattern3Span"></span>
+                            </div>                                                                                    
+                            <button type="button" class="btn btn-primary btn-block" onclick="add_patterns_button()">Add Watermarks</button>
+                        </div>
+                    </div>
+                </div>
             </div>  
             <div class="p-2">
                 <button type="button" class="btn btn-primary btn-block">Remove Watermarks</button>
@@ -44,7 +128,9 @@
             </div>  
             <div class="p-2">
                 <button type="button" class="btn btn-primary btn-block" onclick="contrast_button()">Contrast</button>
-            </div>  
+            </div>
+            
+
 
         </div> 
     </div>
@@ -72,6 +158,50 @@
 </div>
 
 <script>
+
+$(document).ready(function() {
+
+  const $valueSpan = $('.valueSpan2');
+  const $value = $('#customRange11');
+  $valueSpan.html($value.val());
+  $value.on('input change', () => {
+
+    $valueSpan.html($value.val());
+  });
+
+  const $patternSpan = $('.patternSpan');
+  const $patternValue = $('#patternRange');
+  $patternSpan.html($patternValue.val());
+  $patternValue.on('input change', () => {
+
+    $patternSpan.html($patternValue.val());
+  });
+
+  const $pattern1Span = $('.pattern1Span');
+  const $pattern1Value = $('#pattern1Range');
+  $pattern1Span.html($pattern1Value.val());
+  $pattern1Value.on('input change', () => {
+
+    $pattern1Span.html($pattern1Value.val());
+  });
+
+    const $pattern2Span = $('.pattern2Span');
+  const $pattern2Value = $('#pattern2Range');
+  $pattern2Span.html($pattern2Value.val());
+  $pattern2Value.on('input change', () => {
+
+    $pattern2Span.html($pattern2Value.val());
+  });
+
+    const $pattern3Span = $('.pattern3Span');
+  const $pattern3Value = $('#pattern3Range');
+  $pattern3Span.html($pattern3Value.val());
+  $pattern3Value.on('input change', () => {
+
+    $pattern3Span.html($pattern3Value.val());
+  });
+});
+
 const formData = new FormData();
 const fileField = document.getElementById("upload");
 
