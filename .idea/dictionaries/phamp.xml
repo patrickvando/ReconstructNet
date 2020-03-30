@@ -1,7 +1,15 @@
 <component name="ProjectDictionaryState">
   <dictionary name="phamp">
     <words>
+      <w>cifar</w>
+      <w>conv</w>
+      <w>dataset</w>
       <w>deblur</w>
+      <w>gpus</w>
+      <w>keras</w>
+      <w>pretrained</w>
+      <w>relu</w>
+      <w>unet</w>
     </words>
   </dictionary>
 </component>

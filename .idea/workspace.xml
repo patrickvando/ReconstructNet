@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d91c7755-df13-4745-8d89-3de4d22feb24" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/DeepReconstruction/Denoise/denoise_DCNN.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DeepReconstruction/Inpaint/inpainting_DCNN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/phamp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/phamp.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/CIFAR10.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CIFAR10.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/MNIST.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/MNIST.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepReconstruction/deblur_DCNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/DeepReconstruction/Deblur/deblur_DCNN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepReconstruction/denoise_DCNN.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepReconstruction/inpainting_DCNN.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainPage/ImageDistortion/add_noise_jacob.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainPage/ImageDistortion/add_noise_jacob.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +52,14 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.CIFAR10">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Repositories\ReconstructNet\ReconstructNet\DeepReconstruction\Inpaint" />
+      <recent name="D:\Repositories\ReconstructNet\ReconstructNet\DeepReconstruction\Denoise" />
+      <recent name="D:\Repositories\ReconstructNet\ReconstructNet\DeepReconstruction\Deblur" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.inpainting_DCNN (1)">
     <configuration name="CIFAR10" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ReconstructNet" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -90,7 +102,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="add_noise" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="denoise_DCNN" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ReconstructNet" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -98,11 +110,32 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ImageDistortion" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DeepReconstruction/Denoise" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ImageDistortion/add_noise.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DeepReconstruction/Denoise/denoise_DCNN.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="inpainting_DCNN (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ReconstructNet" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DeepReconstruction/Inpaint" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DeepReconstruction/Inpaint/inpainting_DCNN.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -113,14 +146,16 @@
     </configuration>
     <list>
       <item itemvalue="Python.MNIST" />
-      <item itemvalue="Python.add_noise" />
       <item itemvalue="Python.CIFAR10" />
+      <item itemvalue="Python.denoise_DCNN" />
+      <item itemvalue="Python.inpainting_DCNN (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.inpainting_DCNN (1)" />
+        <item itemvalue="Python.denoise_DCNN" />
         <item itemvalue="Python.CIFAR10" />
         <item itemvalue="Python.MNIST" />
-        <item itemvalue="Python.add_noise" />
       </list>
     </recent_temporary>
   </component>
@@ -138,29 +173,29 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1132" height="265" key="GridCell.Tab.0.bottom" timestamp="1584629060266">
+    <state width="1130" height="265" key="GridCell.Tab.0.bottom" timestamp="1585028282602">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state width="1132" height="265" key="GridCell.Tab.0.bottom/62.0.1858.1080@62.0.1858.1080" timestamp="1584629060266" />
-    <state width="1132" height="265" key="GridCell.Tab.0.center" timestamp="1584629060266">
+    <state width="1130" height="265" key="GridCell.Tab.0.bottom/62.0.1858.1080@62.0.1858.1080" timestamp="1585028282602" />
+    <state width="1130" height="265" key="GridCell.Tab.0.center" timestamp="1585028282602">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state width="1132" height="265" key="GridCell.Tab.0.center/62.0.1858.1080@62.0.1858.1080" timestamp="1584629060266" />
-    <state width="1132" height="265" key="GridCell.Tab.0.left" timestamp="1584629060266">
+    <state width="1130" height="265" key="GridCell.Tab.0.center/62.0.1858.1080@62.0.1858.1080" timestamp="1585028282602" />
+    <state width="1130" height="265" key="GridCell.Tab.0.left" timestamp="1585028282602">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state width="1132" height="265" key="GridCell.Tab.0.left/62.0.1858.1080@62.0.1858.1080" timestamp="1584629060266" />
-    <state width="1132" height="265" key="GridCell.Tab.0.right" timestamp="1584629060266">
+    <state width="1130" height="265" key="GridCell.Tab.0.left/62.0.1858.1080@62.0.1858.1080" timestamp="1585028282602" />
+    <state width="1130" height="265" key="GridCell.Tab.0.right" timestamp="1585028282602">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state width="1132" height="265" key="GridCell.Tab.0.right/62.0.1858.1080@62.0.1858.1080" timestamp="1584629060266" />
-    <state x="492" y="182" key="SettingsEditor" timestamp="1583736397952">
+    <state width="1130" height="265" key="GridCell.Tab.0.right/62.0.1858.1080@62.0.1858.1080" timestamp="1585028282602" />
+    <state x="492" y="182" key="SettingsEditor" timestamp="1584847010432">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state x="492" y="182" key="SettingsEditor/62.0.1858.1080@62.0.1858.1080" timestamp="1583736397952" />
-    <state x="692" y="363" key="com.intellij.ide.util.TipDialog" timestamp="1583736244988">
+    <state x="492" y="182" key="SettingsEditor/62.0.1858.1080@62.0.1858.1080" timestamp="1584847010432" />
+    <state x="692" y="363" key="com.intellij.ide.util.TipDialog" timestamp="1585597560783">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state x="692" y="363" key="com.intellij.ide.util.TipDialog/62.0.1858.1080@62.0.1858.1080" timestamp="1583736244988" />
+    <state x="692" y="363" key="com.intellij.ide.util.TipDialog/62.0.1858.1080@62.0.1858.1080" timestamp="1585597560783" />
   </component>
 </project>
