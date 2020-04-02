@@ -90,6 +90,13 @@
       </div>
     </div>
   </div>
+  <div class="p-2">
+    <button type="button" class="btn btn-primary btn-block btn-algorithm" >Sharpen</button>
+  </div>  
+  <div class="p-2">
+    <button type="button" class="btn btn-primary btn-block btn-algorithm" id="button" >Contrast</button>
+  </div>
+
 
 <script>
 $(document).ready(function() {
@@ -101,6 +108,15 @@ $(document).ready(function() {
 
     $valueSpan.html($value.val());
   });
+});
+
+$("#button").on("click", function() {
+    //$(".btn-algorithm").prop("disabled", true);
+    console.log("error");
+});
+
+$(".btn-algorithm").on("click", function() {
+    $(".btn-algorithm").prop("disabled", true);
 });
 </script>
 </html>
