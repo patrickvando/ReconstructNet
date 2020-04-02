@@ -46,9 +46,10 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-center my-4">
                                 <div class="w-75">
-                                   <input type="range" class="custom-range" id="customRange11" step="0.01" min="0" max="1">
+                                    Noise level
+                                   <input type="range" class="custom-range" id="saltAndPepperRange" step="0.01" min="0" max="1">
                                 </div>
-                                <span class="font-weight-bold text-primary ml-2 valueSpan2"></span>
+                                <span class="font-weight-bold text-primary ml-2 saltAndPepperSpan"></span>
                             </div>
                             <button type="button" class="btn btn-primary btn-block" onclick="salt_pepper_noise_button()">Add salt and pepper noise</button>
                         </div>
@@ -67,7 +68,8 @@
 
                     <div class="collapse" id="collapseGaussian">
                         <div class="card-body">
-                            <input type="number" name="someid" />
+                            Sigma
+                            <input type="number" id="gaussianRange" value=100 />
                             <button type="button" class="btn btn-primary btn-block" onclick="gaussian_noise_button()">Add gaussian noise</button>
                         </div>
                     </div>
@@ -90,30 +92,34 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-center my-4">
                                 <div class="w-75">
-                                   <input type="range" class="custom-range" id="patternRange" step="0.01" min="0.01" max="0.30">
+                                   Max size ratio 
+                                   <input type="range" class="custom-range" id="maxRatioRange" step="0.01" min="0.01" max="0.30">
                                 </div>
-                                <span class="font-weight-bold text-primary ml-2 patternSpan"></span>
+                                <span class="font-weight-bold text-primary ml-2 maxRatioSpan"></span>
                             </div>
 
                             <div class="d-flex justify-content-center my-4">
                                 <div class="w-75">
-                                   <input type="range" class="custom-range" id="pattern1Range" step="1" min="0" max="10">
+                                    Max lines
+                                   <input type="range" class="custom-range" id="maxLinesRange" step="1" min="0" max="10">
                                 </div>
-                                <span class="font-weight-bold text-primary ml-2 pattern1Span"></span>
+                                <span class="font-weight-bold text-primary ml-2 maxLinesSpan"></span>
                             </div>
 
                             <div class="d-flex justify-content-center my-4">
                                 <div class="w-75">
-                                   <input type="range" class="custom-range" id="pattern2Range" step="1" min="0" max="10">
+                                    Max circles
+                                   <input type="range" class="custom-range" id="maxCirclesRange" step="1" min="0" max="10">
                                 </div>
-                                <span class="font-weight-bold text-primary ml-2 pattern2Span"></span>
+                                <span class="font-weight-bold text-primary ml-2 maxCirclesSpan"></span>
                             </div>
 
                             <div class="d-flex justify-content-center my-4">
                                 <div class="w-75">
-                                   <input type="range" class="custom-range" id="pattern3Range" step="1" min="0" max="10">
+                                    Max ellipses
+                                   <input type="range" class="custom-range" id="maxEllipsesRange" step="1" min="0" max="10">
                                 </div>
-                                <span class="font-weight-bold text-primary ml-2 pattern3Span"></span>
+                                <span class="font-weight-bold text-primary ml-2 maxEllipsesSpan"></span>
                             </div>                                                                                    
                             <button type="button" class="btn btn-primary btn-block" onclick="add_patterns_button()">Add Watermarks</button>
                         </div>
@@ -161,44 +167,44 @@
 
 $(document).ready(function() {
 
-  const $valueSpan = $('.valueSpan2');
-  const $value = $('#customRange11');
+  const $valueSpan = $('.saltAndPepperSpan');
+  const $value = $('#saltAndPepperRange');
   $valueSpan.html($value.val());
   $value.on('input change', () => {
 
     $valueSpan.html($value.val());
   });
 
-  const $patternSpan = $('.patternSpan');
-  const $patternValue = $('#patternRange');
-  $patternSpan.html($patternValue.val());
+  const $maxRatioSpan = $('.maxRatioSpan');
+  const $patternValue = $('#maxRatioRange');
+  $maxRatioSpan.html($patternValue.val());
   $patternValue.on('input change', () => {
 
-    $patternSpan.html($patternValue.val());
+    $maxRatioSpan.html($patternValue.val());
   });
 
-  const $pattern1Span = $('.pattern1Span');
-  const $pattern1Value = $('#pattern1Range');
-  $pattern1Span.html($pattern1Value.val());
-  $pattern1Value.on('input change', () => {
+  const $maxLinesSpan = $('.maxLinesSpan');
+  const $maxLinesValue = $('#maxLinesRange');
+  $maxLinesSpan.html($maxLinesValue.val());
+  $maxLinesValue.on('input change', () => {
 
-    $pattern1Span.html($pattern1Value.val());
+    $maxLinesSpan.html($maxLinesValue.val());
   });
 
-    const $pattern2Span = $('.pattern2Span');
-  const $pattern2Value = $('#pattern2Range');
-  $pattern2Span.html($pattern2Value.val());
-  $pattern2Value.on('input change', () => {
+    const $maxCirclesSpan = $('.maxCirclesSpan');
+  const $maxCirclesValue = $('#maxCirclesRange');
+  $maxCirclesSpan.html($maxCirclesValue.val());
+  $maxCirclesValue.on('input change', () => {
 
-    $pattern2Span.html($pattern2Value.val());
+    $maxCirclesSpan.html($maxCirclesValue.val());
   });
 
-    const $pattern3Span = $('.pattern3Span');
-  const $pattern3Value = $('#pattern3Range');
-  $pattern3Span.html($pattern3Value.val());
-  $pattern3Value.on('input change', () => {
+    const $maxEllipsesSpan = $('.maxEllipsesSpan');
+  const $maxEllipsesValue = $('#maxEllipsesRange');
+  $maxEllipsesSpan.html($maxEllipsesValue.val());
+  $maxEllipsesValue.on('input change', () => {
 
-    $pattern3Span.html($pattern3Value.val());
+    $maxEllipsesSpan.html($maxEllipsesValue.val());
   });
 });
 
@@ -251,7 +257,10 @@ function grayscale_button(){
 }
 
 function salt_pepper_noise_button(){
-    fetch("{% url 'salt_pepper_noise_button' %}"
+    var params = {
+        "d": $('#saltAndPepperRange').val(),
+    }
+    fetch("{% url 'salt_pepper_noise_button' %}" + "?" + $.param(params)
     , {
       method: 'GET',
     }).then((response) => {
@@ -262,7 +271,12 @@ function salt_pepper_noise_button(){
     });
 }
 function gaussian_noise_button(){
-    fetch("{% url 'gaussian_noise_button' %}"
+    var params = {
+        "sigma": $('#gaussianRange').val(),
+    }
+
+    fetch("{% url 'gaussian_noise_button' %}" + "?" + $.param(params)
+
     , {
       method: 'GET',
     }).then((response) => {
@@ -273,7 +287,14 @@ function gaussian_noise_button(){
     });
 }
 function add_patterns_button(){
-    fetch("{% url 'add_patterns_button' %}"
+    var params = {
+        "maxRatio": $('#maxRatioRange').val(),
+        "maxLines": $('#maxLinesRange').val(),
+        "maxCircles": $('#maxCirclesRange').val(),
+        "maxEllipses": $('#maxEllipsesRange').val(),
+    }
+
+    fetch("{% url 'add_patterns_button' %}" + "?" + $.param(params)
     , {
       method: 'GET',
     }).then((response) => {
