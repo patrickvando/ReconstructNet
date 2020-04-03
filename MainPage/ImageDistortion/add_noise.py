@@ -25,9 +25,8 @@ def salt_pepper_noise(img, d):
 
 # for significant amount of noise, sigma should be above 10.
 def gaussian_noise(img, sigma):
-    height = img.shape[0]
-    width = img.shape[1]
-    noise = np.random.normal(0, sigma, height * width * 3)
-    noise = noise.reshape(height, width, 3)
+    height, width, channels = img.shape
+    noise = np.random.normal(0, sigma, height * width * channels)
+    noise = noise.reshape(height, width, channels)
     img = img + noise
     return img
