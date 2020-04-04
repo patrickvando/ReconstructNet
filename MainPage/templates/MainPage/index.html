@@ -217,6 +217,7 @@ function init(){
 }
 
 fileField.onchange = function(e){
+    $(".btn").prop("disabled", true);
     formData.append('main_img', fileField.files[0]);
     fetch("{% url 'upload' %}"
     , {
@@ -227,10 +228,12 @@ fileField.onchange = function(e){
     }).then((blob) => {
         let objectURL = URL.createObjectURL(blob);
         document.getElementById("picture").src=objectURL;
+        $(".btn").prop("disabled", false);
     });
     
 }
 function reset(){
+    $(".btn").prop("disabled", true);
     fetch("{% url 'reset' %}"
     , {
       method: 'GET',
@@ -239,10 +242,12 @@ function reset(){
     }).then((blob) => {
         let objectURL = URL.createObjectURL(blob);
         document.getElementById("picture").src=objectURL;
+        $(".btn").prop("disabled", false);
     });
 }
 
 function grayscale_button(){
+    $(".btn").prop("disabled", true);
     fetch("{% url 'grayscale_button' %}"
     , {
       method: 'GET',
@@ -251,10 +256,12 @@ function grayscale_button(){
     }).then((blob) => {
         let objectURL = URL.createObjectURL(blob);
         document.getElementById("picture").src=objectURL;
+        $(".btn").prop("disabled", false);
     });
 }
 
 function salt_pepper_noise_button(){
+    $(".btn").prop("disabled", true);
     var params = {
         "d": $('#saltAndPepperRange').val(),
     }
@@ -266,15 +273,16 @@ function salt_pepper_noise_button(){
     }).then((blob) => {
         let objectURL = URL.createObjectURL(blob);
         document.getElementById("picture").src=objectURL;
+        $(".btn").prop("disabled", false);
     });
 }
 function gaussian_noise_button(){
+    $(".btn").prop("disabled", true);
     var params = {
         "sigma": $('#gaussianRange').val(),
     }
 
     fetch("{% url 'gaussian_noise_button' %}" + "?" + $.param(params)
-
     , {
       method: 'GET',
     }).then((response) => {
@@ -282,16 +290,17 @@ function gaussian_noise_button(){
     }).then((blob) => {
         let objectURL = URL.createObjectURL(blob);
         document.getElementById("picture").src=objectURL;
+        $(".btn").prop("disabled", false);
     });
 }
 function add_patterns_button(){
+    $(".btn").prop("disabled", true);
     var params = {
         "maxRatio": $('#maxRatioRange').val(),
         "maxLines": $('#maxLinesRange').val(),
         "maxCircles": $('#maxCirclesRange').val(),
         "maxEllipses": $('#maxEllipsesRange').val(),
     }
-
     fetch("{% url 'add_patterns_button' %}" + "?" + $.param(params)
     , {
       method: 'GET',
@@ -300,10 +309,12 @@ function add_patterns_button(){
     }).then((blob) => {
         let objectURL = URL.createObjectURL(blob);
         document.getElementById("picture").src=objectURL;
+        $(".btn").prop("disabled", false);
     });
 }
 
 function sharpen_button(){
+    $(".btn").prop("disabled", true);
     fetch("{% url 'sharpen_button' %}"
     , {
       method: 'GET',
@@ -312,10 +323,12 @@ function sharpen_button(){
     }).then((blob) => {
         let objectURL = URL.createObjectURL(blob);
         document.getElementById("picture").src=objectURL;
+        $(".btn").prop("disabled", false);
     });
 }
 
 function contrast_button(){
+    $(".btn").prop("disabled", true);
     fetch("{% url 'contrast_button' %}"
     , {
       method: 'GET',
@@ -324,6 +337,7 @@ function contrast_button(){
     }).then((blob) => {
         let objectURL = URL.createObjectURL(blob);
         document.getElementById("picture").src=objectURL;
+        $(".btn").prop("disabled", false);
     });
 }
 </script>
