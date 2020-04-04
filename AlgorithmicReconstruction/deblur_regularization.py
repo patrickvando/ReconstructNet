@@ -39,16 +39,17 @@ def matlab_style_gauss2D(shape=(3, 3), sigma=0.5):
 def deblur_regularization(
 		original_image, rho=1, lambda_=0.01,
 		thresh_x=5e-2, alpha=1, multiplier=2):
+
 	B = original_image
-	((width, height, channels)) = np.shape(B)
+	(width, height, channels) = np.shape(B)
 
 	# x = np.reshape(B, [], 1)
 	x = B
-	gamma_new = np.zeros(((width, height, channels)))
-	tau_new = np.zeros(((width, height, channels)))
+	gamma_new = np.zeros((width, height, channels))
+	tau_new = np.zeros((width, height, channels))
 	x_new = x
 
-	diff_x = np.ones(((width, height, channels)))
+	diff_x = np.ones((width, height, channels))
 
 	count = 0
 
@@ -64,13 +65,13 @@ def deblur_regularization(
 	RhoEye = rho * np.ones(width, height)
 	LHS = eigs_AtA + RhoEye
 
-	RHS1 = np.zeros(((width, height, channels)))
+	RHS1 = np.zeros((width, height, channels))
 
 	for i in range(channels):
 		RHS1[:, :, i] = np.multiply(eigs, np.fft.fft2(B[:, :, i]))
 
 	rnorm = tf.norm(gamma_new)
-	Wx = np.zeros(((width, height, channels)))
+	Wx = np.zeros((width, height, channels))
 
 	while termination(diff_x, thresh_x) is False and count < 1000:
 		count = count + 1
