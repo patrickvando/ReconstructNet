@@ -26,7 +26,7 @@ SECRET_KEY = '4efdv0bo4bqqs^ln=bqpt@kf+dxsy^c&&-c9ltoub$bu0j2@54'
 DEBUG = True
 
 #change pvd17 to your pythonanywhere username
-ALLOWED_HOSTS = ['localhost', 'patrickvando.pythonanywhere.com','127.0.0.1']
+ALLOWED_HOSTS = ['localhost', 'patrickvando.pythonanywhere.com','127.0.0.1', 'www.reconstructnet.com']
 
 
 # Application definition
