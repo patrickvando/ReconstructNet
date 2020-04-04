@@ -117,3 +117,5 @@ def save_as_edited_image(img_path, user_picture):
         user_picture.edited_img = edited_img_directory + tail
         user_picture.save()
  
+def testIndex(request): 
+    return render(request, 'MainPage/testTemplate.html') 

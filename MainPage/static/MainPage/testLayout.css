@@ -10,34 +10,24 @@
 	display: flex;
 }
 
-.c1 {
-	background-color: #F4F0CB;
+.background {
+    background-color: coral;
 }
 
-.c2 {
-	background-color: #DED29E;
-}
-
-.c3 {
-	background-color: #B3A580;
-}
-
-.pictureContainer {
-	position: relative;
-}
-
-.imageMain {
+.container {
+    position: relative;
+    width: 50%;
+  }
+  
+  .image {
     display: block;
-	height: auto;
+    width: 100%;
+    height: auto;
     transition: .5s ease;
     backface-visibility: hidden;
-}
-
-.imageBackground{
-	background-color: #000000;
-}
-
-.middle {
+  }
+  
+  .middle {
     transition: .5s ease;
     position: absolute;
     top: 50%;
@@ -45,20 +35,27 @@
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     text-align: center;
-}
+  }
 
-.transparent {
-	opacity: 0;
-}
-
-.semitransparent {
-    opacity: 0.3;
-}
-
-.opaque {
-    opacity: 1;
-}
-
+  .transparent {
+      opacity: 0;
+  }
   
+  .semitransparent {
+    opacity: 0.3;
+  }
+  
+  .opaque {
+    opacity: 1;
+  }
+  
+  .text {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+  }
 
-
+  .hidden {
+      display: none;
+  }
