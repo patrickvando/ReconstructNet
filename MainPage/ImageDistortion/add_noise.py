@@ -4,29 +4,22 @@ import shutil
 import os
 from random import random
 
-
-# d should be between 0 and 1, determines level of salt/pepper noise
 def salt_pepper_noise(img, d):
-    height = img.shape[0]
-    width = img.shape[1]
-    for y in range(0, height):
-        for x in range(0, width):
-            r = random()
-            if r <= d / 2:
-                img[y, x, 0] = 255
-                img[y, x, 1] = 255
-                img[y, x, 2] = 255
-            elif r <= d:
-                img[y, x, 0] = 0
-                img[y, x, 1] = 0
-                img[y, x, 2] = 0
+    height, width, channels = img.shape
+    random = np.random.rand(height*width)
+    random = np.tile(random, (channels, 1))
+    random = np.swapaxes(random, 0, 1)
+    random = random.reshape(img.shape)
+    img[random < d/2] = 0
+    img[random >= 1-d/2] = 255 
     return img
 
-
-# for significant amount of noise, sigma should be above 10.
 def gaussian_noise(img, sigma):
     height, width, channels = img.shape
-    noise = np.random.normal(0, sigma, height * width * channels)
+    noise = np.random.normal(0, sigma, height*width*channels)
     noise = noise.reshape(height, width, channels)
     img = img + noise
+    img = np.minimum(img, np.full(img.shape, 255))
+    img = np.maximum(img, np.full(img.shape, 0))
+    img = img.astype(np.uint8)
     return img
