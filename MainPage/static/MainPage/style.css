@@ -1,0 +1,150 @@
+html, body {
+/*  height: 100%;
+  width: 100%;*/
+  font-family: 'Roboto Mono', monospace;
+  font-size: 14px;
+}
+
+.container-fluid {
+/*  width:100%;
+  min-height: 100%;*/
+}
+/*
+.imageContainer img {
+   width: 100%;
+}*/
+
+.logo {
+  position: relative;
+  background-color: #ffffff;
+  color: black;  
+
+}
+
+.logoBtn {
+  border: none;
+  color: #000000;
+  cursor: pointer;
+  padding: 32px 32px;
+  font-size: 32px;
+}
+
+.min-100 {
+    min-height: 100%;
+}
+
+
+.menubarBtn {
+  border: 1px solid #495057;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.menubarBtnDisabled {
+  border: 1px solid #6c757d;
+  color: #6c757d;
+  cursor: default;
+}
+
+.menubarBtnDisabled:hover {
+  border: 1px solid #6c757d;
+  color: #6c757d;
+  cursor: default;
+}
+
+
+.menubarBtnEnabled:hover {
+  color: #0056b3;
+}
+
+.btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.workspaceBtn {
+  border: 1px solid whitesmoke;
+  color: whitesmoke;
+  cursor: pointer;
+  opacity:0.5;
+}
+
+.workspaceBtn:hover {
+  color: whitesmoke;
+  opacity:1;
+  transition: 0.2s;
+}
+
+.card {
+  border-radius: 0;
+  border-color: #495057;
+  border-right-width: 0;
+  border-left-width: 0;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid #495057;
+
+}
+
+.fade {
+    -webkit-transition-duration: 0s;  Safari 
+    transition-duration: 0s;
+}
+
+.nav-link {
+  height: 100%;
+}
+.nav-tabs .nav-item.show .nav-link {
+    background-color: #ffffff;
+    border-top-color: #ffffff;
+    border-left-color: #ffffff;
+    border-right-color: #ffffff;
+    border-bottom-color: #ffffff;
+  }
+
+.nav-tabs .nav-link:hover {
+    /*border-color: #0000FF #0000FF #0000FF;*/
+    border-top-color: #495057;
+    border-left-color: #495057;
+    border-right-color: #495057;
+    border-bottom-color: #495057;
+}
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link.active {
+    background-color: #ffffff;
+    border-color: #495057 #495057 #ffffff;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #ffffff;
+}
+
+.r_workspace {
+  min-height: 100%
+}
+
+.tc1{
+  color: #ffffff;
+}
+
+.c1{
+  background-color: #ffffff;
+}
+.c2{
+
+  background-color: #ffffff;
+}
+
+.c3{
+  background-color: #bbb6b6;
+}
+
+.c4{
+  background-color: #424246;
+}
+.c5{
+  background-color: #212121;
+}
+
+
