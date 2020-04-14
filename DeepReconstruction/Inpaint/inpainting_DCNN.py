@@ -1,40 +1,20 @@
 import numpy as np
 import tensorflow as tf
+import keras.backend as kb
 from MainPage.ImageDistortion.add_patterns import add_random_patterns
 from tensorflow.keras.layers import *
 from tensorflow.keras.models import *
 from tensorflow.keras.optimizers import *
 from tensorflow.keras.callbacks import *
+from keras_preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
 import random
-
-gpus = tf.config.experimental.list_physical_devices('GPU')
-if gpus:
-    try:
-        for gpu in gpus:
-            tf.config.experimental.set_memory_growth(gpu, True)
-    except RuntimeError as e:
-        print(e)
-
-# loading the CIFAR10 dataset using keras
-(image_train, label_train), (image_test, label_test) = tf.keras.datasets.cifar10.load_data()
-image_train = image_train / 255
-
-image_validate = image_train[-int(image_train.shape[0] / 5):]
-image_train = image_train[:-int(image_train.shape[0] / 5)]
-image_test = image_test / 255
+import gc
 
 
-def in_mask_cifar(inp):
-    x = inp + np.zeros(inp.shape)
-    for i in range(inp.shape[0]):
-        x[i] = add_random_patterns(inp[i], 0.05, 5, 5, 5)
-    return x
-
-
-image_train_masked = in_mask_cifar(image_train)
-image_test_masked = in_mask_cifar(image_test)
-image_validate_masked = in_mask_cifar(image_validate)
+def keras_mse_l1_loss(y_actual, y_predicted):
+    loss = kb.mean(kb.sum(kb.square(y_actual - y_predicted))) + kb.mean(kb.sum(kb.abs(y_predicted))) * 0.02
+    return loss
 
 
 # the U-Net model
@@ -84,7 +64,7 @@ def unet(pretrained_weights=None, input_size=(28, 28, 1)):
 
     model = Model(inputs, conv8)
 
-    model.compile(optimizer=Adam(lr=5e-4), loss='mse')
+    model.compile(optimizer=Adam(lr=5e-4), loss=keras_mse_l1_loss)
     if pretrained_weights:
         model.load_weights(pretrained_weights)
 
@@ -140,93 +120,132 @@ def unet_2(pretrained_weights=None, input_size=(28, 28, 1)):
     return model
 
 
-# training for CIFAR dataset
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+    except RuntimeError as e:
+        print(e)
 
-EPOCHS = 10             # the number of epochs
-BATCH_SIZE = 64        # the batch size
-random.seed(666)
+# loading the CIFAR10 dataset using keras
+(image_train, label_train), (image_test, label_test) = tf.keras.datasets.cifar10.load_data()
+image_train = image_train / 255
 
+# image_train = np.concatenate(datagen.flow(image_train, None, batch_size=64), axis=0)
+# print(image_train)
+
+image_validate = image_train[-int(image_train.shape[0] / 5):]
+image_train = image_train[:-int(image_train.shape[0] / 5)]
+image_test = image_test / 255
+
+print(image_validate.shape[0])
+print(image_train.shape[0])
+print(image_test.shape[0])
+
+
+def in_mask_cifar(inp):
+    x = inp + np.zeros(inp.shape)
+    for i in range(inp.shape[0]):
+        x[i] = add_random_patterns(inp[i], 0.10, 5, 5, 5)
+    return np.array(x)
+
+
+SEED = 666
+image_test_masked = in_mask_cifar(image_test)
 unet_cifar = unet(None, (32, 32, 3))
-file_path = "cifar-{epoch:02d}-{val_loss:.3f}.hdf5"
 
-try:
-    unet_cifar.load_weights(file_path, by_name=True)
-except:
-    pass
+for i in range(30):
+    print("======================================== Trial ", i + 1, " ========================================")
 
-checkpoint = ModelCheckpoint(file_path, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
-callbacks_list = [checkpoint]
+    train_datagen = ImageDataGenerator(
+        featurewise_center=True,
+        featurewise_std_normalization=True,
+        rotation_range=45,
+        width_shift_range=0.4,
+        height_shift_range=0.4,
+        shear_range=0.2,
+        zoom_range=0.4,
+        horizontal_flip=True
+    )
 
-history = unet_cifar.fit(image_train_masked, image_train, epochs=EPOCHS, batch_size=BATCH_SIZE,
-                         validation_data=(image_validate_masked, image_validate), callbacks=callbacks_list)
+    validate_datagen = ImageDataGenerator(
+        featurewise_center=True,
+        featurewise_std_normalization=True,
+        rotation_range=45,
+        width_shift_range=0.4,
+        height_shift_range=0.4,
+        shear_range=0.2,
+        zoom_range=0.4,
+        horizontal_flip=True
+    )
+
+    train_datagen.fit(image_train)
+    validate_datagen.fit(image_validate)
+
+    image_train_augment = train_datagen.flow(image_train, None, batch_size=40000)
+    image_validate_augment = train_datagen.flow(image_validate, None, batch_size=10000)
+
+    image_train = image_train_augment[0]
+    image_validate = image_validate_augment[0]
+
+    image_train_masked = in_mask_cifar(image_train)
+    image_validate_masked = in_mask_cifar(image_validate)
+
+    EPOCHS = 4  # the number of epochs
+    BATCH_SIZE = 64  # the batch size
+    random.seed(666)
+    # file_path = "cifar-{epoch:02d}-{val_loss:.3f}.hdf5"
+    #
+    # try:
+    #     unet_cifar.load_weights(file_path, by_name=True)
+    # except:
+    #     pass
+    #
+    # checkpoint = ModelCheckpoint(file_path, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
+    # callbacks_list = [checkpoint]
+
+    unet_cifar.fit(image_train_masked, image_train, epochs=EPOCHS, batch_size=BATCH_SIZE,
+                   validation_data=(image_validate_masked, image_validate))
+    gc.collect()
+
+    # get CIFAR images (original, noisy, reconstructed)
+    img = image_test[19]
+    cimg = image_test_masked[19]
+    pred_img = unet_cifar.predict(image_test_masked[0:20])[19]
+
+    print("\n\n\nOriginal Image")
+    print(img)
+    print("\n\n\nDistorted Image")
+    print(cimg)
+    print("\n\n\nPredicted Image")
+    print(pred_img)
+
+    fig, axs = plt.subplots(3, 3)
+    axs[0, 0].imshow(np.clip(img, 0, 1))
+    axs[0, 1].imshow(np.clip(cimg, 0, 1))
+    axs[0, 2].imshow(np.clip(pred_img, -1, 1))
+
+    img = image_test[16]
+    cimg = image_test_masked[16]
+    pred_img = unet_cifar.predict(image_test_masked[0:20])[16]
+
+    axs[1, 0].imshow(np.clip(img, 0, 1))
+    axs[1, 1].imshow(np.clip(cimg, 0, 1))
+    axs[1, 2].imshow(np.clip(pred_img, 0, 1))
+
+    img = image_test[24]
+    cimg = image_test_masked[24]
+    pred_img = unet_cifar.predict(image_test_masked[0:25])[24]
+
+    axs[2, 0].imshow(np.clip(img, 0, 1))
+    axs[2, 1].imshow(np.clip(cimg, 0, 1))
+    axs[2, 2].imshow(np.clip(pred_img, 0, 1))
+
+    plt.show()
+
 
 unet_cifar.save("cifar_unet.h5")
 
 
-# def compress(images, mode_name):
-#     size = images.shape
-#     mean = 0
-#     variance = 0.1
-#     sigma = variance ** 1/2
-#     noise = np.random.normal(mean, sigma, size)
-#     return images + noise
 
-
-# compressed_image_train = compress(image_train, 123)
-# compressed_image_validate = compress(image_validate, 123)
-# compressed_image_test = compress(image_test, 123)
-
-# get CIFAR images (original, noisy, reconstructed)
-img = image_test[0]
-cimg = image_test_masked[0]
-pred_img = unet_cifar.predict(image_test_masked[0:5])[0]
-
-print("\n\n\nOriginal Image")
-print(img)
-print("\n\n\nDistorted Image")
-print(cimg)
-print("\n\n\nPredicted Image")
-print(pred_img)
-
-# plt.figure(1)
-# plt.imshow(np.clip(img, 0, 1))
-# # plt.interactive(True)
-# plt.show()
-#
-# plt.figure(2)
-# plt.imshow(np.clip(cimg, 0, 1))
-# # plt.interactive(True)
-# plt.show()
-#
-# plt.figure(3)
-# plt.imshow(np.clip(pred_img, 0, 1))
-# # plt.interactive(True)
-# plt.show()
-#
-# # plt.figure(4)
-# # plt.imshow(np.clip(img - cimg, 0, 1))
-# # # plt.interactive(True)
-# # plt.show()
-
-fig, axs = plt.subplots(3, 3)
-axs[0, 0].imshow(np.clip(img, 0, 1))
-axs[0, 1].imshow(np.clip(cimg, 0, 1))
-axs[0, 2].imshow(np.clip(pred_img, -1, 1))
-
-img = image_test[1]
-cimg = image_test_masked[1]
-pred_img = unet_cifar.predict(image_test_masked[0:5])[1]
-
-axs[1, 0].imshow(np.clip(img, 0, 1))
-axs[1, 1].imshow(np.clip(cimg, 0, 1))
-axs[1, 2].imshow(np.clip(pred_img, 0, 1))
-
-img = image_test[4]
-cimg = image_test_masked[4]
-pred_img = unet_cifar.predict(image_test_masked[0:5])[4]
-
-axs[2, 0].imshow(np.clip(img, 0, 1))
-axs[2, 1].imshow(np.clip(cimg, 0, 1))
-axs[2, 2].imshow(np.clip(pred_img, 0, 1))
-
-plt.show()
