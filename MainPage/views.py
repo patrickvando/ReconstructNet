@@ -12,6 +12,56 @@ import numpy
 import shutil
 import os
 import sys
+import time
+
+
+def call_alg(request):
+    #input validation needed for most of these
+    if request.method == 'GET':
+        if request.GET['wait'] == "true":
+            time.sleep(0.5)
+        if request.GET['alg_name'] == "addSaltAndPepperNoise":
+            val = float(request.GET['val'])
+            return run_alg(request, salt_pepper_noise, val)
+        elif request.GET['alg_name'] ==  "addGaussianNoise":
+            print(request)
+            val = float(request.GET['val'])
+            return run_alg(request, gaussian_noise, val)
+        elif request.GET['alg_name'] == "reset":
+            user_picture = Picture.objects.get(session_id=request.session.session_key)
+            path = user_picture.main_img.path
+            save_as_edited_image(path, user_picture)
+            return FileResponse(open(user_picture.edited_img.path, 'rb'))          
+        else:
+            #raise 404?
+            return 
+
+#https://docs.djangoproject.com/en/3.0/ref/csrf/
+@csrf_exempt
+#get crsft working later
+def upload(request):
+    print("upload got")
+    if request.method == 'POST': 
+        user_picture = Picture.objects.get(session_id=request.session.session_key)
+        form = PictureForm(request.POST, request.FILES, instance=user_picture) 
+        if form.is_valid(): 
+            form.save()
+            path = user_picture.main_img.path
+            print(path)
+            save_as_edited_image(path, user_picture)
+            print("valid")
+            return FileResponse(open(user_picture.main_img.path, 'rb'))
+
+
+
+def run_alg(request, alg, val):
+    user_picture = Picture.objects.get(session_id=request.session.session_key)
+    img = cv2.imread(user_picture.edited_img.path)
+    img = alg(img, val)
+    cv2.imwrite(user_picture.edited_img.path, img)
+    return FileResponse(open(user_picture.edited_img.path, 'rb'))
+
+
 
 def grayscale(img_path):
     img = cv2.imread(img_path)   # reads an image in the BGR format
@@ -77,18 +127,6 @@ def grayscale_button(request):
         grayscale(user_picture.edited_img.path)
         return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
-#https://docs.djangoproject.com/en/3.0/ref/csrf/
-@csrf_exempt
-#get crsft working later
-def upload(request):
-    if request.method == 'POST': 
-        user_picture = Picture.objects.get(session_id=request.session.session_key)
-        form = PictureForm(request.POST, request.FILES, instance=user_picture) 
-        if form.is_valid(): 
-            form.save()
-            path = user_picture.main_img.path
-            save_as_edited_image(path, user_picture)
-            return FileResponse(open(user_picture.main_img.path, 'rb'))
 
 def reset(request):
     if request.method == 'GET':

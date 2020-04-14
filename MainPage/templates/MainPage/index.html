@@ -1,246 +1,366 @@
 {% load static %}
-<!--Doesnt load jqery with current bootstrap version (3 vs 4)-->
-<!doctype html>
-<html lang="en">
-<!--head>
-
-    <link href="{% static 'MainPage/layout.css' %}" rel="stylesheet">
-    <link href="{% static 'MainPage/lux_bootstrap.min.css' %}" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-</head-->
+<!DOCTYPE html>
+<html lang="en" class="h-100">
 <head>
-  <title>ReconstructNet</title>
+  <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link href="{% static 'MainPage/layout.css' %}" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'MainPage/style.css' %}"">
 </head>
-<body>
-
-
-<div class="flex-container c1 wrapper">
-    <div style="flex-grow: 1">
-        <div class="d-flex align-content-stretch flex-column c2 sidebar">
-            <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block" onclick="grayscale_button()">greyscale</button>
-            </div>
-            <div class="p-2">
-                <div class="card">
-                     <div class="card-header" id="headingOne">
-                         <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSaltAndPepper" aria-expanded="false" aria-controls="collapseSaltAndPepper">
-                                 Add Salt and Pepper Noise
-                            </button>
-                        </h5>
-                    </div>
-
-                    <div class="collapse" id="collapseSaltAndPepper">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-center my-4">
-                                <div class="w-75">
-                                    Noise level
-                                   <input type="range" class="custom-range" id="saltAndPepperRange" step="0.01" min="0" max="1">
-                                </div>
-                                <span class="font-weight-bold text-primary ml-2 saltAndPepperSpan"></span>
-                            </div>
-                            <button type="button" class="btn btn-primary btn-block" onclick="salt_pepper_noise_button()">Add salt and pepper noise</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="p-2">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseGaussian" aria-expanded="false" aria-controls="collapseGaussian">
-                                Add Gaussian Noise
-                            </button>
-                        </h5>
-                    </div>
-
-                    <div class="collapse" id="collapseGaussian">
-                        <div class="card-body">
-                            Sigma
-                            <input type="number" id="gaussianRange" value=100 />
-                            <button type="button" class="btn btn-primary btn-block" onclick="gaussian_noise_button()">Add gaussian noise</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block">Remove Noise</button>
-            </div>  
-            <div class="p-2">
-                 <div class="card">
-                     <div class="card-header" id="headingOne">
-                         <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseWatermark" aria-expanded="false" aria-controls="collapseWatermark">
-                                 Add Watermark
-                            </button>
-                        </h5>
-                    </div>
-
-                    <div class="collapse" id="collapseWatermark">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-center my-4">
-                                <div class="w-75">
-                                   Max size ratio 
-                                   <input type="range" class="custom-range" id="maxRatioRange" step="0.01" min="0.01" max="0.30">
-                                </div>
-                                <span class="font-weight-bold text-primary ml-2 maxRatioSpan"></span>
-                            </div>
-
-                            <div class="d-flex justify-content-center my-4">
-                                <div class="w-75">
-                                    Max lines
-                                   <input type="range" class="custom-range" id="maxLinesRange" step="1" min="0" max="10">
-                                </div>
-                                <span class="font-weight-bold text-primary ml-2 maxLinesSpan"></span>
-                            </div>
-
-                            <div class="d-flex justify-content-center my-4">
-                                <div class="w-75">
-                                    Max circles
-                                   <input type="range" class="custom-range" id="maxCirclesRange" step="1" min="0" max="10">
-                                </div>
-                                <span class="font-weight-bold text-primary ml-2 maxCirclesSpan"></span>
-                            </div>
-
-                            <div class="d-flex justify-content-center my-4">
-                                <div class="w-75">
-                                    Max ellipses
-                                   <input type="range" class="custom-range" id="maxEllipsesRange" step="1" min="0" max="10">
-                                </div>
-                                <span class="font-weight-bold text-primary ml-2 maxEllipsesSpan"></span>
-                            </div>                                                                                    
-                            <button type="button" class="btn btn-primary btn-block" onclick="add_patterns_button()">Add Watermarks</button>
-                        </div>
-                    </div>
-                </div>
-            </div>  
-            <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block">Remove Watermarks</button>
-            </div>  
-            <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block" onclick="sharpen_button()">Sharpen</button>
-            </div>  
-            <div class="p-2">
-                <button type="button" class="btn btn-primary btn-block" onclick="contrast_button()">Contrast</button>
-            </div>
-            
-
-
-        </div> 
-    </div>
-    <div style="flex-grow: 4">
-        <div class="d-flex flex-column">
-            <div class="p-2">
-                <div class="d-flex flex-row c3">
-                    <div class="p-2">
-                        <input type="file" accept="image/*" id="upload">
-                    </div>
-                    <div class="p-2 ml-auto">
-                        <button type="button" class="btn btn-primary" onclick="reset()">Reset</button>
-                    </div>
-                    <div class="p-2">
-                        <button type="button" class="btn btn-primary">Download</button>
-                    </div>
-                </div>
-            </div>
-            <div class="p-2">
-                <div class = "d-flex justify-content-center pictureContainer">
-                    <div class="imageBackground">
-                        <img alt="Test Picture" id = "picture" class="imageMain opaque">
-                        </div>
-                        <div class="middle transparent" id="spinner">
-                            <div class="spinner-border text-white-50" style="width: 3rem; height: 3rem;" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                    </div>    
+<body class="h-100"> 
+<div class="container-fluid row h-100">
+    <div class = "r_menubar col-3 c2 d-flex flex-column">
+        <div class = "row justify-content-center">
+            <div class = "p-4 align-self-center logo">
+                    <form action="https://github.com/patrickvando/ReconstructNet">
+                        <button type="submit" class = "btn logoBtn">ReconstructNet</button>
+                    </form>                     
+                    <!-- <font size = "6">ReconstructNet</font> -->
             </div>
         </div>
-    </div> 
+        <div class = "row">
+            <div class="accordion flex-grow-1" id="accordionMenu">
+                <div class="card">
+                    <div class="card-header c2" id="headingNoise" >
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseNoise" aria-expanded="true" aria-controls="collapseNoise">
+                                <u>Noise</u>
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseNoise" class="collapse" aria-labelledby="headingNoise" data-parent="#accordionMenu">
+                        <div class="card-body c1">
+                            <ul class="nav nav-tabs" id="noiseTab" role="tablist">
+                                <li class="nav-item  w-50">
+                                    <a class="nav-link active text-center" id="addNoiseTab" data-toggle="tab" href="#addNoise" role="tab" aria-controls="addNoise" aria-selected="true">Add Noise</a>
+                                </li>
+                                <li class="nav-item w-50">
+                                    <a class="nav-link text-center" id="removeNoiseTab" data-toggle="tab" href="#removeNoise" role="tab" aria-controls="removeNoise" aria-selected="false">Remove Noise</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="noiseTabContent">
+                                <div class="tab-pane fade show active" id="addNoise" role="tabpanel" aria-labelledby="addNoiseTab">
+                                    <div class = "addSaltAndPepperNoiseRow row p-4">
+                                        <div class = "col-8 ">
+                                            <form>
+                                                <div class="form-group ">
+                                                    <label for="addSaltAndPepperNoiseControlRange">Add Salt and Pepper Noise</label>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addSaltAndPepperNoiseControlRange" step="0.01" min="0" max="1">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class = "col-2 align-self-center" id="addSaltAndPepperNoiseControlRangeValue">
+                                            5
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button id="addSaltAndPepperNoise" type="button" class="menubarBtn btn hasRangeParam">Add</button>
+                                        </div>
+                                    </div>
+                                    <div class = "addGaussianRow row p-4">
+                                        <div class = "col-8 ">
+                                            <form>
+                                                <div class="form-group ">
+                                                    <label for="gaussianControlRange">Add Gaussian Noise</label>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addGaussianNoiseControlRange" step = "1" min="0" max = "100">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class = "col-2 align-self-center" id="addGaussianNoiseControlRangeValue">
+                                            50
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn hasRangeParam" id="addGaussianNoise">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="removeNoise" role="tabpanel" aria-labelledby="removeNoiseTab">
+                                    <div class = "removeSaltAndPepperRow row p-4">
+                                        <div class = "col-9 ">
+                                            Use a Neural Network to remove Salt and Pepper Noise
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn">Remove</button>
+                                        </div>
+                                    </div>
+                                    <div class = "removeGaussianRow row p-4">
+                                        <div class = "col-9 ">
+                                            Use a Neural Network to remove Gaussian Noise
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn">Remove</button>
+                                        </div>
+                                    </div>                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header c2" id="headingBlur">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseBlur" aria-expanded="false" aria-controls="collapseBlur">
+                                <u>Blur</u>
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseBlur" class="collapse" aria-labelledby="headingBlur" data-parent="#accordionMenu">
+                        <div class="card-body c1">
+                            <ul class="nav nav-tabs" id="blurTab" role="tablist">
+                                <li class="nav-item  w-50">
+                                    <a class="nav-link active text-center" id="addBlurTab" data-toggle="tab" href="#addBlur" role="tab" aria-controls="addBlur" aria-selected="true">Add Blur</a>
+                                </li>
+                                <li class="nav-item w-50">
+                                    <a class="nav-link text-center" id="removeBlurTab" data-toggle="tab" href="#removeBlur" role="tab" aria-controls="removeBlur" aria-selected="false">Remove Blur</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="blurTabContent">
+                                <div class="tab-pane fade show active" id="addBlur" role="tabpanel" aria-labelledby="addBlurTab">
+                                    <div class = "addGaussianBlurPepperRow row p-4">
+                                        <div class = "col-9 ">
+                                            <form>
+                                                <div class="form-group ">
+                                                    <label for="gaussianBlurControlRange">Add Gaussian Blur</label>
+                                                    <input type="range" class="form-control-range align-self-center" id="gaussianBlurControlRange">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class = "col-1 align-self-center gaussianBlurControlRangeValue">
+                                            0.5
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn">Add</button>
+                                        </div>
+                                    </div>
+                                    <div class = "addHorizontalBlurRow row p-4">
+                                        <div class = "col-9 ">
+                                            <form>
+                                                <div class="form-group ">
+                                                    <label for="horizontalBlurControlRange">Add Horizontal Blur</label>
+                                                    <input type="range" class="form-control-range align-self-center" id="horizontalBlurControlRange">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            5
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn">Add</button>
+                                        </div>
+                                    </div>
+                                    <div class = "addVerticalBlurRow row p-4">
+                                        <div class = "col-9 ">
+                                            <form>
+                                                <div class="form-group ">
+                                                    <label for="verticalBlurControlRange">Add Vertical Blur</label>
+                                                    <input type="range" class="form-control-range align-self-center" id="verticalBlurControlRange">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            5
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn">Add</button>
+                                        </div>
+                                    </div>                                        
+                                </div>
+                                <div class="tab-pane fade" id="removeBlur" role="tabpanel" aria-labelledby="removeBlurTab">
+                                    <div class = "removeGaussianBlurRow row p-4">
+                                        <div class = "col-9 ">
+                                            Use a Neural Network to remove Gaussian Blur
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn">Remove</button>
+                                        </div>
+                                    </div>
+                                    <div class = "removeHorizontalRow row p-4">
+                                        <div class = "col-9 ">
+                                            Use a Neural Network to remove Horizontal Blur
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn">Remove</button>
+                                        </div>
+                                    </div>
+                                    <div class = "removeVerticalRow row p-4">
+                                        <div class = "col-9 ">
+                                            Use a Neural Network to remove Vertical Blur
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn">Remove</button>
+                                        </div>
+                                    </div>                                                                              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header c2" id="headingInpaint">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseInpaint" aria-expanded="false" aria-controls="collapseInpaint">
+                                <u>Inpainting</u>
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseInpaint" class="collapse" aria-labelledby="headingInpaint" data-parent="#accordionMenu">
+                        <div class="card-body c1">
+                            <ul class="nav nav-tabs" id="blurTab" role="tablist">
+                                <li class="nav-item  w-50">
+                                    <a class="nav-link active text-center" id="addInpaintingTab" data-toggle="tab" href="#addInpainting" role="tab" aria-controls="addInpainting" aria-selected="true">Add Inpainting</a>
+                                </li>
+                                <li class="nav-item w-50">
+                                    <a class="nav-link text-center" id="removeInpaintingTab" data-toggle="tab" href="#removeInpainting" role="tab" aria-controls="removeInpainting" aria-selected="false">Remove Inpainting</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="inpaintingTabContent">
+                                <div class="tab-pane fade show active" id="addInpainting" role="tabpanel" aria-labelledby="addInpaintingTab">
+                                    <div class = "addInpaintingRow row p-4">
+                                        <div class = "col-9 ">
+                                            <form>
+                                                <div class="form-group ">
+                                                    <label for="inpaintingControlRange">Add Inpainting</label>
+                                                    <input type="range" class="form-control-range align-self-center" id="inpaintingControlRange">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            5
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="removeInpainting" role="tabpanel" aria-labelledby="removeInpaintingTab">
+                                    <div class = "removeInpaintingRow row p-4">
+                                        <div class = "col-9 ">
+                                            Use a Neural Network to remove Inpainting
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn">Remove</button>
+                                        </div>
+                                    </div>                                                                             
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header c2" id="headingMisc">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseMisc" aria-expanded="false" aria-controls="collapseMisc">
+                                <u>Misc</u>
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseMisc" class="collapse" aria-labelledby="headingMisc" data-parent="#accordionMenu">
+                        <div class="card-body c1">
+                            <a href="https://google.com"> hello </a>
+                            Hello World
+                        </div>
+                    </div>
+                </div>                    
+            </div>
+        </div>
+        <div class = "mt-auto row p-4 justify-content-center">
+            <div class = "col-5">
+                <button id="reset" type="button" class="w-100 menubarBtn btn">Reset</button>
+            </div>
+            <div class = "col-5">
+                    <button type="button" class="w-100 menubarBtn btn">Download</button>
+            </div>
+        </div>
+    </div>
+    <div class = "r_workspace col-9 c5 d-flex flex-column align-items-center">
+        <div class="p-3 mb-auto w-100">
+            <div class="d-flex flex-row">
+                <div class="p-2">
+                    <input type="file" accept="image/*" id="upload" class="tc1">
+                </div>
+            </div>
+        </div>
+        <div class="align-self-center p2 w-100">
+            <div class = "d-flex justify-content-center imageContainer">
+                <img alt="main_image" id = "mainImage" class = "img-fluid">
+            </div>
+        </div>        
+        <div class= "mt-auto p-3 w-100">
+            <div class="d-flex flex-row">
+                <div class="p-2 ml-auto">
+                    <form action="https://github.com/patrickvando/ReconstructNet">
+                        <button type="submit" class = "btn workspaceBtn">SOURCE CODE</button>
+                    </form>                
+                </div>
+            </div>
+        </div>            
+    </div>
 </div>
-
+</body>
 <script>
 
-function showLoading(isLoading){
-    if(isLoading == true){
-        $("#picture").addClass("semitransparent");
-        $("#picture").removeClass("opaque");
-        $("#spinner").addClass("opaque");
-        $("#spinner").removeClass("transparent");
-    }
-    else{
-        $("#picture").removeClass("semitransparent");
-        $("#picture").addClass("opaque");
-        $("#spinner").removeClass("opaque");
-        $("#spinner").addClass("transparent");
-    }
+function init(){
+    fetch("{% url 'call_alg' %}?alg_name=reset&wait=false"
+    , {
+      method: 'GET',
+    }).then((response) => {
+        return response.blob();
+    }).then((blob) => {
+        let objectURL = URL.createObjectURL(blob);
+        $("#mainImage").attr("src", objectURL);
+    });
+    enableBtns(true);
 }
 
-$(document).ready(function() {
 
-  const $valueSpan = $('.saltAndPepperSpan');
-  const $value = $('#saltAndPepperRange');
-  $valueSpan.html($value.val());
-  $value.on('input change', () => {
-
-    $valueSpan.html($value.val());
-  });
-
-  const $maxRatioSpan = $('.maxRatioSpan');
-  const $patternValue = $('#maxRatioRange');
-  $maxRatioSpan.html($patternValue.val());
-  $patternValue.on('input change', () => {
-
-    $maxRatioSpan.html($patternValue.val());
-  });
-
-  const $maxLinesSpan = $('.maxLinesSpan');
-  const $maxLinesValue = $('#maxLinesRange');
-  $maxLinesSpan.html($maxLinesValue.val());
-  $maxLinesValue.on('input change', () => {
-
-    $maxLinesSpan.html($maxLinesValue.val());
-  });
-
-    const $maxCirclesSpan = $('.maxCirclesSpan');
-  const $maxCirclesValue = $('#maxCirclesRange');
-  $maxCirclesSpan.html($maxCirclesValue.val());
-  $maxCirclesValue.on('input change', () => {
-
-    $maxCirclesSpan.html($maxCirclesValue.val());
-  });
-
-    const $maxEllipsesSpan = $('.maxEllipsesSpan');
-  const $maxEllipsesValue = $('#maxEllipsesRange');
-  $maxEllipsesSpan.html($maxEllipsesValue.val());
-  $maxEllipsesValue.on('input change', () => {
-
-    $maxEllipsesSpan.html($maxEllipsesValue.val());
-  });
+$('.controlRange').on('input change', function() {
+    valID = this.id + "Value";
+    $('#' + valID).html($(this).val());
 });
 
-const formData = new FormData();
-const fileField = document.getElementById("upload");
-
-init();
-function init(){
-    reset();
+function enableBtns(enabled){
+    if (enabled == true){
+        $(".menubarBtn").attr("disabled", false)
+        $(".menubarBtn").addClass("menubarBtnEnabled");        
+        $(".menubarBtn").removeClass("menubarBtnDisabled");
+    } else {
+        $(".menubarBtn").attr("disabled", true)
+        $(".menubarBtn").removeClass("menubarBtnEnabled");        
+        $(".menubarBtn").addClass("menubarBtnDisabled");
+    }
 }
 
-fileField.onchange = function(e){
-    $(".btn").prop("disabled", true);
-    formData.append('main_img', fileField.files[0]);
+
+$(".menubarBtn").click(function() {
+    enableBtns(false);
+    var params = {"alg_name": this.id, "wait": "true"}
+    if ($(this).hasClass("hasRangeParam")){
+        rangeID = this.id + "ControlRange"
+        params["val"] = $("#" + rangeID).val()
+    }
+    console.log(params);
+    fetch("{% url 'call_alg' %}" + "?" + $.param(params)
+    , {
+      method: 'GET',
+    }).then((response) => {
+        return response.blob();
+    }).then((blob) => {
+        let objectURL = URL.createObjectURL(blob);
+        $("#mainImage").attr("src", objectURL);
+        enableBtns(true);
+    });
+});
+
+
+$("#upload").on("change", function() {
+    console.log("uploaded")
+    enableBtns(false);
+    var formData = new FormData();
+    formData.append('main_img', $(this).prop('files'));
     fetch("{% url 'upload' %}"
     , {
       method: 'POST',
@@ -248,122 +368,28 @@ fileField.onchange = function(e){
     }).then((response) => {
         return response.blob();
     }).then((blob) => {
+        alert("success")
         let objectURL = URL.createObjectURL(blob);
-        document.getElementById("picture").src=objectURL;
-        $(".btn").prop("disabled", false);
+        $("#mainImage").attr("src", objectURL);
+        enableBtns(true);
     });
-    
-}
-function reset(){
-    $(".btn").prop("disabled", true);
-    fetch("{% url 'reset' %}"
-    , {
-      method: 'GET',
-    }).then((response) => {
-        return response.blob();
-    }).then((blob) => {
-        let objectURL = URL.createObjectURL(blob);
-        document.getElementById("picture").src=objectURL;
-        $(".btn").prop("disabled", false);
-    });
-}
+});
 
-function grayscale_button(){
-    $(".btn").prop("disabled", true);
-    fetch("{% url 'grayscale_button' %}"
-    , {
-      method: 'GET',
-    }).then((response) => {
-        return response.blob();
-    }).then((blob) => {
-        let objectURL = URL.createObjectURL(blob);
-        document.getElementById("picture").src=objectURL;
-        $(".btn").prop("disabled", false);
-    });
-}
 
-function salt_pepper_noise_button(){
-    $(".btn").prop("disabled", true);
-    var params = {
-        "d": $('#saltAndPepperRange').val(),
-    }
-    fetch("{% url 'salt_pepper_noise_button' %}" + "?" + $.param(params)
-    , {
-      method: 'GET',
-    }).then((response) => {
-        return response.blob();
-    }).then((blob) => {
-        let objectURL = URL.createObjectURL(blob);
-        document.getElementById("picture").src=objectURL;
-        $(".btn").prop("disabled", false);
-    });
-}
-function gaussian_noise_button(){
-    $(".btn").prop("disabled", true);
-    var params = {
-        "sigma": $('#gaussianRange').val(),
-    }
-
-    fetch("{% url 'gaussian_noise_button' %}" + "?" + $.param(params)
-    , {
-      method: 'GET',
-    }).then((response) => {
-        return response.blob();
-    }).then((blob) => {
-        let objectURL = URL.createObjectURL(blob);
-        document.getElementById("picture").src=objectURL;
-        $(".btn").prop("disabled", false);
-    });
-}
-function add_patterns_button(){
-    $(".btn").prop("disabled", true);
-    var params = {
-        "maxRatio": $('#maxRatioRange').val(),
-        "maxLines": $('#maxLinesRange').val(),
-        "maxCircles": $('#maxCirclesRange').val(),
-        "maxEllipses": $('#maxEllipsesRange').val(),
-    }
-    fetch("{% url 'add_patterns_button' %}" + "?" + $.param(params)
-    , {
-      method: 'GET',
-    }).then((response) => {
-        return response.blob();
-    }).then((blob) => {
-        let objectURL = URL.createObjectURL(blob);
-        document.getElementById("picture").src=objectURL;
-        $(".btn").prop("disabled", false);
-    });
-}
-
-function sharpen_button(){
-    $(".btn").prop("disabled", true);
-    fetch("{% url 'sharpen_button' %}"
-    , {
-      method: 'GET',
-    }).then((response) => {
-        return response.blob();
-    }).then((blob) => {
-        let objectURL = URL.createObjectURL(blob);
-        document.getElementById("picture").src=objectURL;
-        $(".btn").prop("disabled", false);
-    });
-}
-
-function contrast_button(){
-    $(".btn").prop("disabled", true);
-    showLoading(true);
-    fetch("{% url 'contrast_button' %}"
-    , {
-      method: 'GET',
-    }).then((response) => {
-        return response.blob();
-    }).then((blob) => {
-        let objectURL = URL.createObjectURL(blob);
-        document.getElementById("picture").src=objectURL;
-        $(".btn").prop("disabled", false);
-        showLoading(false);
-    });
-}
+// $(".menubarBtn").hover(
+//     function() {
+//         $(this).addClass("shadow");
+//     },
+//     function() {
+//         $(this).removeClass("shadow");
+//     }
+// );
+init();
 </script>
-</body>
 </html>
+<!--
+TODO:
+How does the page react when you resize the web page? Low priority, assume full size screen
+
+
+-->
