@@ -160,7 +160,7 @@ callbacks_list = [checkpoint]
 history = unet_cifar.fit(image_train_masked, image_train, epochs=EPOCHS, batch_size=BATCH_SIZE,
                          validation_data=(image_validate_masked, image_validate), callbacks=callbacks_list)
 
-unet_cifar.save("cifar_unet.h5")
+unet_cifar.save("cifar_unet_mse.h5")
 
 
 # def compress(images, mode_name):

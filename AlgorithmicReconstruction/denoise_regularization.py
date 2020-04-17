@@ -12,30 +12,6 @@ def termination(diff_u, thresh_u):
 		return True
 
 
-def wave_db1_phi(X, trans):
-	level = 2
-	if ~trans:
-		[Y, s] = pywt.wavedec2(X, level, 'db1')
-	else:
-		Y = pywt.waverec2(X, 'db1')
-	return Y
-
-
-def matlab_style_gauss2D(shape=(3, 3), sigma=0.5):
-	"""
-	2D gaussian mask - should give the same result as MATLAB's
-	fspecial('gaussian',[shape],[sigma])
-	"""
-	m, n = [(ss - 1.) / 2. for ss in shape]
-	y, x = np.ogrid[-m:m + 1, -n:n + 1]
-	h = np.exp(-(x * x + y * y) / (2. * sigma * sigma))
-	h[h < np.finfo(h.dtype).eps * h.max()] = 0
-	sumh = h.sum()
-	if sumh != 0:
-		h /= sumh
-	return h
-
-
 def denoise_regularization(
 		original_image, rho=1, lambda_=0.01,
 		thresh_x=5e-2, alpha=1, multiplier=2):
