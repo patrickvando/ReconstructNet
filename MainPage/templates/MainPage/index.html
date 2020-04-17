@@ -274,6 +274,9 @@
             <div class = "col-5">
                     <button type="button" class="w-100 menubarBtn btn">Download</button>
             </div>
+            <form action="{% url 'download_image' %}">
+                <input type="submit" value="Go to Google" />
+            </form>
         </div>
     </div>
     <div class = "r_workspace col-9 c5 d-flex flex-column align-items-center">
@@ -357,10 +360,9 @@ $(".menubarBtn").click(function() {
 
 
 $("#upload").on("change", function() {
-    console.log("uploaded")
     enableBtns(false);
     var formData = new FormData();
-    formData.append('main_img', $(this).prop('files'));
+    formData.append('main_img', $(this).prop('files')[0]);
     fetch("{% url 'upload' %}"
     , {
       method: 'POST',
@@ -368,7 +370,6 @@ $("#upload").on("change", function() {
     }).then((response) => {
         return response.blob();
     }).then((blob) => {
-        alert("success")
         let objectURL = URL.createObjectURL(blob);
         $("#mainImage").attr("src", objectURL);
         enableBtns(true);

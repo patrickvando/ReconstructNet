@@ -20,14 +20,34 @@ def call_alg(request):
     if request.method == 'GET':
         if request.GET['wait'] == "true":
             time.sleep(0.5)
-        if request.GET['alg_name'] == "addSaltAndPepperNoise":
+        alg_name = request.GET['alg_name']
+        if alg_name == "addSaltAndPepperNoise":
             val = float(request.GET['val'])
             return run_alg(request, salt_pepper_noise, val)
-        elif request.GET['alg_name'] ==  "addGaussianNoise":
-            print(request)
+        elif alg_name ==  "addGaussianNoise":
             val = float(request.GET['val'])
             return run_alg(request, gaussian_noise, val)
-        elif request.GET['alg_name'] == "reset":
+        elif alg_name == "addGaussianBlur":
+            pass
+        elif alg_name == "addVerticalBlur":
+            pass
+        elif alg_name == "addHorizontalBlur":
+            pass
+        elif alg_name == "inpainting":
+            pass
+        elif alg_name == "removeSaltAndPepperNoise":
+            pass
+        elif alg_name == "removeGaussianNoise":
+            pass
+        elif alg_name == "removeGaussianBlur":
+            pass
+        elif alg_name == "removeHorizontalBlur":
+            pass
+        elif alg_name == "removeVerticalBlur":
+            pass
+        elif alg_name == "removeInpainting":
+            pass
+        elif alg_name == "reset":
             user_picture = Picture.objects.get(session_id=request.session.session_key)
             path = user_picture.main_img.path
             save_as_edited_image(path, user_picture)
@@ -40,19 +60,22 @@ def call_alg(request):
 @csrf_exempt
 #get crsft working later
 def upload(request):
-    print("upload got")
     if request.method == 'POST': 
         user_picture = Picture.objects.get(session_id=request.session.session_key)
         form = PictureForm(request.POST, request.FILES, instance=user_picture) 
         if form.is_valid(): 
             form.save()
             path = user_picture.main_img.path
-            print(path)
             save_as_edited_image(path, user_picture)
-            print("valid")
             return FileResponse(open(user_picture.main_img.path, 'rb'))
 
-
+def download(request):
+    user_picture = Picture.objects.get(session_id=request.session.session_key)
+    path = user_picture.edited_img.path
+    #change the name of the returned file?
+    head, tail = os.path.split(path)
+    response = FileResponse(open(path, "rb"), as_attachment=True, filename=tail)
+    return response
 
 def run_alg(request, alg, val):
     user_picture = Picture.objects.get(session_id=request.session.session_key)
@@ -60,7 +83,6 @@ def run_alg(request, alg, val):
     img = alg(img, val)
     cv2.imwrite(user_picture.edited_img.path, img)
     return FileResponse(open(user_picture.edited_img.path, 'rb'))
-
 
 
 def grayscale(img_path):

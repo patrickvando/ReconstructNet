@@ -13,6 +13,7 @@ urlpatterns = [
         path('sharpen_button', views.sharpen_button, name = 'sharpen_button'),
         path('contrast_button', views.contrast_button, name = 'contrast_button'),
         path('test', views.testIndex, name = 'T'),
-        path('call_alg', views.call_alg, name='call_alg')
+        path('call_alg', views.call_alg, name='call_alg'),
+        path('download_image', views.download, name='download_image'),
 ]
 
