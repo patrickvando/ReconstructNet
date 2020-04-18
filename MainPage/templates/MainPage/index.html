@@ -137,7 +137,7 @@
                                         </div>
                                     </div>
                                     <div class = "addHorizontalBlurRow row p-4">
-                                        <div class = "col-9 ">
+                                        <div class = "col-8 ">
                                             <form>
                                                 <div class="form-group ">
                                                     <label for="addHorizontalBlurControlRange">Add Horizontal Blur</label>
@@ -145,7 +145,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-1 align-self-center" id="addHorizontalBlurControlRangeValue">
+                                        <div class = "col-2 align-self-center" id="addHorizontalBlurControlRangeValue">
                                             0
                                         </div>
                                         <div class = "col-1 align-self-center">
@@ -153,7 +153,7 @@
                                         </div>
                                     </div>
                                     <div class = "addVerticalBlurRow row p-4">
-                                        <div class = "col-9 ">
+                                        <div class = "col-8 ">
                                             <form>
                                                 <div class="form-group ">
                                                     <label for="addVerticalBlurControlRange">Add Vertical Blur</label>
@@ -161,7 +161,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-1 align-self-center" id="addVerticalBlurControlRangeValue">
+                                        <div class = "col-2 align-self-center" id="addVerticalBlurControlRangeValue">
                                             0
                                         </div>
                                         <div class = "col-1 align-self-center">
@@ -358,10 +358,18 @@ function enableBtns(enabled){
         $(".menubarBtn").attr("disabled", false)
         $(".menubarBtn").addClass("menubarBtnEnabled");        
         $(".menubarBtn").removeClass("menubarBtnDisabled");
+
+        $(".downloadBtn").attr("disabled", false)
+        $(".downloadBtn").addClass("menubarBtnEnabled");        
+        $(".downloadBtn").removeClass("menubarBtnDisabled");
     } else {
         $(".menubarBtn").attr("disabled", true)
         $(".menubarBtn").removeClass("menubarBtnEnabled");        
         $(".menubarBtn").addClass("menubarBtnDisabled");
+
+        $(".downloadBtn").attr("disabled", true)
+        $(".downloadBtn").removeClass("menubarBtnEnabled");        
+        $(".downloadBtn").addClass("menubarBtnDisabled");
     }
 }
 
