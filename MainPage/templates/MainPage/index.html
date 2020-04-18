@@ -50,12 +50,12 @@
                                             <form>
                                                 <div class="form-group ">
                                                     <label for="addSaltAndPepperNoiseControlRange">Add Salt and Pepper Noise</label>
-                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addSaltAndPepperNoiseControlRange" step="0.01" min="0" max="1">
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addSaltAndPepperNoiseControlRange" step="0.01" min="0" max="1" value="0.5">
                                                 </div>
                                             </form>
                                         </div>
                                         <div class = "col-2 align-self-center" id="addSaltAndPepperNoiseControlRangeValue">
-                                            5
+                                            0
                                         </div>
                                         <div class = "col-1 align-self-center">
                                             <button id="addSaltAndPepperNoise" type="button" class="menubarBtn btn hasRangeParam">Add</button>
@@ -66,12 +66,12 @@
                                             <form>
                                                 <div class="form-group ">
                                                     <label for="gaussianControlRange">Add Gaussian Noise</label>
-                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addGaussianNoiseControlRange" step = "1" min="0" max = "100">
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addGaussianNoiseControlRange" step = "1" min="0" max = "100" value="50">
                                                 </div>
                                             </form>
                                         </div>
                                         <div class = "col-2 align-self-center" id="addGaussianNoiseControlRangeValue">
-                                            50
+                                            0
                                         </div>
                                         <div class = "col-1 align-self-center">
                                             <button type="button" class="menubarBtn btn hasRangeParam" id="addGaussianNoise">Add</button>
@@ -121,51 +121,51 @@
                             <div class="tab-content" id="blurTabContent">
                                 <div class="tab-pane fade show active" id="addBlur" role="tabpanel" aria-labelledby="addBlurTab">
                                     <div class = "addGaussianBlurPepperRow row p-4">
-                                        <div class = "col-9 ">
+                                        <div class = "col-8 ">
                                             <form>
                                                 <div class="form-group ">
-                                                    <label for="gaussianBlurControlRange">Add Gaussian Blur</label>
-                                                    <input type="range" class="form-control-range align-self-center" id="gaussianBlurControlRange">
+                                                    <label for="addGaussianBlurControlRange">Add Gaussian Blur</label>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addGaussianBlurControlRange" step=2 min=3 max=25 value = 5>
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-1 align-self-center gaussianBlurControlRangeValue">
-                                            0.5
+                                        <div class = "col-2 align-self-center" id="addGaussianBlurControlRangeValue">
+                                            0
                                         </div>
                                         <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn">Add</button>
+                                            <button type="button" class="menubarBtn btn hasRangeParam" id="addGaussianBlur">Add</button>
                                         </div>
                                     </div>
                                     <div class = "addHorizontalBlurRow row p-4">
                                         <div class = "col-9 ">
                                             <form>
                                                 <div class="form-group ">
-                                                    <label for="horizontalBlurControlRange">Add Horizontal Blur</label>
-                                                    <input type="range" class="form-control-range align-self-center" id="horizontalBlurControlRange">
+                                                    <label for="addHorizontalBlurControlRange">Add Horizontal Blur</label>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addHorizontalBlurControlRange" step=2 min=3 max=25 value = 5>
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-1 align-self-center">
-                                            5
+                                        <div class = "col-1 align-self-center" id="addHorizontalBlurControlRangeValue">
+                                            0
                                         </div>
                                         <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn">Add</button>
+                                            <button type="button" class="menubarBtn btn hasRangeParam" id="addHorizontalBlur">Add</button>
                                         </div>
                                     </div>
                                     <div class = "addVerticalBlurRow row p-4">
                                         <div class = "col-9 ">
                                             <form>
                                                 <div class="form-group ">
-                                                    <label for="verticalBlurControlRange">Add Vertical Blur</label>
-                                                    <input type="range" class="form-control-range align-self-center" id="verticalBlurControlRange">
+                                                    <label for="addVerticalBlurControlRange">Add Vertical Blur</label>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addVerticalBlurControlRange" step=2 min=3 max=25 value = 5>
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-1 align-self-center">
-                                            5
+                                        <div class = "col-1 align-self-center" id="addVerticalBlurControlRangeValue">
+                                            0
                                         </div>
                                         <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn">Add</button>
+                                            <button type="button" class="menubarBtn btn hasRangeParam" id="addVerticalBlur">Add</button>
                                         </div>
                                     </div>                                        
                                 </div>
@@ -209,7 +209,7 @@
                     </div>
                     <div id="collapseInpaint" class="collapse" aria-labelledby="headingInpaint" data-parent="#accordionMenu">
                         <div class="card-body c1">
-                            <ul class="nav nav-tabs" id="blurTab" role="tablist">
+                            <ul class="nav nav-tabs" id="inpaintTab" role="tablist">
                                 <li class="nav-item  w-50">
                                     <a class="nav-link active text-center" id="addInpaintingTab" data-toggle="tab" href="#addInpainting" role="tab" aria-controls="addInpainting" aria-selected="true">Add Inpainting</a>
                                 </li>
@@ -220,19 +220,19 @@
                             <div class="tab-content" id="inpaintingTabContent">
                                 <div class="tab-pane fade show active" id="addInpainting" role="tabpanel" aria-labelledby="addInpaintingTab">
                                     <div class = "addInpaintingRow row p-4">
-                                        <div class = "col-9 ">
+                                        <div class = "col-8 ">
                                             <form>
                                                 <div class="form-group ">
-                                                    <label for="inpaintingControlRange">Add Inpainting</label>
-                                                    <input type="range" class="form-control-range align-self-center" id="inpaintingControlRange">
+                                                    <label for="addInpaintingControlRange">Add Inpainting</label>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addInpaintingControlRange" step="1" min="0" max="20">
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-1 align-self-center">
-                                            5
+                                        <div class = "col-2 align-self-center" id="addInpaintingControlRangeValue">
+                                            0
                                         </div>
                                         <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn">Add</button>
+                                            <button type="button" class="menubarBtn btn hasRangeParam" id="addInpainting">Add</button>
                                         </div>
                                     </div>
                                 </div>
@@ -260,8 +260,30 @@
                     </div>
                     <div id="collapseMisc" class="collapse" aria-labelledby="headingMisc" data-parent="#accordionMenu">
                         <div class="card-body c1">
-                            <a href="https://google.com"> hello </a>
-                            Hello World
+                            <ul class="nav nav-tabs" id="miscTab" role="tablist">
+                                <li class="nav-item  w-50">
+                                    <a class="nav-link active text-center" id="misc1Tab" data-toggle="tab" href="#misc1" role="tab" aria-controls="misc1" aria-selected="true">1</a>
+                                </li>
+                                <li class="nav-item w-50">
+                                    <a class="nav-link text-center" id="misc2Tab" data-toggle="tab" href="#misc2" role="tab" aria-controls="misc2" aria-selected="false">2</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="miscTabContent">
+                                <div class="tab-pane fade show active" id="misc1" role="tabpanel" aria-labelledby="misc1Tab">
+                                   <div class = "row p-4">
+                                    <!--style this better-->
+                                        <div class = "col-8 ">
+                                            Change to grayscale
+                                        </div>
+                                        <div class = "col-2 align-self-center">
+                                            <button type="button" class="menubarBtn btn" id="changeToGrayscale">Change</button>
+                                        </div>
+                                    </div>      
+                                </div>
+                                <div class="tab-pane fade" id="misc2" role="tabpanel" aria-labelledby="misc2Tab">
+                                                                        
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>                    
@@ -272,11 +294,10 @@
                 <button id="reset" type="button" class="w-100 menubarBtn btn">Reset</button>
             </div>
             <div class = "col-5">
-                    <button type="button" class="w-100 menubarBtn btn">Download</button>
+                <form action="{% url 'download_image' %}">
+                    <input type="submit" value="Download" class="w-100 downloadBtn btn"/>
+                </form>            
             </div>
-            <form action="{% url 'download_image' %}">
-                <input type="submit" value="Go to Google" />
-            </form>
         </div>
     </div>
     <div class = "r_workspace col-9 c5 d-flex flex-column align-items-center">
@@ -317,13 +338,20 @@ function init(){
         $("#mainImage").attr("src", objectURL);
     });
     enableBtns(true);
+    $('.controlRange').each( function() {
+        valID = this.id + "Value";
+        $('#' + valID).html($(this).val());        
+    });
 }
 
 
 $('.controlRange').on('input change', function() {
     valID = this.id + "Value";
     $('#' + valID).html($(this).val());
+    console.log("hello");
+    console.log(valID);
 });
+
 
 function enableBtns(enabled){
     if (enabled == true){

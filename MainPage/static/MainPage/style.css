@@ -5,9 +5,9 @@ html, body {
   font-size: 14px;
 }
 
-.container-fluid {
-/*  width:100%;
-  min-height: 100%;*/
+/*.container-fluid {
+  width:100%;
+  min-height: 100%;
 }
 /*
 .imageContainer img {
@@ -33,8 +33,13 @@ html, body {
     min-height: 100%;
 }
 
-
 .menubarBtn {
+  border: 1px solid #495057;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.downloadBtn {
   border: 1px solid #495057;
   color: #007bff;
   cursor: pointer;
@@ -51,7 +56,6 @@ html, body {
   color: #6c757d;
   cursor: default;
 }
-
 
 .menubarBtnEnabled:hover {
   color: #0056b3;
