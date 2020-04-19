@@ -5,7 +5,7 @@ from MainPage.ImageDistortion.add_patterns import add_random_patterns
 from tensorflow.keras.layers import *
 from tensorflow.keras.models import *
 from tensorflow.keras.optimizers import *
-from tensorflow.keras.callbacks import *
+# from tensorflow.keras.callbacks import *
 from keras_preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
 import random
@@ -13,7 +13,7 @@ import gc
 
 
 def keras_mse_l1_loss(y_actual, y_predicted):
-    loss = kb.mean(kb.sum(kb.square(y_actual - y_predicted))) + kb.mean(kb.sum(kb.abs(y_predicted))) * 0.02
+    loss = kb.mean(kb.sum(kb.square(y_actual - y_predicted))) + kb.mean(kb.sum(kb.abs(y_predicted))) * 0.1
     return loss
 
 
@@ -147,7 +147,7 @@ print(image_test.shape[0])
 def in_mask_cifar(inp):
     x = inp + np.zeros(inp.shape)
     for i in range(inp.shape[0]):
-        x[i] = add_random_patterns(inp[i], 0.10, 5, 5, 5)
+        x[i] = add_random_patterns(inp[i], 0.4, 2, 2, 2)
     return np.array(x)
 
 
@@ -209,40 +209,43 @@ for i in range(30):
                    validation_data=(image_validate_masked, image_validate))
     gc.collect()
 
-    # get CIFAR images (original, noisy, reconstructed)
-    img = image_test[19]
-    cimg = image_test_masked[19]
-    pred_img = unet_cifar.predict(image_test_masked[0:20])[19]
+    if i % 5 == 4:
+        # get CIFAR images (original, noisy, reconstructed)
+        img = image_test[19]
+        cimg = image_test_masked[19]
+        pred_img = unet_cifar.predict(image_test_masked[0:20])[19]
 
-    print("\n\n\nOriginal Image")
-    print(img)
-    print("\n\n\nDistorted Image")
-    print(cimg)
-    print("\n\n\nPredicted Image")
-    print(pred_img)
+        print("\n\n\nOriginal Image")
+        print(img)
+        print("\n\n\nDistorted Image")
+        print(cimg)
+        print("\n\n\nPredicted Image")
+        print(pred_img)
 
-    fig, axs = plt.subplots(3, 3)
-    axs[0, 0].imshow(np.clip(img, 0, 1))
-    axs[0, 1].imshow(np.clip(cimg, 0, 1))
-    axs[0, 2].imshow(np.clip(pred_img, -1, 1))
+        fig, axs = plt.subplots(3, 3)
+        axs[0, 0].imshow(np.clip(img, 0, 1))
+        axs[0, 1].imshow(np.clip(cimg, 0, 1))
+        axs[0, 2].imshow(np.clip(pred_img, -1, 1))
 
-    img = image_test[16]
-    cimg = image_test_masked[16]
-    pred_img = unet_cifar.predict(image_test_masked[0:20])[16]
+        img = image_test[16]
+        cimg = image_test_masked[16]
+        pred_img = unet_cifar.predict(image_test_masked[0:20])[16]
 
-    axs[1, 0].imshow(np.clip(img, 0, 1))
-    axs[1, 1].imshow(np.clip(cimg, 0, 1))
-    axs[1, 2].imshow(np.clip(pred_img, 0, 1))
+        axs[1, 0].imshow(np.clip(img, 0, 1))
+        axs[1, 1].imshow(np.clip(cimg, 0, 1))
+        axs[1, 2].imshow(np.clip(pred_img, 0, 1))
 
-    img = image_test[24]
-    cimg = image_test_masked[24]
-    pred_img = unet_cifar.predict(image_test_masked[0:25])[24]
+        img = image_test[22]
+        cimg = image_test_masked[22]
+        pred_img = unet_cifar.predict(image_test_masked[0:25])[22]
 
-    axs[2, 0].imshow(np.clip(img, 0, 1))
-    axs[2, 1].imshow(np.clip(cimg, 0, 1))
-    axs[2, 2].imshow(np.clip(pred_img, 0, 1))
+        axs[2, 0].imshow(np.clip(img, 0, 1))
+        axs[2, 1].imshow(np.clip(cimg, 0, 1))
+        axs[2, 2].imshow(np.clip(pred_img, 0, 1))
 
-    plt.show()
+        plt.show()
+
+        unet_cifar.save("cifar_unet_temp_" + str(i) + ".h5")
 
 
 unet_cifar.save("cifar_unet.h5")
