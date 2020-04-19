@@ -67,7 +67,7 @@
       <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar-09-0.094.hdf5" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar-09-0.102.hdf5" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar-09-0.187.hdf5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar-10-0.002.hdf5" beforeDir="false" afterPath="$PROJECT_DIR$/DeepReconstruction/Deblur/cifar_unet_fail_9.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar-10-0.002.hdf5" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar-10-0.006.hdf5" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar-10-0.007.hdf5" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar-10-0.090.hdf5" beforeDir="false" />
@@ -179,6 +179,8 @@
       <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar-40-0.006.hdf5" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar-40-0.010.hdf5" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar-40-0.187.hdf5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar_unet_l1reg.h5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/cifar_unet_mse.h5" beforeDir="false" afterPath="$PROJECT_DIR$/DeepReconstruction/Deblur/cifar_unet_fail_9.h5" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DeepReconstruction/Inpaint/inpainting_DCNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/DeepReconstruction/Inpaint/inpainting_DCNN.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainPage/ImageDistortion/add_noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainPage/ImageDistortion/add_noise.py" afterDir="false" />
     </list>
