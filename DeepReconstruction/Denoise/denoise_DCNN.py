@@ -21,7 +21,7 @@ if gpus:
 
 
 def keras_mse_l1_loss(y_actual, y_predicted):
-    loss = kb.mean(kb.sum(kb.square(y_actual - y_predicted))) + kb.mean(kb.sum(kb.abs(y_predicted))) * 0.05
+    loss = kb.mean(kb.sum(kb.square(y_actual - y_predicted))) + kb.mean(kb.sum(kb.abs(y_predicted))) * 0.004
     return loss
 
 
@@ -140,7 +140,7 @@ image_test = image_test / 255
 def in_mask_cifar(inp):
     x = inp + np.zeros(inp.shape)
     for i in range(inp.shape[0]):
-        x[i] = add_gaussian_noise(inp[i], 0.05)
+        x[i] = add_salt_pepper_noise(inp[i], 0.6)
     return x
 
 

@@ -29,13 +29,14 @@ def gaussian_noise(img, sigma):
 
 def add_salt_pepper_noise(img, d):
     height, width, channels = img.shape
-    random = np.random.rand(height*width)
-    random = np.tile(random, (channels, 1))
-    random = np.swapaxes(random, 0, 1)
-    random = random.reshape(img.shape)
-    img[random < d/2] = 0.0
-    img[random >= 1-d/2] = 1.0
-    return img
+    rand = np.random.rand(height*width)
+    rand = np.tile(rand, (channels, 1))
+    rand = np.swapaxes(rand, 0, 1)
+    copy = img + np.zeros(img.shape)
+    rand = rand.reshape(img.shape)
+    copy[rand < d/2] = 0.0
+    copy[rand >= 1-d/2] = 1.0
+    return copy
 
 
 def add_gaussian_noise(img, sigma):
