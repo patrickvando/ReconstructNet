@@ -92,9 +92,9 @@
                                             Use a Neural Network to remove Gaussian Noise
                                         </div>
                                         <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn">Remove</button>
+                                            <button type="button" class="menubarBtn btn" id="removeGaussianNoise">Remove</button>
                                         </div>
-                                    </div>                                   
+                                    </div>                                  
                                 </div>
                             </div>
                         </div>
@@ -375,6 +375,7 @@ function enableBtns(enabled){
 
 
 $(".menubarBtn").click(function() {
+    console.log(this.id)
     enableBtns(false);
     var params = {"alg_name": this.id, "wait": "true"}
     if ($(this).hasClass("hasRangeParam")){

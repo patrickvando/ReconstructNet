@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, FileResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 from .forms import *
 from PIL import Image
 from .ImageDistortion.add_noise import salt_pepper_noise, gaussian_noise
@@ -10,11 +11,12 @@ from .ImageDistortion.unsharp_masking import unsharp_mask
 from .ImageDistortion.contrast import increase_contrast 
 import cv2
 import numpy as np
+from tensorflow import keras
 import shutil
 import os
 import sys
 import time
-
+from .tiler.tiler import Tiler
 
 def call_alg(request):
     #input validation needed for most of these
@@ -44,7 +46,8 @@ def call_alg(request):
         elif alg_name == "removeSaltAndPepperNoise":
             pass
         elif alg_name == "removeGaussianNoise":
-            pass
+            #apply_neural_net(request, "")
+            return run_alg(request, apply_neural_net)
         elif alg_name == "removeGaussianBlur":
             pass
         elif alg_name == "removeHorizontalBlur":
@@ -92,6 +95,28 @@ def run_alg(request, alg, val=None):
     cv2.imwrite(user_picture.edited_img.path, img)
     return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
+def keras_mse_l1_loss(y_actual, y_predicted):
+    kb = keras.backend
+    loss = kb.mean(kb.sum(kb.square(y_actual - y_predicted))) + kb.mean(kb.sum(kb.abs(y_predicted))) * 0.004
+    return loss
+
+def apply_neural_net(img, filename):
+    filename = "cifar_unet_gaussian_l1mse_020.h5"
+    file_path = os.path.join(settings.STATIC_ROOT, "h5", filename)
+    new_model = keras.models.load_model(file_path, custom_objects = {'keras_mse_l1_loss': keras_mse_l1_loss})
+    tiles = Tiler.tile(img, 32, 32)
+    tiles = tiles / 255
+    h, w, th, tw, channels = tiles.shape
+    tiles = tiles.reshape(h*w, th, tw, channels)
+    out = new_model.predict(tiles)
+    out = out * 255
+    out = out.astype(np.uint8)
+    out = out.reshape(h, w, th, tw, channels)
+    composite = Tiler.stitch(out)
+    return composite
+
+#
+        
 def add_patterns_wrapper(img, d):
     return add_random_patterns(img, .001, d, d, d)
 
@@ -135,6 +160,6 @@ def save_as_edited_image(img_path, user_picture):
         shutil.copy(img_path, edited_img_directory)
         user_picture.edited_img = edited_img_directory + tail
         user_picture.save()
- 
+
 def testIndex(request): 
     return render(request, 'MainPage/testTemplate.html') 
