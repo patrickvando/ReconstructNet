@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 import tensorflow as tf
 import keras.backend as kb
@@ -120,6 +122,21 @@ def unet_2(pretrained_weights=None, input_size=(28, 28, 1)):
     return model
 
 
+def integrate_changes(distorted_image, recovered_image, threshold):
+    proposed_image = np.copy(distorted_image)
+    for i in range(recovered_image.shape[0]):
+        for j in range(recovered_image.shape[1]):
+            if np.linalg.norm(recovered_image[i, j] - proposed_image[i, j]) < threshold:
+                proposed_image[i, j] = distorted_image[i, j]
+            else:
+                proposed_image[i, j] = recovered_image[i, j]
+            # if np.linalg.norm(recovered_image - proposed_image) < threshold:
+            #     proposed_image[i, j] = distorted_image[i, j]
+            # else:
+            #     proposed_image[i, j] = recovered_image[i, j]
+    return proposed_image
+
+
 gpus = tf.config.experimental.list_physical_devices('GPU')
 if gpus:
     try:
@@ -147,7 +164,7 @@ print(image_test.shape[0])
 def in_mask_cifar(inp):
     x = inp + np.zeros(inp.shape)
     for i in range(inp.shape[0]):
-        x[i] = add_random_patterns(inp[i], 0.4, 2, 2, 2)
+        x[i] = add_random_patterns(inp[i], 0.2, 2, 2, 2)
     return np.array(x)
 
 
@@ -214,6 +231,7 @@ for i in range(30):
         img = image_test[19]
         cimg = image_test_masked[19]
         pred_img = unet_cifar.predict(image_test_masked[0:20])[19]
+        integrated_img = integrate_changes(cimg, pred_img, 0.6)
 
         print("\n\n\nOriginal Image")
         print(img)
@@ -222,26 +240,31 @@ for i in range(30):
         print("\n\n\nPredicted Image")
         print(pred_img)
 
-        fig, axs = plt.subplots(3, 3)
+        fig, axs = plt.subplots(3, 4)
         axs[0, 0].imshow(np.clip(img, 0, 1))
         axs[0, 1].imshow(np.clip(cimg, 0, 1))
         axs[0, 2].imshow(np.clip(pred_img, -1, 1))
+        axs[0, 3].imshow(np.clip(integrated_img, -1, 1))
 
         img = image_test[16]
         cimg = image_test_masked[16]
         pred_img = unet_cifar.predict(image_test_masked[0:20])[16]
+        integrated_img = integrate_changes(cimg, pred_img, 0.6)
 
         axs[1, 0].imshow(np.clip(img, 0, 1))
         axs[1, 1].imshow(np.clip(cimg, 0, 1))
         axs[1, 2].imshow(np.clip(pred_img, 0, 1))
+        axs[1, 3].imshow(np.clip(integrated_img, -1, 1))
 
         img = image_test[22]
         cimg = image_test_masked[22]
         pred_img = unet_cifar.predict(image_test_masked[0:25])[22]
+        integrated_img = integrate_changes(cimg, pred_img, 0.6)
 
         axs[2, 0].imshow(np.clip(img, 0, 1))
         axs[2, 1].imshow(np.clip(cimg, 0, 1))
         axs[2, 2].imshow(np.clip(pred_img, 0, 1))
+        axs[2, 3].imshow(np.clip(integrated_img, -1, 1))
 
         plt.show()
 
