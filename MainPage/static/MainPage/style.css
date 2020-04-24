@@ -151,4 +151,17 @@ html, body {
   background-color: #212121;
 }
 
+.description {
+  display: inline-flex;
+  vertical-align: middle;
+}
 
+.material-icons.md-48 { font-size: 24px; }
+
+.helpicon{
+  color: #007bff;
+}
+
+.helpicon:hover{
+  color: #0056b3;
+}

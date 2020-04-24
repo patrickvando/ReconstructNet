@@ -6,11 +6,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="{% static 'MainPage/style.css' %}"">
+  <link rel="stylesheet" type="text/css" href="{% static 'MainPage/style.css' %}">
 </head>
 <body class="h-100"> 
 <div class="container-fluid row h-100">
@@ -49,7 +50,15 @@
                                         <div class = "col-8 ">
                                             <form>
                                                 <div class="form-group ">
-                                                    <label for="addSaltAndPepperNoiseControlRange">Add Salt and Pepper Noise</label>
+                                                    <label for="addSaltAndPepperNoiseControlRange">
+                                                    <div class =  "description">
+                                                        <div>
+                                                            Add Salt and Pepper Noise 
+                                                        </div>
+                                                        <div class = "align-self-center">
+                                                            <i  data-toggle="tooltip" data-placement="right" title="Change likelihood of a pixel becoming black or white" class="material-icons md-48 helpicon">help_outline</i></label> 
+                                                        </div>
+                                                    </div>
                                                     <input type="range" class="controlRange form-control-range align-self-center" id="addSaltAndPepperNoiseControlRange" step="0.01" min="0" max="1" value="0.5">
                                                 </div>
                                             </form>
@@ -57,6 +66,9 @@
                                         <div class = "col-2 align-self-center" id="addSaltAndPepperNoiseControlRangeValue">
                                             0
                                         </div>
+                                        {% comment %} <div class = "col-1 align-self-center d-flex justify-content-center">
+                                            <i  data-toggle="tooltip" data-placement="top" title="Tooltip on top" class="material-icons">help_outline</i>
+                                        </div> {% endcomment %}
                                         <div class = "col-1 align-self-center">
                                             <button id="addSaltAndPepperNoise" type="button" class="menubarBtn btn hasRangeParam">Add</button>
                                         </div>
@@ -65,7 +77,16 @@
                                         <div class = "col-8 ">
                                             <form>
                                                 <div class="form-group ">
-                                                    <label for="gaussianControlRange">Add Gaussian Noise</label>
+                                                    <label for="gaussianControlRange">
+                                                        <div class =  "description">
+                                                        <div>
+                                                            Add Gaussian Noise
+                                                        </div>
+                                                        <div class = "align-self-center">
+                                                            <i  data-toggle="tooltip" data-placement="right" title="Change sigma of Gaussian distribution" class="material-icons md-48">help_outline</i></label> 
+                                                        </div>
+                                                    </div>
+                                                    </label>
                                                     <input type="range" class="controlRange form-control-range align-self-center" id="addGaussianNoiseControlRange" step = "1" min="0" max = "100" value="50">
                                                 </div>
                                             </form>
@@ -413,6 +434,9 @@ $("#upload").on("change", function() {
     });
 });
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
 // $(".menubarBtn").hover(
 //     function() {

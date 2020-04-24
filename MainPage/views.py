@@ -11,7 +11,7 @@ from .ImageDistortion.unsharp_masking import unsharp_mask
 from .ImageDistortion.contrast import increase_contrast 
 import cv2
 import numpy as np
-from tensorflow import keras
+#from tensorflow import keras
 import shutil
 import os
 import sys
@@ -96,11 +96,13 @@ def run_alg(request, alg, val=None):
     return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
 def keras_mse_l1_loss(y_actual, y_predicted):
-    kb = keras.backend
-    loss = kb.mean(kb.sum(kb.square(y_actual - y_predicted))) + kb.mean(kb.sum(kb.abs(y_predicted))) * 0.004
-    return loss
+    #kb = keras.backend
+    #loss = kb.mean(kb.sum(kb.square(y_actual - y_predicted))) + kb.mean(kb.sum(kb.abs(y_predicted))) * 0.004
+    #return loss
+    return
 
 def apply_neural_net(img, filename):
+    """
     filename = "cifar_unet_gaussian_l1mse_020.h5"
     file_path = os.path.join(settings.STATIC_ROOT, "h5", filename)
     new_model = keras.models.load_model(file_path, custom_objects = {'keras_mse_l1_loss': keras_mse_l1_loss})
@@ -113,8 +115,10 @@ def apply_neural_net(img, filename):
     out = out.astype(np.uint8)
     out = out.reshape(h, w, th, tw, channels)
     composite = Tiler.stitch(out)
+    
     return composite
-
+    """
+    return None
 #
         
 def add_patterns_wrapper(img, d):

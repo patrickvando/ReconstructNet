@@ -1,50 +1,69 @@
 {% load static %}
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link href="{% static 'MainPage/testLayout.css' %}" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link href="{% static 'MainPage/testLayout.css' %}" rel="stylesheet"> 
 </head>
+<body>
 
-<div class="background">
-
-  <div class="card">
-   <div class="p-2">
-      <button type="button" class="btn btn-primary btn-block btn-algorithm" id="button" >Contrast</button>
+<div class="container mt-3">
+  <h2>Horizontal Direction</h2>
+  <p>Use .flex-row to make the flex items appear side by side (default):</p>
+  <div class="d-flex flex-row bg-secondary mb-3 flex-grow-1">
+    <div class="col-4 bg-info p-2">
+    helloworld
+    </div>
+    <div class="col bg-warning p-2">
+    helloworld2
     </div>
   </div>
-<h2>Opacity with Box</h2>
-<p>Hover over the image to see the effect.</p>
-
-<div class="container">
-  <img src="{% static 'MainPage/bird.png' %}" alt="Avatar" id="pic" class="image opaque" style="width:100%">
-  <div class="middle transparent" id="mid">
-    <div class="spinner-border" role="status">
-      <span class="sr-only">Loading...</span>
-</div>
-
+  <p>Use .flex-row-reverse to right-align the direction:</p>
+  <div class="d-flex flex-row-reverse bg-secondary">
+    <div class="p-2 bg-info">Flex item 1</div>
+    <div class="p-2 bg-warning">Flex item 2</div>
+    <div class="p-2 bg-primary">Flex item 3</div>
   </div>
-</div>
 
 
-  
+ <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+  Tooltip on top
+</button>
+<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+  Tooltip on right
+</button>
+<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+  Tooltip on bottom
+</button>
+<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
+  Tooltip on left
+</button>
+
+<!-- HTML to write -->
+<a href="#" data-toggle="tooltip" title="Some tooltip text!">
+
+</a>
+
+<i  data-toggle="tooltip" data-placement="top" title="Tooltip on top" class="material-icons">help_outline</i>
+
+
+
+</body>
 
 
 <script>
 
-$("#button").on("click", function() {
-    $("#pic").addClass("semitransparent");
-    $("#pic").removeClass("opaque");
-    $("#mid").addClass("opaque");
-    $("#mid").removeClass("transparent");
-    console.log("error");
-});
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 
 </script>
 </html>

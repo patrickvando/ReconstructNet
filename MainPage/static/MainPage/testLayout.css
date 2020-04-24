@@ -1,61 +1,11 @@
-.wrapper, html, body {
-	height:100%;
-	margin: 0;
-}
-.sidebar {
-	height:100%;
-	margin: 0;
-}
-.flex-container {
-	display: flex;
+.menubar{
+    background-color: blue;
 }
 
-.background {
-    background-color: coral;
+.workspace{
+    background-color: red;
 }
 
-.container {
-    position: relative;
-    width: 50%;
-  }
-  
-  .image {
-    display: block;
-    width: 100%;
-    height: auto;
-    transition: .5s ease;
-    backface-visibility: hidden;
-  }
-  
-  .middle {
-    transition: .5s ease;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    text-align: center;
-  }
-
-  .transparent {
-      opacity: 0;
-  }
-  
-  .semitransparent {
-    opacity: 0.3;
-  }
-  
-  .opaque {
-    opacity: 1;
-  }
-  
-  .text {
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
-    padding: 16px 32px;
-  }
-
-  .hidden {
-      display: none;
-  }
+.container{
+    background-color: yellow;
+}

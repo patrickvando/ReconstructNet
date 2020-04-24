@@ -7,5 +7,6 @@ urlpatterns = [
         path('upload', views.upload, name = 'upload'),
         path('call_alg', views.call_alg, name='call_alg'),
         path('download_image', views.download, name='download_image'),
+        path('test', views.testIndex, name='test'),
 ]
 
