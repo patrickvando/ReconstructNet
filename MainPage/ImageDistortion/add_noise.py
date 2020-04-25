@@ -4,7 +4,6 @@ import shutil
 import os
 from random import random
 
-
 def salt_pepper_noise(img, d):
     height, width, channels = img.shape
     random = np.random.rand(height*width)
@@ -15,7 +14,6 @@ def salt_pepper_noise(img, d):
     img[random >= 1-d/2] = 255 
     return img
 
-
 def gaussian_noise(img, sigma):
     height, width, channels = img.shape
     noise = np.random.normal(0, sigma, height*width*channels)
@@ -24,25 +22,4 @@ def gaussian_noise(img, sigma):
     img = np.minimum(img, np.full(img.shape, 255))
     img = np.maximum(img, np.full(img.shape, 0))
     img = img.astype(np.uint8)
-    return img
-
-
-def add_salt_pepper_noise(img, d):
-    height, width, channels = img.shape
-    rand = np.random.rand(height*width)
-    rand = np.tile(rand, (channels, 1))
-    rand = np.swapaxes(rand, 0, 1)
-    copy = img + np.zeros(img.shape)
-    rand = rand.reshape(img.shape)
-    copy[rand < d/2] = 0.0
-    copy[rand >= 1-d/2] = 1.0
-    return copy
-
-
-def add_gaussian_noise(img, sigma):
-    height, width, channels = img.shape
-    noise = np.random.normal(0, sigma, (height, width, channels))
-    img = img + noise
-    img = np.minimum(img, np.full(img.shape, 1.0))
-    img = np.maximum(img, np.full(img.shape, 0.0))
     return img
