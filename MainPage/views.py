@@ -27,10 +27,10 @@ def call_alg(request):
         print(alg_name)
         if alg_name == "addSaltAndPepperNoise":
             val = float(request.GET['val'])
-            return run_alg(request, salt_pepper_noise, val)
+            return run_alg(request, add_salt_and_pepper_noise_wrapper, val)
         elif alg_name ==  "addGaussianNoise":
             val = float(request.GET['val'])
-            return run_alg(request, gaussian_noise, val)
+            return run_alg(request, add_gaussian_noise_wrapper, val)
         elif alg_name == "addGaussianBlur":
             val = int(request.GET['val'])
             return run_alg(request, add_gaussian_blur_wrapper, val)
@@ -44,7 +44,7 @@ def call_alg(request):
             val = int(request.GET['val'])
             return run_alg(request, add_box_blur_wrapper, val)
         elif alg_name == "addInpainting":
-            val = int(request.GET['val'])
+            val = float(request.GET['val'])
             return run_alg(request, add_patterns_wrapper, val)
         elif alg_name == "removeSaltAndPepperNoise":
             val = int(request.GET['val'])
@@ -158,27 +158,45 @@ def remove_box_blur_wrapper(img, d):
     return apply_neural_net(img, filename)
 
 def add_patterns_wrapper(img, d):
-    return add_random_patterns(img, .01, d, d, d)
+    f = 10
+    img = img / 255
+    img = add_random_patterns(img, d, f, f, f)
+    img = img * 255
+    img = img.astype(np.uint8)
+    return img
+
+
+def add_salt_and_pepper_noise_wrapper(img, d):
+    img = salt_pepper_noise(img, d)
+    return img 
+
+def add_gaussian_noise_wrapper(img, d):
+    img = gaussian_noise(img, d)
+    return img
 
 def add_gaussian_blur_wrapper(img, d):
+    img = img / 255
     img = add_gaussian_blur(img, d, 1.0)
     img = img * 255
     img = img.astype(np.uint8)
     return img
 
 def add_vertical_blur_wrapper(img, d):
+    img = img / 255
     img = add_vertical_blur(img, d)
     img = img * 255
     img = img.astype(np.uint8)
     return img
 
 def add_horizontal_blur_wrapper(img, d):
+    img = img / 255
     img = add_horizontal_blur(img, d)
     img = img * 255
     img = img.astype(np.uint8)
     return img
 
 def add_box_blur_wrapper(img, d):
+    img = img / 255
     img = add_box_blur(img, d)
     img = img * 255
     img = img.astype(np.uint8)
