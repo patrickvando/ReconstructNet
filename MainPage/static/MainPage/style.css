@@ -43,6 +43,33 @@ html, body {
     box-shadow: none;
 }
 
+/*.tooltip > .tooltip-inner {background-color: #ff0000;}
+.tooltip > .tooltip-arrow { border-bottom-color:#ff0000; }
+
+*/
+/*.tooltip.top .tooltip-arrow {
+          border-top-color: red;
+       }
+*/
+/*.tooltip .arrow {
+  border-top-color: red;
+  background-color: #ff0000;
+}*/
+
+.tooltip.show {
+    opacity: 1;
+}
+
+.tooltip-inner {
+/*  border: 1px solid #495057;
+  background-color: #ffffff;
+  opacity: 1;
+  color: black;  */
+  font-family: 'Roboto Mono', monospace;
+  font-size: 14px;
+}
+
+
 .menubarBtn {
   border: 1px solid #495057;
   color: #007bff;

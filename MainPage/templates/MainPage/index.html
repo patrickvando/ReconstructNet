@@ -46,8 +46,8 @@
                             </ul>
                             <div class="tab-content" id="noiseTabContent">
                                 <div class="tab-pane fade show active" id="addNoise" role="tabpanel" aria-labelledby="addNoiseTab">
-                                    <div class = "addSaltAndPepperNoiseRow row p-4">
-                                        <div class = "col-8 ">
+                                    <div class = "addSaltAndPepperNoiseRow row p-4 w-100">
+                                        <div class = "col-8">
                                             <form>
                                                 <div class="form-group ">
                                                     <label for="addSaltAndPepperNoiseControlRange">
@@ -55,40 +55,31 @@
                                                         <div>
                                                             Add Salt and Pepper Noise 
                                                         </div>
-                                                        <div class = "align-self-center">
-                                                            <i  data-toggle="tooltip" data-placement="right" title="Change likelihood of a pixel becoming black or white" class="material-icons md-48 helpicon">help_outline</i></label> 
-                                                        </div>
                                                     </div>
                                                     <input type="range" class="controlRange form-control-range align-self-center" id="addSaltAndPepperNoiseControlRange" step="0.01" min="0" max="1" value="0.5">
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-2 align-self-center" id="addSaltAndPepperNoiseControlRangeValue">
-                                            0
+                                        <div id="addSaltAndPepperNoiseControlRangeValue" class="col-2 align-self-center d-flex justify-content-center" data-toggle="tooltip" data-placement="bottom" data-delay="150" title="% likelihood of salt/pepper">
+                                            0                                            
                                         </div>
                                         <div class = "col-1 align-self-center">
                                             <button id="addSaltAndPepperNoise" type="button" class="menubarBtn btn hasRangeParam">Add</button>
                                         </div>
                                     </div>
-                                    <div class = "addGaussianRow row p-4">
+                                    <div class = "addGaussianRow row p-4 w-100">
                                         <div class = "col-8 ">
                                             <form>
                                                 <div class="form-group ">
                                                     <label for="gaussianControlRange">
-                                                        <div class =  "description">
-                                                        <div>
+
                                                             Add Gaussian Noise
-                                                        </div>
-                                                        <div class = "align-self-center">
-                                                            <i  data-toggle="tooltip" data-placement="right" title="Change sigma of Gaussian distribution" class="material-icons md-48">help_outline</i></label> 
-                                                        </div>
-                                                    </div>
                                                     </label>
                                                     <input type="range" class="controlRange form-control-range align-self-center" id="addGaussianNoiseControlRange" step = "1" min="0" max = "100" value="50">
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-2 align-self-center" id="addGaussianNoiseControlRangeValue">
+                                        <div class = "col-2 align-self-center d-flex justify-content-center" id="addGaussianNoiseControlRangeValue" data-toggle="tooltip" data-placement="bottom" data-delay="150" title="Sigma of Gaussian distribution">
                                             0
                                         </div>
                                         <div class = "col-1 align-self-center">
@@ -162,7 +153,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-2 align-self-center" id="addGaussianBlurControlRangeValue">
+                                        <div class = "col-2 align-self-center d-flex justify-content-center" id="addGaussianBlurControlRangeValue" data-toggle="tooltip" data-placement="bottom" data-delay="150" title="Blur radius">
                                             0
                                         </div>
                                         <div class = "col-1 align-self-center">
@@ -178,7 +169,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-2 align-self-center" id="addHorizontalBlurControlRangeValue">
+                                        <div class = "col-2 align-self-center d-flex justify-content-center" id="addHorizontalBlurControlRangeValue" data-toggle="tooltip" data-placement="bottom" data-delay="150" title="Blur radius">
                                             0
                                         </div>
                                         <div class = "col-1 align-self-center">
@@ -194,7 +185,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-2 align-self-center" id="addVerticalBlurControlRangeValue">
+                                        <div class = "col-2 align-self-center d-flex justify-content-center" id="addVerticalBlurControlRangeValue" data-toggle="tooltip" data-placement="bottom" data-delay="150" title="Blur radius">
                                             0
                                         </div>
                                         <div class = "col-1 align-self-center">
@@ -210,7 +201,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-2 align-self-center" id="addBoxBlurControlRangeValue">
+                                        <div class = "col-2 align-self-center d-flex justify-content-center" id="addBoxBlurControlRangeValue" data-toggle="tooltip" data-placement="bottom" data-delay="150" title="Blur radius">
                                             0
                                         </div>
                                         <div class = "col-1 align-self-center">
@@ -286,11 +277,11 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class = "col-3 align-self-center" id="addInpaintingControlRangeValue">
+                                        <div class = "col-3 align-self-center d-flex justify-content-center" id="addInpaintingControlRangeValue"  data-toggle="tooltip" data-placement="bottom" data-delay="150" title="Size of paint marks" >
                                             0
                                         </div>
                                         <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn hasRangeParam" id="addInpainting">Add</button>
+                                            <button type="button" class="menubarBtn btn hasRangeParam" id="addInpainting" >Add</button>
                                         </div>
                                     </div>
                                 </div>
