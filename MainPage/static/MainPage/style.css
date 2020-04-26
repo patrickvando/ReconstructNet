@@ -33,6 +33,16 @@ html, body {
     min-height: 100%;
 }
 
+.custom-select {
+  border: 1px solid #495057;
+  color: #007bff;
+
+}
+.custom-select:focus {
+    border: 1px solid #495057;
+    box-shadow: none;
+}
+
 .menubarBtn {
   border: 1px solid #495057;
   color: #007bff;

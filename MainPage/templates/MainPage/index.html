@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 <head>
-  <title>Bootstrap Example</title>
+  <title>ReconstructNet</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -66,9 +66,6 @@
                                         <div class = "col-2 align-self-center" id="addSaltAndPepperNoiseControlRangeValue">
                                             0
                                         </div>
-                                        {% comment %} <div class = "col-1 align-self-center d-flex justify-content-center">
-                                            <i  data-toggle="tooltip" data-placement="top" title="Tooltip on top" class="material-icons">help_outline</i>
-                                        </div> {% endcomment %}
                                         <div class = "col-1 align-self-center">
                                             <button id="addSaltAndPepperNoise" type="button" class="menubarBtn btn hasRangeParam">Add</button>
                                         </div>
@@ -100,20 +97,35 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="removeNoise" role="tabpanel" aria-labelledby="removeNoiseTab">
-                                    <div class = "removeSaltAndPepperRow row p-4">
-                                        <div class = "col-9 ">
+                                    <div class = "removeSaltAndPepperRow row p-4 w-100">
+                                        <div class = "col-7 align-self-center">
                                             Use a Neural Network to remove Salt and Pepper Noise
                                         </div>
+                                        <div class = "col-3 align-self-center">
+                                            <select class="controlSelect custom-select" id="removeSaltAndPepperNoiseControlSelect">
+                                                <option selected value="10">L1</option>
+                                                <option value="20">L2</option>
+                                                <option value="40">L3</option>
+                                                <option value="60">L4</option>                                                
+                                            </select>                                 
+                                        </div>                                           
                                         <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn">Remove</button>
+                                            <button type="button" class="menubarBtn btn hasSelectParam" id="removeSaltAndPepperNoise">Remove</button>
                                         </div>
                                     </div>
-                                    <div class = "removeGaussianRow row p-4">
-                                        <div class = "col-9 ">
+                                    <div class = "removeGaussianRow row p-4 w-100">
+                                        <div class = "col-7 ">
                                             Use a Neural Network to remove Gaussian Noise
                                         </div>
+                                        <div class = "col-3 align-self-center">
+                                            <select class="controlSelect custom-select" id= "removeGaussianNoiseControlSelect">
+                                                <option selected value="5">L1</option>
+                                                <option value="10">L2</option>
+                                                <option value="20">L3</option>
+                                            </select>                                 
+                                        </div>                                       
                                         <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn" id="removeGaussianNoise">Remove</button>
+                                            <button type="button" class="menubarBtn btn hasSelectParam" id="removeGaussianNoise">Remove</button>
                                         </div>
                                     </div>                                  
                                 </div>
@@ -146,7 +158,7 @@
                                             <form>
                                                 <div class="form-group ">
                                                     <label for="addGaussianBlurControlRange">Add Gaussian Blur</label>
-                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addGaussianBlurControlRange" step=2 min=3 max=25 value = 5>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addGaussianBlurControlRange" step=2 min=3 max=11 value = 5>
                                                 </div>
                                             </form>
                                         </div>
@@ -162,7 +174,7 @@
                                             <form>
                                                 <div class="form-group ">
                                                     <label for="addHorizontalBlurControlRange">Add Horizontal Blur</label>
-                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addHorizontalBlurControlRange" step=2 min=3 max=25 value = 5>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addHorizontalBlurControlRange" step=2 min=3 max=11 value = 5>
                                                 </div>
                                             </form>
                                         </div>
@@ -178,7 +190,7 @@
                                             <form>
                                                 <div class="form-group ">
                                                     <label for="addVerticalBlurControlRange">Add Vertical Blur</label>
-                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addVerticalBlurControlRange" step=2 min=3 max=25 value = 5>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addVerticalBlurControlRange" step=2 min=3 max=11 value = 5>
                                                 </div>
                                             </form>
                                         </div>
@@ -188,33 +200,58 @@
                                         <div class = "col-1 align-self-center">
                                             <button type="button" class="menubarBtn btn hasRangeParam" id="addVerticalBlur">Add</button>
                                         </div>
-                                    </div>                                        
+                                    </div>
+                                    <div class = "addBoxBlurRow row p-4">
+                                        <div class = "col-8 ">
+                                            <form>
+                                                <div class="form-group ">
+                                                    <label for="addBoxBlurControlRange">Add Box Blur</label>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="addBoxBlurControlRange" step=2 min=3 max=11 value = 5>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class = "col-2 align-self-center" id="addBoxBlurControlRangeValue">
+                                            0
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn hasRangeParam" id="addBoxBlur">Add</button>
+                                        </div>
+                                    </div>                                                                                 
                                 </div>
                                 <div class="tab-pane fade" id="removeBlur" role="tabpanel" aria-labelledby="removeBlurTab">
                                     <div class = "removeGaussianBlurRow row p-4">
-                                        <div class = "col-9 ">
+                                        <div class = "col-9 align-self-center">
                                             Use a Neural Network to remove Gaussian Blur
                                         </div>
+       
                                         <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn">Remove</button>
+                                            <button type="button" class="menubarBtn btn" id="removeGaussianBlur">Remove</button>
                                         </div>
                                     </div>
                                     <div class = "removeHorizontalRow row p-4">
-                                        <div class = "col-9 ">
+                                        <div class = "col-9 align-self-center">
                                             Use a Neural Network to remove Horizontal Blur
                                         </div>
                                         <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn">Remove</button>
+                                            <button type="button" class="menubarBtn btn" id="removeHorizontalBlur">Remove</button>
                                         </div>
                                     </div>
                                     <div class = "removeVerticalRow row p-4">
-                                        <div class = "col-9 ">
+                                        <div class = "col-9 align-self-center">
                                             Use a Neural Network to remove Vertical Blur
                                         </div>
                                         <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn">Remove</button>
+                                            <button type="button" class="menubarBtn btn" id="removeVerticalBlur">Remove</button>
                                         </div>
-                                    </div>                                                                              
+                                    </div>
+                                    <div class = "removeBoxRow row p-4">
+                                        <div class = "col-9 align-self-center">
+                                            Use a Neural Network to remove Box Blur
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn" id="removeBoxBlur">Remove</button>
+                                        </div>
+                                    </div>                                                                                                                       
                                 </div>
                             </div>
                         </div>
@@ -240,7 +277,7 @@
                             </ul>
                             <div class="tab-content" id="inpaintingTabContent">
                                 <div class="tab-pane fade show active" id="addInpainting" role="tabpanel" aria-labelledby="addInpaintingTab">
-                                    <div class = "addInpaintingRow row p-4">
+                                    <div class = "addInpaintingRow row p-4 w-100">
                                         <div class = "col-8 ">
                                             <form>
                                                 <div class="form-group ">
@@ -258,12 +295,19 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="removeInpainting" role="tabpanel" aria-labelledby="removeInpaintingTab">
-                                    <div class = "removeInpaintingRow row p-4">
-                                        <div class = "col-9 ">
+                                    <div class = "removeInpaintingRow row p-4 w-100">
+                                        <div class = "col-7 align-self-center">
                                             Use a Neural Network to remove Inpainting
                                         </div>
+                                        <div class = "col-3 align-self-center">
+                                            <select class="controlSelect custom-select" id="removeInpaintingControlSelect">
+                                                <option selected value="5">L1</option>
+                                                <option value="20">L2</option>
+                                                <option value="10">L3</option>
+                                            </select>                                 
+                                        </div>                                
                                         <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn">Remove</button>
+                                            <button type="button" class="menubarBtn btn hasSelectParam" id="removeInpainting">Remove</button>
                                         </div>
                                     </div>                                                                             
                                 </div>
@@ -293,13 +337,30 @@
                                 <div class="tab-pane fade show active" id="misc1" role="tabpanel" aria-labelledby="misc1Tab">
                                    <div class = "row p-4">
                                     <!--style this better-->
-                                        <div class = "col-8 ">
+                                        <div class = "col-8 align-self-center">
                                             Change to grayscale
                                         </div>
                                         <div class = "col-2 align-self-center">
                                             <button type="button" class="menubarBtn btn" id="changeToGrayscale">Change</button>
                                         </div>
-                                    </div>      
+                                    </div>
+   <!--                                  <div class = "row p-4">
+                                        <div class = "col-8 ">
+                                            <form>
+                                                <div class="form-group ">
+                                                    <label for="increaseContrastControlRange">Increase Contrast</label>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="increaseContrastControlRange" step=1 min=0 max=10 value = 5>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class = "col-2 align-self-center" id="increaseContrastControlRangeValue">
+                                            0
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn hasRangeParam" id="increaseContrast">Add</button>
+                                        </div>
+                                    </div>
+                                           -->
                                 </div>
                                 <div class="tab-pane fade" id="misc2" role="tabpanel" aria-labelledby="misc2Tab">
                                                                         
@@ -396,12 +457,14 @@ function enableBtns(enabled){
 
 
 $(".menubarBtn").click(function() {
-    console.log(this.id)
     enableBtns(false);
     var params = {"alg_name": this.id, "wait": "true"}
     if ($(this).hasClass("hasRangeParam")){
         rangeID = this.id + "ControlRange"
         params["val"] = $("#" + rangeID).val()
+    } else if ($(this).hasClass("hasSelectParam")){
+        rangeID = this.id + "ControlSelect"
+        params["val"] = $("#" + rangeID).val()        
     }
     console.log(params);
     fetch("{% url 'call_alg' %}" + "?" + $.param(params)
