@@ -158,6 +158,7 @@ def remove_box_blur_wrapper(img, d):
     return apply_neural_net(img, filename)
 
 def add_patterns_wrapper(img, d):
+    d = d - 0.01
     f = 10
     img = img / 255
     img = add_random_patterns(img, d, f, f, f)
