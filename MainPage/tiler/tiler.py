@@ -3,6 +3,29 @@ import numpy as np
 import math
 
 class Tiler:
+    def make_padding(tile, tile_height, tile_width):
+        t_h, t_w, channels = tile.shape
+        padded = np.full((tile_height, tile_width, channels), 255)
+        p_h, p_w, channels = padded.shape
+        padded[:t_h, :t_w] = tile
+        for r in range(t_h):
+            target_p = padded[r][t_w - 1]
+            rp = np.repeat(target_p.reshape(1, 1, 3), p_w - t_w, axis=0).reshape(1, -1, 3)
+            
+            padded[r, t_w:p_w] = rp
+
+        for c in range(t_w):
+            target_p = padded[t_h - 1][c]
+            rp = np.repeat(target_p.reshape(1, 1, 3), p_h - t_h, axis=0).reshape(1, -1, 3)
+            padded[t_h:p_h, c] = rp
+
+        for r in range(t_h, p_h):
+            target_p = padded[r][t_w - 1]
+            rp = np.repeat(target_p.reshape(1, 1, 3), p_w - t_w, axis=0).reshape(1, -1, 3)
+            padded[r, t_w:p_w] = rp
+
+        return padded
+
     def tile_overlap(image, tile_height, tile_width, overlap):
         height, width, channels = image.shape
         tile_matrix = np.array(np.zeros(shape=(tile_height, tile_width, channels)))
@@ -12,8 +35,7 @@ class Tiler:
                 tile = image[r:r+tile_height, c:c+tile_width]
                 h, w, c = tile.shape
                 if h < tile_height or w < tile_width:
-                    padded = np.full((tile_height, tile_width, channels), 255)
-                    padded[:h, :w] = tile
+                    padded = Tiler.make_padding(tile, tile_height, tile_width)
                     tile = padded
                 tile = tile.reshape(1, *tile.shape)
                 
@@ -23,6 +45,8 @@ class Tiler:
         t_m_width = math.ceil(width / (tile_width - overlap))
         tile_matrix = tile_matrix.reshape(t_m_height, t_m_width, tile_height, tile_width, channels)
         return tile_matrix
+
+
 
     def stitch_overlap(tile_matrix, overlap):
         h, w, tile_height, tile_width, channels = tile_matrix.shape
@@ -62,6 +86,7 @@ class Tiler:
         tiles = tiles.reshape(-1, padded_height // tile_height, tile_height, tile_width, channels).swapaxes(0, 1)
 
         return tiles
+
 
     def stitch(tile_matrix):
         """
@@ -129,13 +154,12 @@ cropped_composite = Tiler.crop(composite, img.shape[0], img.shape[1])
 #Tiler.show_image(composite)
 Tiler.show_image(cropped_composite)
 """
-
 """
 img = cv2.imread("beach.jpg")
-img = np.zeros((485, 500, 3))
+#img = np.zeros((485, 500, 3))
 tiles = Tiler.tile_overlap(img, 32, 32, 10)
 composite = Tiler.stitch_overlap(tiles, 10)
-composite = Tiler.crop(composite, img.shape[0], img.shape[1])
+#composite = Tiler.crop(composite, img.shape[0], img.shape[1])
 Tiler.show_image(composite)
 """
 """
