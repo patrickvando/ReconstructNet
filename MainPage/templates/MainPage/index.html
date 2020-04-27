@@ -94,10 +94,10 @@
                                         </div>
                                         <div class = "col-3 align-self-center">
                                             <select class="controlSelect custom-select" id="removeSaltAndPepperNoiseControlSelect">
-                                                <option selected value="10">L1</option>
-                                                <option value="20">L2</option>
-                                                <option value="40">L3</option>
-                                                <option value="60">L4</option>                                                
+                                                <option selected value="10">10</option>
+                                                <option value="20">20</option>
+                                                <option value="40">40</option>
+                                                <option value="60">60</option>                                                
                                             </select>                                 
                                         </div>                                           
                                         <div class = "col-1 align-self-center">
@@ -110,9 +110,9 @@
                                         </div>
                                         <div class = "col-3 align-self-center">
                                             <select class="controlSelect custom-select" id= "removeGaussianNoiseControlSelect">
-                                                <option selected value="5">L1</option>
-                                                <option value="10">L2</option>
-                                                <option value="20">L3</option>
+                                                <option selected value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="20">20</option>
                                             </select>                                 
                                         </div>                                       
                                         <div class = "col-1 align-self-center">
@@ -292,9 +292,9 @@
                                         </div>
                                         <div class = "col-3 align-self-center">
                                             <select class="controlSelect custom-select" id="removeInpaintingControlSelect">
-                                                <option selected value="5">L1</option>
-                                                <option value="20">L2</option>
-                                                <option value="10">L3</option>
+                                                <option selected value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="20">20</option>
                                             </select>                                 
                                         </div>                                
                                         <div class = "col-1 align-self-center">
@@ -326,6 +326,46 @@
                             </ul>
                             <div class="tab-content" id="miscTabContent">
                                 <div class="tab-pane fade show active" id="misc1" role="tabpanel" aria-labelledby="misc1Tab">
+
+
+                                    <div class = "row p-4">
+                                        <div class = "col-8 ">
+                                            <form>
+                                                <div class="form-group ">
+                                                    <label for="increaseContrastControlRange">Increase Contrast</label>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="increaseContrastControlRange" step=1 min=0 max=50 value = 25>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class = "col-2 align-self-center d-flex justify-content-center" id="increaseContrastControlRangeValue" data-toggle="tooltip" data-placement="bottom" data-delay="150" title="Color percentile to be flattened" >
+                                            0
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn hasRangeParam" id="increaseContrast">Add</button>
+                                        </div>
+                                    </div>
+
+                                    <div class = "row p-4">
+                                        <div class = "col-8 ">
+                                            <form>
+                                                <div class="form-group ">
+                                                    <label for="sharpenControlRange">Sharpen</label>
+                                                    <input type="range" class="controlRange form-control-range align-self-center" id="sharpenControlRange" step=1 min=0 max=50 value = 25>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class = "col-2 align-self-center d-flex justify-content-center" id="sharpenControlRangeValue" data-toggle="tooltip" data-placement="bottom" data-delay="150" title="color percentile to be flattened" >
+                                            0
+                                        </div>
+                                        <div class = "col-1 align-self-center">
+                                            <button type="button" class="menubarBtn btn hasRangeParam" id="sharpen" >Add</button>
+                                        </div>
+                                    </div>
+
+                                          
+                                </div>
+                                <div class="tab-pane fade" id="misc2" role="tabpanel" aria-labelledby="misc2Tab">
+                                       
                                    <div class = "row p-4">
                                     <!--style this better-->
                                         <div class = "col-8 align-self-center">
@@ -335,26 +375,7 @@
                                             <button type="button" class="menubarBtn btn" id="changeToGrayscale">Change</button>
                                         </div>
                                     </div>
-   <!--                                  <div class = "row p-4">
-                                        <div class = "col-8 ">
-                                            <form>
-                                                <div class="form-group ">
-                                                    <label for="increaseContrastControlRange">Increase Contrast</label>
-                                                    <input type="range" class="controlRange form-control-range align-self-center" id="increaseContrastControlRange" step=1 min=0 max=10 value = 5>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class = "col-2 align-self-center" id="increaseContrastControlRangeValue">
-                                            0
-                                        </div>
-                                        <div class = "col-1 align-self-center">
-                                            <button type="button" class="menubarBtn btn hasRangeParam" id="increaseContrast">Add</button>
-                                        </div>
-                                    </div>
-                                           -->
-                                </div>
-                                <div class="tab-pane fade" id="misc2" role="tabpanel" aria-labelledby="misc2Tab">
-                                                                        
+
                                 </div>
                             </div>
                         </div>
@@ -382,8 +403,13 @@
             </div>
         </div>
         <div class="align-self-center p2 w-100">
-            <div class = "d-flex justify-content-center imageContainer">
+            <div class = "d-flex justify-content-center">
+                <div class = "imageContainer">
                 <img alt="main_image" id = "mainImage" class = "img-fluid">
+                <div class = "loadingOverlay transparent">
+                </div>
+                <div class = "loadingText">Loading...</div>                
+                </div>
             </div>
         </div>        
         <div class= "mt-auto p-3 w-100">
@@ -435,6 +461,11 @@ function enableBtns(enabled){
         $(".downloadBtn").attr("disabled", false)
         $(".downloadBtn").addClass("menubarBtnEnabled");        
         $(".downloadBtn").removeClass("menubarBtnDisabled");
+
+        $(".loadingText").addClass("invisible")
+        $(".loadingOverlay").addClass("invisible");
+        $(".loadingOverlay").removeClass("transparent");
+
     } else {
         $(".menubarBtn").attr("disabled", true)
         $(".menubarBtn").removeClass("menubarBtnEnabled");        
@@ -443,6 +474,11 @@ function enableBtns(enabled){
         $(".downloadBtn").attr("disabled", true)
         $(".downloadBtn").removeClass("menubarBtnEnabled");        
         $(".downloadBtn").addClass("menubarBtnDisabled");
+
+
+        $(".loadingText").removeClass("invisible");
+        $(".loadingOverlay").removeClass("invisible");
+        $(".loadingOverlay").addClass("transparent");
     }
 }
 

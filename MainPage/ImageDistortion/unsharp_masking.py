@@ -7,8 +7,7 @@ from PIL import Image
 #does not work with greyscale images (fix later)
 #takes a PIL image
 def unsharp_mask(im, radius, contrast_level, threshold):
-    #im = Image.open(img_path)
-
+    #tim = Image.open(img_path)
     blurred = gaussian(im, radius)
     #unsharp_mask = subtract(im, blurred)
     unsharp_mask = subtract(blurred, im)

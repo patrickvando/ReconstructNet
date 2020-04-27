@@ -73,6 +73,12 @@ def call_alg(request):
             path = user_picture.main_img.path
             save_as_edited_image(path, user_picture)
             return FileResponse(open(user_picture.edited_img.path, 'rb'))          
+        elif alg_name == "increaseContrast":
+            val = int(request.GET['val'])
+            return run_PIL_alg(request, increase_contrast, val)
+        elif alg_name == "sharpen":
+            val = int(request.GET['val'])
+            return run_PIL_alg(request, sharpen_wrapper, val)
         else:
             #raise 404?
             return 
@@ -106,6 +112,20 @@ def run_alg(request, alg, val=None):
     img = Tiler.crop(img, height, width)
     cv2.imwrite(user_picture.edited_img.path, img)
     return FileResponse(open(user_picture.edited_img.path, 'rb'))
+
+def run_PIL_alg(request, alg, val=None):
+    user_picture = Picture.objects.get(session_id=request.session.session_key)
+    tim = Image.open(user_picture.edited_img.path)
+    im = Image.new("RGB", tim.size)
+    im.paste(tim)
+    im = alg(im, val)
+    im.save(user_picture.edited_img.path)
+    return FileResponse(open(user_picture.edited_img.path, 'rb'))
+
+def sharpen_wrapper(img, d):
+    #return unsharp_mask(img, radius, contrast_level, threshold)
+    return unsharp_mask(img, 5, 25, 10)
+
 
 def keras_mse_l1_loss(y_actual, y_predicted):
     kb = keras.backend

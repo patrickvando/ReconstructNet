@@ -2,7 +2,9 @@ import random
 from PIL import Image
 
 def increase_contrast(im, contrast_level):
+    print("HAPPENING")
     res = contrast(im, contrast_level, 100 - contrast_level)
+    print("contrast", res.size)
     return res
 
 def contrast(im, lower_percentile, upper_percentile):
