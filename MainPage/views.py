@@ -135,7 +135,7 @@ def keras_mse_l1_loss(y_actual, y_predicted):
 def apply_neural_net(img, filename):
     file_path = os.path.join(settings.STATIC_ROOT, "MainPage", "h5", filename)
     new_model = keras.models.load_model(file_path, custom_objects = {'keras_mse_l1_loss': keras_mse_l1_loss})
-    tiles = Tiler.tile(img, 32, 32)
+    tiles = Tiler.tile_overlap(img, 32, 32, 10)
     tiles = tiles / 255
     h, w, th, tw, channels = tiles.shape
     tiles = tiles.reshape(h*w, th, tw, channels)
@@ -145,7 +145,7 @@ def apply_neural_net(img, filename):
     img = np.maximum(img, np.full(img.shape, 0))
     out = out.astype(np.uint8)
     out = out.reshape(h, w, th, tw, channels)
-    composite = Tiler.stitch(out)
+    composite = Tiler.stitch_overlap(out, 10)
 
     return composite
        
@@ -179,7 +179,7 @@ def remove_box_blur_wrapper(img, d):
 
 def add_patterns_wrapper(img, d):
     d = d - 0.01
-    f = 10
+    f = 20
     img = img / 255
     img = add_random_patterns(img, d, f, f, f)
     img = img * 255
