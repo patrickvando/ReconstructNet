@@ -86,7 +86,8 @@ In order to use the neural networks for images of different sizes for Reconstruc
 
 | Default aligned | Right aligned  |
 |-----------------|---------------:|
-| First body part | fourth cell    |
+| <img src="/media/images/readme/fig1a.jpg" width="450" /> | <img src="/media/images/readme/fig2b.jpg" width="450" /> |
+| fourth cell    |
 | Second line     | baz            |
 | Third line      | bar            |
 |-----------------+----------------|
@@ -96,17 +97,13 @@ In order to use the neural networks for images of different sizes for Reconstruc
 | Third body      | Foo            |
 
 
+Before: Salt and Pepper (40%), After: Denoised Salt and Pepper (40%)
 <p align="middle">
-<div>
   <img src="/media/images/readme/fig1a.jpg" width="450" />
-  description 1
- </div>
-<div>
   <img src="/media/images/readme/fig2b.jpg" width="450" /> 
-  description 2
-</div>
 </p>
 
+Box Blur with a kernel of size 7 versus 
 <p align="middle">
   <img src="/media/images/readme/fig1a.jpg" width="450" />
   <img src="/media/images/readme/fig2b.jpg" width="450" /> 
