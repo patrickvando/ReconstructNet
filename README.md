@@ -40,7 +40,8 @@ There are four main components of ReconstructNet: Application Frontend, Applicat
 
 The user can begin editing the image using the sidebar menu. The sidebar menu was created using Bootstrap?s accordion collapse component. Expanding the accordion reveals the image editing tools currently available in our build. The user can use sliders to adjust the strength of image editing algorithms (adding noise, blurring, ect.) to their chosen image. The number corresponding to the slider value updates dynamically when the slider is moved. A tooltip is displayed when hovering over this number. For specific neural networks, the user can use a select component to adjust the ?strength? of the neural network. The ReconstructNet ?logo?? on the top left and the source code button in the bottom right link to the github repository. There are buttons for resetting, uploading, and downloading images. All components were styled using only vanilla Bootstrap and custom CSS.
 
-![Demo Screencap](/media/images/readme/figureA.png "Figure A. UI with Add Blur tab open, displaying sliders and hoverable tooltip.")
+![UI Screencap](/media/images/readme/figureA.png "Figure A. UI with Add Blur tab open, displaying sliders and hoverable tooltip.")	![UI Screencap](/media/images/readme/figureB.png "Figure B. UI with Remove Noise tab open, while loading up a new image.")
+
 
 ### Application Architecture
 
