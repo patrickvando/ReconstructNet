@@ -84,17 +84,11 @@ In order to use the neural networks for images of different sizes for Reconstruc
   <img src="/media/images/readme/fig1a.jpg" width="450" />
 </p>
 
-| Default aligned | Right aligned  |
-|-----------------|---------------:|
+| Original Image | -------------  |
+|-----------------|---------------|
+| <img src="/media/images/readme/fig1a.jpg" width="450" /> | ------- |
+| Salt and Pepper, 40% | Denoised (Salt and Pepper, 40%) |
 | <img src="/media/images/readme/fig1a.jpg" width="450" /> | <img src="/media/images/readme/fig2b.jpg" width="450" /> |
-| fourth cell    |
-| Second line     | baz            |
-| Third line      | bar            |
-|-----------------+----------------|
-| Second body     |                |
-| 2nd line        |                |
-|-----------------+----------------|
-| Third body      | Foo            |
 
 
 Before: Salt and Pepper (40%), After: Denoised Salt and Pepper (40%)
