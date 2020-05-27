@@ -84,24 +84,10 @@ In order to use the neural networks for images of different sizes for Reconstruc
   <img src="/media/images/readme/fig1a.jpg" width="450" />
 </p>
 
-| Original Image |----------------|
+| Original Image |                |
 |-----------------|---------------|
-| <img src="/media/images/readme/fig1a.jpg" width="450" /> |------------|
+| <img src="/media/images/readme/orig.jpg" width="450" /> |       |
 | Salt and Pepper, 40% | Denoised (Salt and Pepper, 40%) |
-| <img src="/media/images/readme/fig1a.jpg" width="450" /> | <img src="/media/images/readme/fig2b.jpg" width="450" /> |
-
-
-Before: Salt and Pepper (40%), After: Denoised Salt and Pepper (40%)
-<p align="middle">
-  <img src="/media/images/readme/fig1a.jpg" width="450" />
-  <img src="/media/images/readme/fig2b.jpg" width="450" /> 
-</p>
-
-Box Blur with a kernel of size 7 versus 
-<p align="middle">
-  <img src="/media/images/readme/fig1a.jpg" width="450" />
-  <img src="/media/images/readme/fig2b.jpg" width="450" /> 
-</p>
-
-
-
+| <img src="/media/images/readme/fig2a.jpg" width="450" /> | <img src="/media/images/readme/fig2b.jpg" width="450" /> |
+| Box Blur, Kernel size 7 | Deblurred (Box Blur) |
+| <img src="/media/images/readme/fig3a.jpg" width="450" /> | <img src="/media/images/readme/fig3b.jpg" width="450" /> |
