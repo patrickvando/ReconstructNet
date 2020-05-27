@@ -79,15 +79,21 @@ For our Deep Convolutional Neural Networks for image reconstruction (denoising, 
 In order to use the neural networks for images of different sizes for ReconstructNet, we implemented a tiling algorithm where high-resolution images are separated into overlapping blocks of size 32x32. Each time the user chooses an image reconstruction option, we use this method to separate the image into these smaller blocks. After applying a neural network to each block, we then reconstruct the image by merging the blocks together and averaging pixel values in the overlapping regions, resulting in an equivalently high-resolution image.
 
 ### Sample Results
-<p align="middle">
-<p>Original Image</p>
-  <img src="/media/images/readme/fig1a.jpg" width="450" />
-</p>
 
 | Original Image |                |
 |-----------------|---------------|
 | <img src="/media/images/readme/orig.jpg" width="450" /> |       |
-| Salt and Pepper, 40% | Denoised (Salt and Pepper, 40%) |
+| Salt and Pepper, 40% | Denoised Salt and Pepper, 40% |
 | <img src="/media/images/readme/fig2a.jpg" width="450" /> | <img src="/media/images/readme/fig2b.jpg" width="450" /> |
-| Box Blur, Kernel size 7 | Deblurred (Box Blur) |
+| Box Blur, Kernel Size 7 | Remove Box Blur |
 | <img src="/media/images/readme/fig3a.jpg" width="450" /> | <img src="/media/images/readme/fig3b.jpg" width="450" /> |
+| Inpainting, Size Ratio 0.1 | Remove Inpainting, 0.5% |
+| <img src="/media/images/readme/fig4a.jpg" width="450" /> | <img src="/media/images/readme/fig4b.jpg" width="450" /> |
+| Increase Contrast, 10 | Sharpen, 40% |
+| <img src="/media/images/readme/fig5.jpg" width="450" /> | <img src="/media/images/readme/fig6.jpg" width="450" /> |
+| Gaussian Noise, 40 | Remove Gaussian Noise, 20% |
+| <img src="/media/images/readme/fig7a.jpg" width="450" /> | <img src="/media/images/readme/fig7b.jpg" width="450" /> |
+| Horizontal Blur,  Kernel Size 7 | Remove Horizontal Blur |
+| <img src="/media/images/readme/fig8a.jpg" width="450" /> | <img src="/media/images/readme/fig8b.jpg" width="450" /> |
+| Vertical Blur, Kernel size 7 | Remove Vertical Blur |
+| <img src="/media/images/readme/fig9.jpg" width="450" /> | <img src="/media/images/readme/fig10.jpg" width="450" /> |
