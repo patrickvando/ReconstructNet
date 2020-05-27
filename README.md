@@ -43,8 +43,8 @@ The user can begin editing the image using the sidebar menu. The sidebar menu wa
 ![UI Screencap](/media/images/readme/figureA.png "Figure A. UI with Add Blur tab open, displaying sliders and hoverable tooltip.")	![UI Screencap](/media/images/readme/figureB.png "Figure B. UI with Remove Noise tab open, while loading up a new image.")
 
 <p align="middle">
-  <img src="/media/images/readme/figureA.png" width="500" />
-  <img src="/media/images/readme/figureA.png" width="500" /> 
+  <img src="/media/images/readme/figureA.png" width="300" />
+  <img src="/media/images/readme/figureA.png" width="300" /> 
 </p>
 ### Application Architecture
 
