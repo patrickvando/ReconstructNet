@@ -128,7 +128,7 @@ def apply_neural_net(img, filename):
     (img_h, img_w, img_channels) = img.shape
     file_path = os.path.join(settings.STATIC_ROOT, "MainPage", "h5", filename)
     new_model = keras.models.load_model(file_path, custom_objects = {'keras_mse_l1_loss': keras_mse_l1_loss})
-    tiles = Tiler.tile_overlap(img, 32, 32, 10)
+    tiles = Tiler.tile(img, 32, 32)
     ch, cw, channels = img.shape
     tiles = Tiler.tile(img, 32, 32)
     tiles = tiles / 255
@@ -140,7 +140,7 @@ def apply_neural_net(img, filename):
     img = np.maximum(img, np.full(img.shape, 0))
     out = out.astype(np.uint8)
     out = out.reshape(h, w, th, tw, channels)
-    composite = Tiler.stitch_overlap(out, 10)
+    composite = Tiler.stitch(out)
     composite = Tiler.crop(composite, img_h, img_w)
     return composite
        
