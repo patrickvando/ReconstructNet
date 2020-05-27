@@ -17,14 +17,13 @@ import os
 import sys
 import time
 from .tiler.tiler import Tiler
+from django.core.files import File
 
 def call_alg(request):
-    #input validation needed for most of these
     if request.method == 'GET':
         if request.GET['wait'] == "true":
             time.sleep(0.5)
         alg_name = request.GET['alg_name']
-        print(alg_name)
         if alg_name == "addSaltAndPepperNoise":
             val = float(request.GET['val'])
             return run_alg(request, add_salt_and_pepper_noise_wrapper, val)
@@ -65,9 +64,6 @@ def call_alg(request):
             return run_alg(request, remove_inpainting_wrapper, val)
         elif alg_name == "changeToGrayscale":
             return run_alg(request, change_to_grayscale_wrapper)
-#        elif alg_name == "increaseContrast":
-#            val = int(request.GET['val'])
-#            return run_alg(request, increase_contrast, val)
         elif alg_name == "reset":
             user_picture = Picture.objects.get(session_id=request.session.session_key)
             path = user_picture.main_img.path
@@ -80,12 +76,10 @@ def call_alg(request):
             val = int(request.GET['val'])
             return run_PIL_alg(request, sharpen_wrapper, val)
         else:
-            #raise 404?
-            return 
+            user_picture = Picture.objects.get(session_id=request.session.session_key)
+            return FileResponse(open(user_picture.edited_img.path, 'rb'))          
 
-#https://docs.djangoproject.com/en/3.0/ref/csrf/
 @csrf_exempt
-#get crsft working later
 def upload(request):
     if request.method == 'POST': 
         user_picture = Picture.objects.get(session_id=request.session.session_key)
@@ -99,7 +93,6 @@ def upload(request):
 def download(request):
     user_picture = Picture.objects.get(session_id=request.session.session_key)
     path = user_picture.edited_img.path
-    #change the name of the returned file?
     head, tail = os.path.split(path)
     response = FileResponse(open(path, "rb"), as_attachment=True, filename=tail)
     return response
@@ -123,7 +116,6 @@ def run_PIL_alg(request, alg, val=None):
     return FileResponse(open(user_picture.edited_img.path, 'rb'))
 
 def sharpen_wrapper(img, d):
-    #return unsharp_mask(img, radius, contrast_level, threshold)
     return unsharp_mask(img, 5, 25, 10)
 
 
@@ -133,9 +125,12 @@ def keras_mse_l1_loss(y_actual, y_predicted):
     return loss
 
 def apply_neural_net(img, filename):
+    (img_h, img_w, img_channels) = img.shape
     file_path = os.path.join(settings.STATIC_ROOT, "MainPage", "h5", filename)
     new_model = keras.models.load_model(file_path, custom_objects = {'keras_mse_l1_loss': keras_mse_l1_loss})
     tiles = Tiler.tile_overlap(img, 32, 32, 10)
+    ch, cw, channels = img.shape
+    tiles = Tiler.tile(img, 32, 32)
     tiles = tiles / 255
     h, w, th, tw, channels = tiles.shape
     tiles = tiles.reshape(h*w, th, tw, channels)
@@ -146,7 +141,7 @@ def apply_neural_net(img, filename):
     out = out.astype(np.uint8)
     out = out.reshape(h, w, th, tw, channels)
     composite = Tiler.stitch_overlap(out, 10)
-
+    composite = Tiler.crop(composite, img_h, img_w)
     return composite
        
 def remove_inpainting_wrapper(img, d):
@@ -233,17 +228,20 @@ def index(request):
     if not request.session.session_key:
         request.session.create()
     if not Picture.objects.filter(session_id = request.session.session_key).exists():
-        user_picture = Picture.objects.create(session_id=request.session.session_key)
-        path = user_picture.main_img.path
-        save_as_edited_image(path, user_picture)
+        new_session(request)
     return render(request, 'MainPage/index.html') 
 
+
+def new_session(request):
+    user_picture = Picture.objects.create(session_id=request.session.session_key)
+    default_path = os.path.join(settings.MEDIA_ROOT, 'images', 'default.jpg')
+    user_picture.main_img.save('default.jpg', File(open(default_path, 'rb')), True)
+    save_as_edited_image(user_picture.main_img.path, user_picture)
+
+
 def save_as_edited_image(img_path, user_picture):
-        head, tail = os.path.split(img_path)
-        edited_img_directory = head + "/edited_images/"
-        shutil.copy(img_path, edited_img_directory)
-        user_picture.edited_img = edited_img_directory + tail
-        user_picture.save()
+    head, tail = os.path.split(img_path)
+    user_picture.edited_img.save(tail, File(open(img_path, 'rb')), True)
 
 def testIndex(request): 
     return render(request, 'MainPage/testTemplate.html') 

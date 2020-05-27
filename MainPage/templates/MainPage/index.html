@@ -21,7 +21,6 @@
                     <form action="https://github.com/patrickvando/ReconstructNet">
                         <button type="submit" class = "btn logoBtn">ReconstructNet</button>
                     </form>                     
-                    <!-- <font size = "6">ReconstructNet</font> -->
             </div>
         </div>
         <div class = "row">
@@ -425,6 +424,7 @@
 </div>
 </body>
 <script>
+var file_size_limit = Math.pow(10, 6)
 
 function init(){
     fetch("{% url 'call_alg' %}?alg_name=reset&wait=false"
@@ -450,7 +450,6 @@ $('.controlRange').on('input change', function() {
     console.log("hello");
     console.log(valID);
 });
-
 
 function enableBtns(enabled){
     if (enabled == true){
@@ -510,6 +509,11 @@ $(".menubarBtn").click(function() {
 $("#upload").on("change", function() {
     enableBtns(false);
     var formData = new FormData();
+    if  ($(this).prop('files')[0].size > file_size_limit){
+        alert("Uploaded files must be under 1MB in size");
+        enableBtns(true);
+        return;
+    }
     formData.append('main_img', $(this).prop('files')[0]);
     fetch("{% url 'upload' %}"
     , {
@@ -528,20 +532,6 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 
-// $(".menubarBtn").hover(
-//     function() {
-//         $(this).addClass("shadow");
-//     },
-//     function() {
-//         $(this).removeClass("shadow");
-//     }
-// );
 init();
 </script>
 </html>
-<!--
-TODO:
-How does the page react when you resize the web page? Low priority, assume full size screen
-
-
--->
