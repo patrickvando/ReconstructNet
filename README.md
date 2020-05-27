@@ -93,7 +93,10 @@ In order to use the neural networks for images of different sizes for Reconstruc
 | <img src="/media/images/readme/fig5.jpg" width="450" /> | <img src="/media/images/readme/fig6.jpg" width="450" /> |
 | Gaussian Noise, 40 | Remove Gaussian Noise, 20% |
 | <img src="/media/images/readme/fig7a.jpg" width="450" /> | <img src="/media/images/readme/fig7b.jpg" width="450" /> |
-| Horizontal Blur,  Kernel Size 7 | Remove Horizontal Blur |
+| Gaussian Blur, Kernel Size 7 | Remove Gaussian Blur |
 | <img src="/media/images/readme/fig8a.jpg" width="450" /> | <img src="/media/images/readme/fig8b.jpg" width="450" /> |
-| Vertical Blur, Kernel size 7 | Remove Vertical Blur |
+| Horizontal Blur,  Kernel Size 7 | Remove Horizontal Blur |
 | <img src="/media/images/readme/fig9.jpg" width="450" /> | <img src="/media/images/readme/fig10.jpg" width="450" /> |
+| Vertical Blur, Kernel size 7 | Remove Vertical Blur |
+| <img src="/media/images/readme/fig11a.jpg" width="450" /> | <img src="/media/images/readme/fig11b.jpg" width="450" /> |
+
