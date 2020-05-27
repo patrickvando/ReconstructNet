@@ -6,6 +6,11 @@ Written by Patrick Do, Jacob Kang, Thomas Lerner, and Kyle Pham.
 
 Currently live at www.reconstructnet.com
 
+<p align="middle">
+  <img src="/media/images/readme/fig1a.jpg" width="450" />
+  <img src="/media/images/readme/fig1b.jpg" width="450" /> 
+</p>
+
 ## Project Background
 
 ReconstructNet is an online web application where users can upload an image of their choosing, and then apply various image reconstruction techniques to that image. There are currently three main features: (1) a de-blurring feature, (2) a de-noising feature, and (3) an inpainting feature. Additionally, the user can also add noise, blurring, and superimposed patterns to their input image in order to test the accuracy and quality of the reconstruction features. Also included are features for sharpening an image and increasing contrast. After processing the image, users can download the reconstructed image for their personal use.?
