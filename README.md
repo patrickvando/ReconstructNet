@@ -7,8 +7,8 @@ Written by Patrick Do, Jacob Kang, Thomas Lerner, and Kyle Pham.
 Currently live at www.reconstructnet.com
 
 <p align="middle">
-  <img src="/media/images/readme/fig1a.jpg" width="450" />
-  <img src="/media/images/readme/fig1b.jpg" width="450" /> 
+  <img src="/media/images/readme/title_a.jpg" width="450" />
+  <img src="/media/images/readme/title_b.jpg" width="450" /> 
 </p>
 
 ## Project Background
@@ -79,5 +79,32 @@ For our Deep Convolutional Neural Networks for image reconstruction (denoising, 
 In order to use the neural networks for images of different sizes for ReconstructNet, we implemented a tiling algorithm where high-resolution images are separated into overlapping blocks of size 32x32. Each time the user chooses an image reconstruction option, we use this method to separate the image into these smaller blocks. After applying a neural network to each block, we then reconstruct the image by merging the blocks together and averaging pixel values in the overlapping regions, resulting in an equivalently high-resolution image.
 
 ### Sample Results
+Figure 1. Original Image
+<p align="middle">
+  <img src="/media/images/readme/fig1a.jpg" width="450" />
+</p>
+
+| Default aligned | Right aligned  |
+|-----------------|---------------:|
+| First body part | fourth cell    |
+| Second line     | baz            |
+| Third line      | bar            |
+|-----------------+----------------|
+| Second body     |                |
+| 2nd line        |                |
+|-----------------+----------------|
+| Third body      | Foo            |
+
+
+<p align="middle">
+  <img src="/media/images/readme/fig1a.jpg" width="450" />
+  <img src="/media/images/readme/fig2b.jpg" width="450" /> 
+</p>
+
+<p align="middle">
+  <img src="/media/images/readme/fig1a.jpg" width="450" />
+  <img src="/media/images/readme/fig2b.jpg" width="450" /> 
+</p>
+
 
 
