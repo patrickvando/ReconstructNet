@@ -13,25 +13,25 @@ Currently live at www.reconstructnet.com
 
 ## Project Background
 
-ReconstructNet is an online web application where users can upload an image of their choosing, and then apply various image reconstruction techniques to that image. There are currently three main features: (1) a de-blurring feature, (2) a de-noising feature, and (3) an inpainting feature. Additionally, the user can also add noise, blurring, and superimposed patterns to their input image in order to test the accuracy and quality of the reconstruction features. Also included are features for sharpening an image and increasing contrast. After processing the image, users can download the reconstructed image for their personal use.?
+ReconstructNet is an online web application where users can upload an image of their choosing, and then apply various image reconstruction techniques to that image. There are currently three main features: (1) a de-blurring feature, (2) a de-noising feature, and (3) an inpainting feature. Additionally, the user can also add noise, blurring, and superimposed patterns to their input image in order to test the accuracy and quality of the reconstruction features. Also included are features for sharpening an image and increasing contrast. After processing the image, users can download the reconstructed image for their personal use.
 
 
-Images are prone to be corrupted by the acquisition channel or by artificial editing. Image noise is a random visual distortion that affects the color or brightness of different pixels in an image. We call the process of removing image noise denoising. Image blur is a reduction in the detail and contrast in a region of a photo. We call the process of removing image blur deblurring. If an image has missing regions or has some undesirable added pattern, such as superimposed text or lines and scratches, a user may wish to fill in the missing or altered regions. We call this process inpainting. Image reconstruction is an important task, as it is useful to be able to remove various distortions from an image.?
+Images are prone to be corrupted by the acquisition channel or by artificial editing. Image noise is a random visual distortion that affects the color or brightness of different pixels in an image. We call the process of removing image noise denoising. Image blur is a reduction in the detail and contrast in a region of a photo. We call the process of removing image blur deblurring. If an image has missing regions or has some undesirable added pattern, such as superimposed text or lines and scratches, a user may wish to fill in the missing or altered regions. We call this process inpainting. Image reconstruction is an important task, as it is useful to be able to remove various distortions from an image.
 
 
 Powerful paid desktop applications like Photoshop can offer effective implementations of de-noising, de-blurring, and inpainting. However, some people may not have access to or may not want to use paid desktop applications. In this case, a web application that offers image reconstruction techniques is desirable.
 
 ## Technologies Used
 
-Front-end: HTML, CSS, JavaScript, Bootstrap, Jquery
+**Front-end**: HTML, CSS, JavaScript, Bootstrap, Jquery
 
-Web Application: Django
+**Web Application**: Django
 
-Web Hosting: PythonAnywhere
+**Web Hosting**: PythonAnywhere
 
-Application Logic: OpenCV, NumPy, Pillow, Tensorflow, Keras, Scikit-learn
+**Application Logic**: OpenCV, NumPy, Pillow, Tensorflow, Keras, Scikit-learn
 
-Dataset for Neural Network training: CIFAR-10
+**Dataset for Neural Network training**: CIFAR-10
 
 
 The backend of ReconstructNet was written in Django, a Python Model-View-Template backend framework. PythonAnywhere, a cloud-based web hosting service, was used to host the Django application online. Bootstrap 4.4, a CSS/HTML/Javascript framework, was used to handle the design and formatting of the frontend. The image processing algorithms utilize the computer vision library OpenCV, the scientific computing library Numpy, and the python imaging library Pillow. For constructing, training, and evaluating neural network models, the Python packages Tensorflow, Keras, and Scikit-learn were used. The dataset CIFAR-10, which contains 60,000 images of size 32x32, was used for neural network training.
@@ -43,7 +43,7 @@ There are four main components of ReconstructNet: Application Frontend, Applicat
 
 ### Application Frontend
 
-The user can begin editing the image using the sidebar menu. The sidebar menu was created using Bootstrap?s accordion collapse component. Expanding the accordion reveals the image editing tools currently available in our build. The user can use sliders to adjust the strength of image editing algorithms (adding noise, blurring, ect.) to their chosen image. The number corresponding to the slider value updates dynamically when the slider is moved. A tooltip is displayed when hovering over this number. For specific neural networks, the user can use a select component to adjust the ?strength? of the neural network. The ReconstructNet ?logo?? on the top left and the source code button in the bottom right link to the github repository. There are buttons for resetting, uploading, and downloading images. All components were styled using only vanilla Bootstrap and custom CSS.
+The user can begin editing the image using the sidebar menu. The sidebar menu was created using Bootstrap's accordion collapse component. Expanding the accordion reveals the image editing tools currently available in our build. The user can use sliders to adjust the strength of image editing algorithms (adding noise, blurring, ect.) to their chosen image. The number corresponding to the slider value updates dynamically when the slider is moved. A tooltip is displayed when hovering over this number. For specific neural networks, the user can use a select component to adjust the strength of the neural network. The ReconstructNet logo on the top left and the source code button in the bottom right link to the github repository. There are buttons for resetting, uploading, and downloading images. All components were styled using only vanilla Bootstrap and custom CSS.
 
 ![UI Screencap](/media/images/readme/figureB.png "UI with Remove Noise tab open, while loading up a new image.")
 
@@ -65,11 +65,11 @@ Adding noise: There are two different types of noise implemented. For Salt-and-P
 
 Adding blur: There are four different types of blurring in ReconstructNet, all of them implemented using the convolution technique, taking a square kernel and convolving it with the image matrix. For the box blur, pixel colors are averaged in a neighborhood surrounding each pixel. For Gaussian blur, the kernel matrix is formed using a Gaussian distribution and the sum of entries is still 1, creating a less significant blurring effect than the box blur. For motion blur (two types: horizontal and vertical), the pixel values along a line segment representing the direction of motion are averaged. For all of these blur types, the user is allowed to adjust the size of the kernel.
 
-Adding superimposed patterns: In order to do image inpainting reconstruction, we allow the users to add random superimposed patterns onto the input image. Masks with patterns such as lines, circles, and ellipses of different sizes are randomly created in the image. These masks will be added onto the image, creating white patterns simulating scratches on the image. The user is allowed to adjust the maximum size/thickness of these patterns.??
+Adding superimposed patterns: In order to do image inpainting reconstruction, we allow the users to add random superimposed patterns onto the input image. Masks with patterns such as lines, circles, and ellipses of different sizes are randomly created in the image. These masks will be added onto the image, creating white patterns simulating scratches on the image. The user is allowed to adjust the maximum size/thickness of these patterns.
 
-Increasing contrast:? To increase the contrast, we collect all the RGB values, take a specified lower and upper percentile, and then apply a linear stretching function to stretch the values between those percentiles to cover the full color range. The user can modify this percentile.
+Increasing contrast: To increase the contrast, we collect all the RGB values, take a specified lower and upper percentile, and then apply a linear stretching function to stretch the values between those percentiles to cover the full color range. The user can modify this percentile.
 
-Sharpening an image: The Unsharp Masking algorithm is used to sharpen the edges in an image. A Gaussian blurred version of the image is compared to the original image, and where the difference exceeds some threshold, the contrast of the image is increased. The implemented algorithm allows the user to modify the percentile of the contrast, the radius of the Gaussian blur, and the threshold, but for the sake of simplicity the user can only modify the contrast percentile from the frontend.?
+Sharpening an image: The Unsharp Masking algorithm is used to sharpen the edges in an image. A Gaussian blurred version of the image is compared to the original image, and where the difference exceeds some threshold, the contrast of the image is increased. The implemented algorithm allows the user to modify the percentile of the contrast, the radius of the Gaussian blur, and the threshold, but for the sake of simplicity the user can only modify the contrast percentile from the frontend.
 
 ### Neural Network Reconstruction Models
 
