@@ -4,8 +4,6 @@ CWRU EECS 395 Senior Project.
 
 Written by Patrick Do, Jacob Kang, Thomas Lerner, and Kyle Pham.
 
-Currently live at www.reconstructnet.com
-
 <p align="middle">
   <img src="/media/images/readme/title_a.jpg" width="450" />
   <img src="/media/images/readme/title_b.jpg" width="450" /> 
